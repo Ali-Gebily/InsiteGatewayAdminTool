@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-title</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-title/px-title.html">
+        <link rel="import" href="../iron-icon/iron-icon.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            html{
+                height:100%;
+            }
+            body{
+                height: 100%;
+                margin:10px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <px-title maintitle="Main Title"></px-title>
+
+        <br/><br/>
+
+        <px-title maintitle="Main Title" subtitle="Sub Title"></px-title>
+
+        <br/><br/>
+        
+        <px-title light>
+            <h1>Light Title</h1>
+            <h2>Light Sub Title</h2>
+        </px-title>
+
+        <br/><br/>
+        
+        <px-title lightsub>
+            <h1>Main Title</h1>
+            <h2>Light Sub Title</h2>
+        </px-title>
+
+        <br/><br/>
+        
+        <px-title aligntext="center">
+            <h1>Text Aligned</h1>
+            <h2>Center</h2>
+        </px-title>
+
+        <br/><br/>
+        
+        <px-title aligntext="right">
+            <h1>Text Aligned</h1>
+            <h2>Right</h2>
+        </px-title>
+
+    </body>
+</html>

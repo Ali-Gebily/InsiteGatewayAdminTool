@@ -1,0 +1,786 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Demo of px-layout</title>
+
+    <script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <link rel="import" href="../../px-layout.html">
+    <link rel="import" href="../../px-view.html">
+    <link rel="import" href="../../../px-touch-elements/elements.html">
+    <link rel="import" href="../../../px-help/px-coach-mark.html">
+    <link rel="import" href="../../../px-colors/px-color-changer.html">
+    <link rel="import" href="../../../px-tooltip/px-tooltip.html">
+
+
+    <style rel="import" href="../../../font-opensans/font-opensans.html"></style>
+
+    <meta name="viewport" content="width=device-width initial-scale=1, maximum-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width:100vw;
+            height: 100vh;
+        }
+    </style>
+
+</head>
+
+<body unresolved>
+
+    <px-layout layout="touch" mobilelayout="drawer">
+
+    	<px-navigation-surrogate main>
+                <px-tab center icon="px-icons:oneline" id="oneline">One-line</px-tab>
+                <px-tab center icon="px-icons:elevation" id="elevation">Elevation</px-tab>
+                <px-tab center icon="px-icons:timeline" current alarm subtext="2 Alarms">Timeline</px-tab>
+                <px-tab center icon="px-icons:docs">Docs</px-tab>
+    	</px-navigation-surrogate>
+
+        <px-navigation-container active="main">
+            <px-safety-button ppe="1"></px-safety-button>
+
+            <px-navigation main active>
+                <a href="oneline.html"><px-tab icon="px-icons:oneline" id="oneline">One-line</px-tab></a>
+                <px-tab icon="px-icons:elevation" id="elevation">Elevation</px-tab>
+                <px-tab icon="px-icons:timeline" active alarm subtext="2 Alarms">Timeline</px-tab>
+                <px-coach-mark id="coach-docs" arrow="Straight" content="The Docs tab has documents for Switchgear, Devices, Process and more."><a href="docs.html"><px-tab icon="px-icons:docs">Docs</px-tab></a></px-coach-mark>
+            </px-navigation>
+
+            <px-navigation flipper>
+                <a href="settings.html"><px-tab id="tab-settings" active class="front" icon="px-icons:settings" dark extra title="Enter Settings">Settings
+                </px-tab></a>
+                <px-tab main id="tab-dashboard" class="back" icon="px-icons:return" extra title="Return to Dashboard">
+                    Dashboard
+                </px-tab>
+            </px-navigation>
+
+            <px-navigation settings dark>
+                <px-tab dark icon="px-icons:device">Devices</px-tab>
+                <px-tab dark icon="px-icons:equipment">Boots</px-tab>
+            </px-navigation>
+
+            <px-navigation extras dark>
+                <px-tab dark extra icon="px-icons:help">Help</px-tab>
+                <px-tab dark extra icon="px-icons:user">Eric Atha</px-icon></px-tab>
+                <px-tab dark extra>
+                	<px-barton-logo medium></px-barton-logo>
+                </px-tab>
+            </px-navigation>      
+        </px-navigation-container>
+
+        <px-view main sidebar='closed'>
+            <px-actionbar>
+                <px-button icon="px-icons:export">Export</px-button>
+                <px-color-changer property="--alarm-red" value="blue"></px-color-changer>
+                <span class="flex" flex></span>
+                <!-- <px-button icon="px-icons:save">Save</px-button> -->
+                
+                <px-action-group placeholder="Sort & View" mq="max-width: 1298px">
+	                <px-button-group label="View">
+	                	<px-icon-button icon="px-icons:alarm-active">Active Alarms</px-icon-button>
+	                	<px-icon-button pressed icon="px-icons:unacknowledge">Unacknowledged</px-icon-button>
+	                	<px-icon-button pressed icon="px-icons:acknowledge">Acknowledged</px-icon-button>
+	                	<px-icon-button pressed icon="px-icons:event">Event</px-icon-button>
+	                	<px-icon-button pressed icon="px-icons:service">Service</px-icon-button>
+	                </px-button-group>
+	               	<px-button-group label="Sort">
+	                	<px-icon-button icon="px-icons:time">Time</px-icon-button>
+	                	<px-icon-button pressed icon="px-icons:device">Device</px-icon-button>
+	                </px-button-group>
+                </px-action-group>
+
+            </px-actionbar>
+
+            <px-content scroll touch-action="pan-y">
+                <px-collapse-header>Today</px-collapse-header>
+                <px-collapse>
+                	<px-row-group selectable layout="left-icon">
+	                    <px-row header on-mobile="hidden">
+	                    	<px-column icon></px-column>
+	                    	<px-column label width="2">
+	                    		Event
+	                    	</px-column>
+	                    	<px-column width="2">
+	                    	</px-column>
+	                    	<px-column right width="1">
+	                    		Date
+	                    	</px-column>
+	                    </px-row>
+	                     <px-coach-mark id="coach-row" arrow="" content="The row text.">
+	                     <px-row>
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Serviced</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column action width="2">
+	                    		<px-button icon="px-icons:acknowledge">Acknowledge</px-button>
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/09/17</h1>
+	                        		<h2>9:09 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+	                    </px-coach-mark>
+
+	                    <px-row status="callout">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:service"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Service Recommended</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	Scheduled
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="alarm">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:alarm"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Tripped</h1>
+	                        		<h2>Main Breaker 2</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	Acknowledged
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                   	<px-row status="caution">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Cautionary Event</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="comm">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:non-communicating"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Communication Lost</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="disarmed">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Alarms Disarmed</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="disabled">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Disabled</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="success">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Command Success</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+                    </px-row-group>
+                </px-collapse>
+
+                <px-collapse-header>Yesterday</px-collapse-header>
+                <px-collapse>
+                	<px-row-group selectable layout="left-icon">
+	                    <px-row header on-mobile="hidden">
+	                    	<px-column icon></px-column>
+	                    	<px-column label width="2">
+	                    		Event
+	                    	</px-column>
+	                    	<px-column width="2">
+	                    	</px-column>
+	                    	<px-column right width="1">
+	                    		Date
+	                    	</px-column>
+	                    </px-row>
+	                     <px-coach-mark id="coach-row" arrow="" content="The row text.">
+	                     <px-row>
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Serviced</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column action width="2">
+	                    		<px-button icon="px-icons:acknowledge">Acknowledge</px-button>
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/09/17</h1>
+	                        		<h2>9:09 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+	                    </px-coach-mark>
+
+	                    <px-row status="callout">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:service"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Service Recommended</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	Scheduled
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="alarm">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:alarm"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Breaker Tripped</h1>
+	                        		<h2>Main Breaker 2</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	Acknowledged
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                   	<px-row status="caution">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Cautionary Event</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="comm">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:non-communicating"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Communication Lost</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="disarmed">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Alarms Disarmed</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="disabled">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Disabled</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+	                    <px-row status="success">
+	                        <px-column icon>
+	                        	<iron-icon icon="px-icons:event"></iron-icon>
+	                        </px-column>
+	                        <px-column title width="2">
+	                        	<px-title>
+	                        		<h1>Device Command Success</h1>
+	                        		<h2>Main Breaker 1</h2>
+	                        	</px-title>
+	                        </px-column>
+	                        <px-column stamp width="2">
+	                        	
+	                        </px-column>
+	                        <px-column right width="1">
+	                        	<px-title>
+	                        		<h1>09/08/17</h1>
+	                        		<h2>9:01 PM</h2>
+	                        	</px-title>
+	                        </px-column>
+	                    </px-row>
+
+                    </px-row-group>
+                </px-collapse>
+            </px-content>
+
+            <px-sidebar dark>
+                <px-actionbar>
+                	<px-back-button></px-back-button>
+                    <px-title>
+                        <h1>Test</h1>
+                        <h2>Testy Tester</h2>
+                    </px-title>
+                    <span flex></span>
+                    <px-more-button></px-more-button>
+                </px-actionbar>
+                <px-content>
+                	<px-row>
+                		<px-column action>
+                			<px-dropdown-menu placeholder="Test"></px-dropdown-menu>
+                		</px-column>
+                	</px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+                </px-content>
+            <px-pocket>
+                	<px-button positive icon="px-icons:export">Export Event</px-button>
+                	<px-button>View Event Details</px-button>
+                </px-pocket>
+            </px-sidebar>
+
+
+            <px-stack>
+            	<px-actionbar></px-actionbar>
+            	<px-content nopadding></px-content>
+            	<px-sidebar>
+            		<px-actionbar></px-actionbar>
+            		<px-row>
+                        <px-column label>Test</px-column>
+                        <px-column value>Value</px-column>
+                    </px-row>
+            	</px-sidebar>
+            </px-stack>
+        </px-view>
+
+<!--         <px-notification icon="px-icons:alarm-active" alarm context="#test1">
+			<px-title>
+				<h1>Active Alarm</h1>
+				<h2>Device Name</h2>
+			</px-title>
+		</px-notification> -->
+
+		<px-reveal>
+			<px-actionbar special="ppe-1">
+	    		<px-title>
+	    			<h1>Safety Panel</h1>
+	    			<h2>Displaying Heighest Level in Switchgear</h2>
+	    		</px-title>
+	    		<span flex></span>
+	    		<div class="safety-icons">
+		    		<px-icon-button floating label="PPE 1" icon="px-icons:ppe">PPE 1</px-icon-button>
+		    		<px-icon-button floating label="4 cal/cm²" icon="px-icons:incident-energy">4 cal/cm2</px-icon-button>
+		    		<px-icon-button floating label="4' 11&quot;" icon="px-icons:working-distance">4' 11\"</px-icon-button>
+		    		<px-icon-button floating label="ARMS On" icon="px-icons:arms">ARMS On</px-icon-button>
+	    		</div>
+	    	</px-actionbar>
+
+	    	<div class="container" dark>
+
+		        <px-content nopadding dark>
+		            <!--           <px-tab dark arrow on-tap="tap" color="#7EC146" on-tap="tap">
+		              <div>PPE Level</div>
+		              <div right>1</div>
+		          </px-tab>
+		          <px-tab dark arrow on-tap="tap" color="#EF4C23" on-tap="tap">
+		              <div>PPE Level</div>
+		              <div right>3</div>
+		          </px-tab>
+		          <px-tab dark arrow on-tap="tap" color="#D72027" on-tap="tap">
+		              <div>PPE Level</div>
+		              <div right>4</div>
+		          </px-tab>
+		          <px-tab dark arrow on-tap="tap" on-tap="tap">
+		              <div>Calculated Incident Energy at 2' Working Distance</div>
+		              <div right>4 cal/cm²</div>
+		          </px-tab> -->
+		          	<div class="side">
+			            <px-row>
+			                <px-column label><strong>Line Side of Main Breaker 1</strong></px-column>
+			            </px-row>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Arc Flash Boundary</div>
+			                <div right>4' 11"</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Calculated Incident Energy at 2' Working Distance</div>
+			                <div right>4 cal/cm²</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap" color="#7EC146" active>
+			                <div>PPE Level</div>
+			                <div right>1</div>
+			            </px-tab>
+		            </div>
+
+		          	<div class="side">
+			            <px-row>
+			                <px-column label><strong>Load Side of Main Breaker 1</strong></px-column>
+			            </px-row>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Arc Flash Boundary</div>
+			                <div right>4' 11"</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Calculated Incident Energy at 2' Working Distance</div>
+			                <div right>4 cal/cm²</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap" color="#F04A00">
+			                <div>PPE Level</div>
+			                <div right>3</div>
+			            </px-tab>
+		            </div>
+
+		            <px-row dark>
+		            	<px-column>&nbsp;</px-column>
+		            </px-row>
+
+		            <div class="side">
+			            <px-row>
+			                <px-column label><strong>Load Side of Main Breaker 2</strong></px-column>
+			            </px-row>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Arc Flash Boundary</div>
+			                <div right>4' 11"</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Calculated Incident Energy at 2' Working Distance</div>
+			                <div right>4 cal/cm²</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap" color="#D72027">
+			                <div>PPE Level</div>
+			                <div right>4</div>
+			            </px-tab>
+		            </div>
+
+		            <div class="side">
+			            <px-row>
+			                <px-column label><strong>Line Side of Main Breaker 2</strong></px-column>
+			            </px-row>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Arc Flash Boundary</div>
+			                <div right>4' 11"</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap">
+			                <div>Calculated Incident Energy at 2' Working Distance</div>
+			                <div right>4 cal/cm²</div>
+			            </px-tab>
+			            <px-tab dark arrow on-tap="tap" color="#D72027">
+			                <div>PPE Level</div>
+			                <div right>4</div>
+			            </px-tab>
+		            </div>
+
+		        </px-content>
+
+		        <px-content dark nopadding>
+		            <px-symbol symbol="px-ppe-symbols:gloves"></px-symbol>
+		        </px-content>
+
+	        </div>
+		</px-reveal>
+
+        <px-modal>
+        	<px-actionbar dark top>
+        		<px-title>
+        			<h1>Message</h1>
+        		</px-title>
+        	</px-actionbar>
+
+        	<px-content>
+        		<p>Message</p>
+        	</px-content>
+
+        	<px-actionbar stackable bottom>
+        		<span flex></span>
+        		<px-button positive>OK</px-button>
+        	</px-actionbar>
+        </px-modal>
+
+    </px-layout>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "px-block-widget",
+  "version": "1.0.5",
+  "description": "Block widget for PXBlue",
+  "authors": [
+    "The Eaton UXD Team (Eric Atha, Joe Boyle)"
+  ],
+  "main": "px-block-widget.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-block-widget"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http:eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-icon": "polymerelements/iron-icon#^1.0.0",
+    "px-icons": "PXBLUE/px-icons",
+    "px-colors": "PXBLUE/px-colors",
+    "px-styles": "PXBLUE/px-styles"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
+
+

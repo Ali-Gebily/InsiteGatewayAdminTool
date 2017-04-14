@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<title>Demo of px-colors and px-color-changer</title>
+
+	<script src="../../../webcomponentsjs/webcomponents-lite.min.js"></script>
+
+	<link rel="import" href="../../../px-colors/px-colors.html">
+	<link rel="import" href="../../../px-colors/px-color-changer.html">
+	<link rel="import" href="../../../px-touch-row/px-row.html">
+	<link rel="import" href="../../../px-touch-column/px-column.html">
+	<link rel="import" href="../../../px-touch-button/px-button.html">
+	<link rel="import" href="../../../px-touch-collapse/px-collapse-header.html">
+	<link rel="import" href="../../../px-touch-content/px-content.html">
+	<link rel="import" href="../../../px-touch-collapse/px-collapse.html">
+	<link rel="import" href="../../../px-touch-collapse/px-collapse-header.html">
+	<link rel="import" href="../../../px-touch-actionbar/px-actionbar.html">
+	<link rel="import" href="../../../px-touch-title/px-title.html">
+	<link rel="import" href="../../../px-touch-input/px-input.html">
+	<link rel="import" href="../../../px-symbols/px-symbols.html">
+	<link rel="import" href="../../../px-symbol/px-symbol.html">
+	<link rel="import" href="../../../px-block-widget/px-block-widget.html">
+
+	<style include="px-colors" is="custom-style">
+		body {
+			margin: 0;
+			padding:0;
+		}
+
+		px-color-changer {
+			-webkit-touch-callout: none; /* iOS Safari */
+			-webkit-user-select: none; /* Chrome/Safari/Opera */
+			-khtml-user-select: none; /* Konqueror */
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* Internet Explorer/Edge */
+			user-select: none; /* Non-prefixed version, currently not supported by any browser */
+			width: 150px;
+			float: left;
+		}
+	</style>
+
+</head>
+
+<body unresolved>
+	<template is="dom-bind" id="main">
+		<px-actionbar>
+			<px-color-changer property="--alarm-red" on-tap="changeColor">--alarm-red</px-color-changer>
+			<px-color-changer property="--callout-blue" on-tap="changeColor">--callout-blue</px-color-changer>
+			<px-color-changer property="--disabled-purple" on-tap="changeColor">--disabled-purple</px-color-changer>
+			<px-color-changer property="--disarmed-blue" on-tap="changeColor">--disarmed-blue</px-color-changer>
+			<px-color-changer property="--communication-orange" on-tap="changeColor">--communication-orange</px-color-changer>
+			<px-color-changer property="--caution-yellow" on-tap="changeColor">--caution-yellow</px-color-changer>
+			<px-color-changer property="--success-green" on-tap="changeColor">--success-green</px-color-changer>
+		</px-actionbar>
+
+		<px-actionbar>
+			<px-color-changer property="--closed-red" on-tap="changeColor">--closed-red</px-color-changer>
+			<px-color-changer property="--open-green" on-tap="changeColor">--open-green</px-color-changer>
+			<px-color-changer property="--tripped-yellow" on-tap="changeColor">--tripped-yellow</px-color-changer>
+			<px-color-changer property="--symbol-gray" on-tap="changeColor">--symbol-gray</px-color-changer>
+			<px-color-changer property="--symbol-blue" on-tap="changeColor">--symbol-blue</px-color-changer>
+		</px-actionbar>
+
+<!-- 		<px-actionbar>
+			<px-button on-tap="addRow">Add Row</px-button>
+		</px-actionbar> -->
+
+		<px-content scroll style="display: block;">
+
+			<px-collapse-header icon="px-icons:palette" status="success">Custom</px-collapse-header>
+			<px-collapse>
+				<px-row>
+					<px-column>
+						<px-input label="Property Name (CSS Var)" value="{{customproperty}}"></px-input>
+					</px-column>
+					<px-column>
+						<px-input label="Property Value (CSS Color Value)" value="{{customvalue}}" type="color"></px-input>
+					</px-column>
+					<px-column>
+						<px-color-changer property={{customproperty}}" value="{{customvalue}}"></px-color-changer>
+					</px-column>
+				</px-row>
+			</px-collapse>
+
+			<px-collapse-header status="alarm" icon="px-icons:palette">Test</px-collapse-header>
+			<px-collapse>
+				<px-content canvas style="min-height: 220px; display: block; position: relative;">
+					<px-block-widget on-tap="widgetSelect" title="Test" status="alarm" left="10px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" selected title="Test" status="comm" left="160px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="disabled" left="310px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="disarmed" left="460px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="unknown" left="610px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="caution" left="760px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="success" left="910px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+
+					<px-block-widget on-tap="widgetSelect" title="Test" status="white" left="1060px" top="30px">
+						<h1>Title</h1>
+						
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+						<px-row>
+							<px-column label>Label</px-column>
+							<px-column value>Value</px-column>
+						</px-row>
+
+						<h2>Test</h2>
+					</px-block-widget>
+				</px-content>
+			</px-collapse>
+
+			<px-collapse-header selected status="callout" icon="px-icons:palette">Test</px-collapse-header>
+			<px-collapse>
+
+				<px-row status="alarm">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Alarm
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:medium-voltage-breaker" status="closed"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="callout">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Callout
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:medium-voltage-drawout-breaker" status="open"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="disabled">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Disabled
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:low-voltage-breaker" status="tripped"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="disarmed">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Disarmed
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:low-voltage-drawout-breaker" status="unknown"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="comm">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Non-Communicating
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:generator" status="barton"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="success">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Success
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:generator" status="white"></px-symbol>
+					</px-column>
+				</px-row>
+
+				<px-row status="caution">
+					<px-column icon>
+						<iron-icon icon="px-icons:palette"></iron-icon>
+					</px-column>
+					<px-column title>
+						<px-title>
+							<h1>
+							Caution
+							</h1>
+						</px-title>
+					</px-column>
+					<px-column>
+						<px-symbol size="normal" symbol="px-symbols:generator" status="orange"></px-symbol>
+					</px-column>
+				</px-row>
+
+			</px-collapse>
+
+			<px-collapse-header status="comm" icon="px-icons:palette">Test</px-collapse-header>
+			<px-collapse></px-collapse>
+
+			<px-collapse-header status="disabled" icon="px-icons:palette">Test</px-collapse-header>
+			<px-collapse></px-collapse>
+		</px-content>
+
+
+	</template>
+	<script>
+		var main = document.querySelector("#main");
+		var colors = ["#FF0000", "#FF8800", "#FFFF00", "#88FF00", "#00FF00", "#00FF88", "#00FFFF", "#0088FF", "#0000FF", "#8800FF", "#FF00FF", "#FF0088"];
+		main.changeColor = function(e) {
+			var changer = e.currentTarget;
+			var c = colors.shift();
+			changer.setAttribute("value", c);
+			colors.push(c);
+		};
+		main.addRow = function() {
+			document.body.appendChild(Polymer.dom(document.querySelector("#copy")).cloneNode(true));
+		};
+
+		main.widgetSelect = function(e) {
+			console.log(e);
+
+			var widget = e.target.offsetParent;
+
+			console.log(widget);
+
+			if(widget.hasAttribute('selected')) {
+				widget.removeAttribute("selected");
+			}
+			else {
+				widget.setAttribute("selected", 'selected');
+			}
+		};
+	</script>
+</body>
+
+</html>

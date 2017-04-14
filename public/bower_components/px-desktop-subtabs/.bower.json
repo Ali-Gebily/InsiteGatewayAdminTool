@@ -1,0 +1,37 @@
+{
+  "name": "px-desktop-subtabs",
+  "version": "1.0.0",
+  "description": "A Power Xpert Blue Subtab",
+  "authors": [
+    "The Eaton UXD Team (Eric Atha, Joe Boyle)"
+  ],
+  "main": "px-subtabs.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-desktop-subtabs"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http://www.eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "96cf22e204f1ca277ef24b082c6b81e48c7fc52d"
+  },
+  "_source": "http://esgit.tcc.etn.com:7990/scm/pxblue/px-desktop-subtabs.git",
+  "_target": "^1.0.0",
+  "_originalSource": "PXBLUE/px-desktop-subtabs"
+}

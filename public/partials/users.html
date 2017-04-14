@@ -1,0 +1,146 @@
+<div data-ng-include="'partials/header.html'"></div>
+
+        <div class="layout horizontal content">
+    <!-- Sidebar -->
+            <px-sidebar dark floating collapsible>
+                <px-actionbar secondary>
+                    <px-input data-ng-model="filter"></px-input>
+                    <iron-icon icon="icons:search" data-ng-click="search(false)"></iron-icon>
+                </px-actionbar>
+                <px-row selectable data-ng-repeat="user in users track by $index">
+                    <px-column title data-ng-click="selectUser($index)">{{user.displayName}}</px-column>
+                </px-row>
+                <px-row data-ng-if="users.length == 0">
+                    <px-column>None is found!</px-column>
+                </px-row>
+                <px-row data-ng-if="hasMore">
+                    <px-column><px-button data-ng-click="search(true)">Load More</px-button></px-column>
+                </px-row>
+            </px-sidebar>
+
+    <!-- Main Content Area -->
+            <div class="flex layout vertical">
+                <div class="flex layout vertical main-content">
+                        <px-card-container vertical fixed>
+                            <px-card fixed>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Name:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="5">
+                                        <px-input data-ng-model="name" data-ng-change="userChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.name" class="error-message">{{errorMessage.name}}</span>
+                                    </px-column>
+                                    <px-column width="2">
+                                        <px-checkbox label="Enabled" data-ng-model="enabled" data-ng-change="userChanged()"></px-checkbox>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>User ID:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7" data-ng-if="userIndex >= 0 && users[userIndex].id">
+                                        {{ users[userIndex].id }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Email:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="email" data-ng-change="userChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.email" class="error-message">{{errorMessage.email}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Password:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="password"
+                                          type="password" data-ng-change="passwordChanged(); userChanged();"></px-input>
+                                        <span data-ng-if="passwordWarningMessage" class="warning-message">{{passwordWarningMessage}}</span>
+                                        <span data-ng-if="errorMessage.password" class="error-message">{{errorMessage.password}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Confirm Password:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="confirmPassword" type="password" data-ng-change="userChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.confirmPassword" class="error-message">{{errorMessage.confirmPassword}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Job Title:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="jobTitle" data-ng-change="userChanged()"></px-input>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Department:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="department" data-ng-change="userChanged()"></px-input>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Phone Number:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                        <px-input data-ng-model="phoneNumber" data-ng-change="userChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.phone" class="error-message">{{errorMessage.phone}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Create Date:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7" data-ng-if="userIndex >= 0 && users[userIndex].createdAt">
+                                        {{ users[userIndex].createdAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Created By:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7" data-ng-if="userIndex >= 0 && users[userIndex].createdBy">
+                                        {{ users[userIndex].createdBy }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Last Update:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7" data-ng-if="userIndex >= 0 && users[userIndex].updatedAt">
+                                        {{ users[userIndex].updatedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
+                                        <px-title light><h1>Updated By:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7" data-ng-if="userIndex >= 0 && users[userIndex].updatedBy">
+                                        {{ users[userIndex].updatedBy }}
+                                    </px-column>
+                                </px-row>
+                            </px-card>
+                        </px-card-container>
+                </div>
+                <px-actionbar>
+                    <px-button dark data-ng-click="checkDirtyForNewUser()">New</px-button>
+                    <px-button dark data-ng-click="saveUser()">Save</px-button>
+                    <span class="flex"></span>
+                </px-actionbar>
+            </div>
+
+<growl-notification data-ng-if="showSaveConfirm" on-close="showSaveConfirm = false">
+  User saved successfully!
+</growl-notification>
+
+        </div>

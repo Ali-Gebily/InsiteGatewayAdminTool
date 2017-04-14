@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-sidebar</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-sidebar/px-sidebar.html">
+        <link rel="import" href="../px-desktop-actionbar/px-actionbar.html">
+        <link rel="import" href="../px-desktop-pocket/px-pocket.html">
+        <link rel="import" href="../px-desktop-button/px-button.html">
+        <link rel="import" href="../px-desktop-title/px-title.html">
+        <link rel="import" href="../px-desktop-row/px-row.html">
+        <link rel="import" href="../px-desktop-column/px-column.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            html{
+                height:100%;
+            }
+            body{
+                height: 100%;
+                margin:0px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <px-sidebar dark floating collapsible class="layout vertical">
+            <px-actionbar>
+                <px-title maintitle="Phase A Current (A) - High" subtitle="...\North Wing\ABNW-MT01 - PXM 2260"></px-title>
+            </px-actionbar>
+            <px-row>
+                <px-column width="1" title>Current Phase A Above 250 A - High Current - Contact Utility of Dick Harris</px-column>
+            </px-row>
+            <px-row status="alarm">
+                <px-column width="3" title><strong>Cleared:</strong></px-column>
+                <px-column width="2" value>No</px-column>
+                <px-column width="2" date></px-column>
+            </px-row>
+            <px-row>
+                <px-column width="3" title><strong>Acknowledged:</strong></px-column>
+                <px-column width="2" value>No</px-column>
+                <px-column width="2" date></px-column>
+            </px-row>
+            <px-row>
+                <px-column width="3" title><strong>Trigger (High):</strong></px-column>
+                <px-column width="2" value>250 A</px-column>
+                <px-column width="2" date right>                        
+                    <px-title>
+                        <h1>12/07/2013</h1>
+                        <h2>09:22:12 AM</h2>
+                    </px-title>
+                </px-column>
+            </px-row>
+            <px-row>
+                <px-column width="3" title><strong>Updates:</strong></px-column>
+                <px-column width="2" value>4</px-column>
+                <px-column width="2" date></px-column>
+            </px-row>
+            <px-row>
+                <px-column width="3" title><strong>Current Value:</strong></px-column>
+                <px-column width="2" value>271 A</px-column>
+                <px-column width="2" date></px-column>
+            </px-row>
+            <px-row>
+                <px-column width="3" title><strong>Priority:</strong></px-column>
+                <px-column width="2" value>No</px-column>
+                <px-column width="2" date></px-column>
+            </px-row>
+            <px-pocket>
+                <px-button negative icon="px-icons:remove">Remove Device</px-button>
+                <px-button positive icon="px-icons:save">Save Configuration</px-button>
+            </px-pocket>
+        </px-sidebar>
+    </body>
+</html>

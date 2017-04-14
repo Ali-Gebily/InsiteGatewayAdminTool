@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-collapse</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-collapse/px-collapse.html">
+        <link rel="import" href="../px-desktop-collapse/px-collapse-header.html">
+        <link rel="import" href="../px-desktop-row/px-row.html">
+        <link rel="import" href="../px-desktop-column/px-column.html">
+        <link rel="import" href="../px-desktop-title/px-title.html">
+        <link rel="import" href="../px-desktop-dropdown/px-dropdown.html">
+        <link rel="import" href="../px-desktop-dropdown/px-menu-container.html">
+        <link rel="import" href="../px-desktop-dropdown/px-dropdown-button.html">
+        <link rel="import" href="../px-desktop-input/px-input.html">
+        <link rel="import" href="../px-desktop-item/px-item.html">
+
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            body{
+                margin:10px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+                  <px-collapse-header controls="#user-panel" icon="px-icons:user">
+                    <px-title><h1>User</h1></px-title>
+                  </px-collapse-header>
+                  <px-collapse closed settings id="user-panel">
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Current User</px-column>
+                      <px-column value width="2">NASA/C9997365</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Security Level</px-column>
+                      <px-column value width="2">Read+Write</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                  </px-collapse>
+
+                  <px-collapse-header status="alarm" controls="#test" icon="px-icons:alarm">
+                    <px-title><h1>Alarms </h1></px-title>
+                  </px-collapse-header>
+                  <px-collapse settings id="test">
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Current User</px-column>
+                      <px-column value width="2">NASA/C9997365</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Security Level</px-column>
+                      <px-column value width="2">Read+Write</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                  </px-collapse>
+
+                  <px-collapse-header icon="folder-open" controls="#content-panel">
+                    <px-title><h1>Content</h1></px-title>
+                  </px-collapse-header>
+                  <px-collapse settings id="content-panel">
+                    <px-row>
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Default Activity</px-column>
+                      <px-column action width="2">
+                        <px-dropdown flex value="Favorites">
+                            <px-item value="Favorites">Favorites</px-item>
+                            <px-item value="Alarms">Alarms</px-item>
+                            <px-item value="One-lines">One-lines</px-item>
+                        </px-dropdown>
+                      </px-column>
+                      <px-column width="4" helper>The first tab the user sees after login</px-column>
+                    </px-row>
+                    <px-row>
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Default One-line</px-column>
+                      <px-column action width="2">
+                        <px-dropdown flex value="None">
+                            <px-item value="/">/</px-item>
+                            <px-item value="/Floor 1">/Floor 1</px-item>
+                            <px-item value="/Floor 2">/Floor 2</px-item>
+                        </px-dropdown>
+                      </px-column>
+                      <px-column width="4" helper>The Alarms and One-line tabs will automatically filter to this One-line</px-column>
+                    </px-row>
+                    <px-row>
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Maximum Alarms To Display</px-column>
+                      <px-column action width="2"><px-input auto-validate pattern="[0-9]*" value="2000"></px-input></px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                  </px-collapse>
+
+                  <px-collapse-header status="callout" controls="#test-2" icon="px-icons:waveform">
+                    <px-title><h1>Test </h1></px-title>
+                  </px-collapse-header>
+                  <px-collapse settings id="test-2">
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Current User</px-column>
+                      <px-column value width="2">NASA/C9997365</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                    <px-row >
+                      <px-column space="75"></px-column>
+                      <px-column width="3" value>Security Level</px-column>
+                      <px-column value width="2">Read+Write</px-column>
+                      <px-column width="4"></px-column>
+                    </px-row>
+                  </px-collapse>
+    </body>
+</html>

@@ -1,0 +1,422 @@
+<!--
+`px-collapse-header` is a header bar for an expandable/collapsible `px-collapse` section.
+
+Example:
+
+	<px-collapse-header icon="px-icons:user" controls="#collapse">
+		<px-title maintitle="User Settings"></px-title>
+	</px-collapse-header>
+	<px-collapse id="collapse">
+		...
+	</px-collapse>
+
+@group Desktop
+@element px-collapse-header
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../px-colors/px-colors.html" rel="import">
+<link href="../iron-icon/iron-icon.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+
+<link rel="import" href="../px-icons/px-icons.html">
+
+<dom-module id="px-collapse-header">
+	<template>
+		<style include="px-colors"></style>
+		<style>
+			:host {
+				display: block;
+				border-bottom:1px solid #c1c1c1;
+
+				color:#333333;
+				font-weight: 400;
+				box-sizing:border-box;
+				cursor: pointer;
+
+				outline: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			:host([dark]), :host-context([dark]){
+				color: #f3f3f3;
+				border-color: #111;
+			}
+			:host #header-wrapper:hover{
+				background-color: rgba(0,0,0,.05);
+			}
+			:host iron-icon.icon {
+				margin-right:10px;
+				width:20px;
+				height: 20px;
+				flex: 0 0 auto;
+			}
+			:host #header-wrapper {
+				padding: 10px 25px;
+				line-height: 20px;
+				transition:background 200ms ease-in-out;
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}
+			:host .subtext {
+				font-weight: 400;
+				opacity: .75;
+				max-width: 65%;
+				margin-left: 10px;
+			}
+
+			:host([active]) .arrow {
+				-webkit-transform: rotate(90deg);
+				transform: rotate(90deg);
+			}
+
+			:host(:not[active]) {
+				margin-bottom:20px;
+			}
+
+			:host .arrow {
+				width: 15px;
+				height: 15px;
+				margin: 4px;
+				margin-right:10px;
+				flex: 0 0 auto;
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+				transition: all 200ms ease-in-out;			
+			}
+
+			:host #check-wrap ::content px-checkbox, :host #radio-wrap ::content px-radio{
+				margin-right:10px;
+				z-index: 1;
+			}
+			:host .flex{
+				@apply(--layout-flex);
+			}
+			:host ::content .light {
+				font-weight: 400!important;
+			}
+
+			/*This will add a space after strong tags*/
+		    :host strong:after,
+		    :host strong + span:after,
+		    :host .active:after {
+			    content: "\00a0"!important;
+			}
+
+			/*Status Styling*/
+
+			:host([status="callout"]){
+				background-color: var(--callout-blue);
+			}
+
+			:host([status="alarm"]){
+				background-color: var(--alarm-red);
+			}
+
+			:host([status="disabled"]){
+				background-color: var(--disabled-purple);
+			}
+
+			:host([status="disarmed"]){
+				background-color: var(--disarmed-blue);
+			}
+
+			:host([status="comm"]){
+				background-color: var(--communication-orange);
+			}
+
+			:host([status="caution"]){
+				background-color: var(--caution-yellow);
+			}
+
+			:host([status="success"]){
+				background-color: var(--success-green);
+			}
+
+			:host([status="callout"]), 
+			:host([status="alarm"]), 
+			:host([status="disabled"]), 
+			:host([status="disarmed"]), 
+			:host([status="comm"]),
+			:host([status="callout"]) .subtext, 
+			:host([status="alarm"]) .subtext, 
+			:host([status="disabled"]) .subtext, 
+			:host([status="disarmed"]) .subtext, 
+			:host([status="comm"]) .subtext {
+				color:var(--dark-font);
+			}
+
+			/*Selected*/
+
+			:host([selected]),
+		   	:host([selected][status]), 
+		   	:host([status].selected) {
+				background-color: #333;
+				color:var(--dark-font)!important;
+			}
+
+			:host([status="callout"][selected]),
+			:host([status="callout"].selected){
+				box-shadow:inset 8px 0 0 var(--callout-blue);
+			}
+
+			:host([status="alarm"][selected]),
+			:host([status="alarm"].selected){
+				box-shadow:inset 8px 0 0 var(--alarm-red);
+			}
+
+			:host([status="disabled"][selected]),
+			:host([status="disabled"].selected){
+				box-shadow:inset 8px 0 0 var(--diabled-purple);
+			}
+
+			:host([status="disarmed"][selected]),
+			:host([status="disarmed"].selected){
+				box-shadow:inset 8px 0 0 var(--disarmed-blue);
+			}
+
+			:host([status="comm"][selected]),
+			:host([status="comm"].selected){
+				box-shadow:inset 8px 0 0 var(--communication-orange);
+			}
+
+			:host([status="caution"][selected]),
+			:host([status="caution"].selected){
+				box-shadow:inset 8px 0 0 var(--caution-yellow);
+			}
+
+			:host([status="success"][selected]),
+			:host([status="success"].selected){
+				box-shadow:inset 8px 0 0 var(--success-green);
+			}
+
+			/*Edit*/
+
+			.edit {
+				margin-left:15px;
+			}
+
+		</style>
+
+		<div id="header-wrapper">
+			<iron-icon icon="px-icons:more" class="arrow" id="arrow"></iron-icon>
+
+			<template is="dom-if" if="{{icon}}"><iron-icon icon="{{icon}}" class="icon"></iron-icon></template>
+
+			<div id="check-wrap">
+				<content select="px-checkbox"></content>
+			</div>
+
+			<div id="radio-wrap">
+				<content select="px-radio"></content>
+			</div>
+
+			<content select="px-title"></content>
+
+			<content select="px-title"></content>
+	  		<content id="contentNode"></content>
+	  		<content select="h1"></content>
+
+			<content select=":not(px-button):not(px-icon-button):not([right])"></content>
+
+			<span class="flex"></span>
+
+			<div id="button-wrap">
+				<content select="px-button, px-icon-button"></content>
+			</div>
+
+			<span class="subtext">{{subtext}}<content select="h2"></content></span>
+
+			<template is="dom-if" if="{{edit}}">
+				<div class="edit">
+					<iron-icon icon="px-icons:settings"></iron-icon>
+				</div>
+			</template>
+
+	</div>
+	</template>
+
+	<script>
+		Polymer({
+			is: "px-collapse-header",
+
+			properties: {
+				/**
+				 *The css selector (id or class) of the px-collapse panel that this header controls. Must include '.' or '#'.
+				 */
+				controls: {
+					type: String
+				},
+
+				/**
+				 *If set, the px-collapse-header will take on darker styling, to be used in dark-colored containers.
+				 */
+				dark: {
+					type: Boolean,
+					value: false
+				},
+
+				/**
+				 *The icon to display in the px-collapse-header, if any.
+				 */
+				icon: {
+					type: String,
+					value: null
+				},
+
+				/**
+				 *If set, additional text to display next to the title determined by px-title children.
+				 */
+				subtext: {
+					type: String,
+					value: null
+				},
+
+				/**
+				 *If set, the open/closed arrow will be shown open to indicate that the collapsible content is visible.
+				 */
+				active: {
+					type: Boolean,
+					value: true,
+					reflectToAttribute: true,
+					notify: true
+				},
+				/**
+                 *Setting this value will give the header different colored accent stripes. Acceptable values are `callout` (blue), `alarm` (red), `disabled` (purple), `disarmed` (blue), and `comm` (orange).
+                 */				
+                 status: {type:String, value:null},
+
+				/**
+				 *If set, the collapse-header will be given a dark/selected appearance.
+				 */
+				selected: {
+					type: Boolean,
+					value: false
+				},
+
+				/**
+				 *If set, the collapse-header will have a settings gear to the right side.
+				 */
+				edit: {
+					type: Boolean,
+					value: false
+				},
+
+
+				collapse: {
+				}
+			},
+
+			
+		listeners: {
+        	up: 'toggleHandler',
+        	'arrow.up': 'arrowHandler',
+        	'check-wrap.up': 'doNotPropagate',
+        	'radio-wrap.up': 'doNotPropagate',
+        	'button-wrap.up': 'doNotPropagate'
+	    },
+
+		doNotPropagate: function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+		},
+
+		getCollapse: function () {
+			var collapse = document.querySelector(this.controls) || Polymer.dom(this).nextElementSibling;
+
+			if (!collapse || !collapse.toggle || !collapse.isOpened) {
+				console.warn('px-collapse-header could not find px-collapse sibling');
+				return undefined;
+			} else {
+				this.collapse = collapse;
+				return collapse;
+			}
+		},
+
+		// UpdateContent is needed to move non text nodes to their respective selected nodes.
+		// This is so normal text nodes can appear in px-collapse-header and still move masked elements
+		// to their respective content selectors
+		updateContent: function(info) {
+			// Go through ALL the content nodes
+			var contents = Polymer.dom(this.root).querySelectorAll('content');
+			for (var i = 0; i < contents.length; i++) {
+				var insert = contents[i];
+				if (insert.select) {
+					//Select all the nodes that are in the general content that should be in the other content node
+					var toMove = Polymer.dom(this).querySelectorAll(insert.select);
+					if (toMove.length) {
+						//Move all the nodes to the other node
+						toMove.forEach(function(x) {
+							Polymer.dom(insert).appendChild(x);
+						});
+					}
+				}
+			}
+		},
+
+		ready: function() {
+		},
+
+		attached: function() {
+			setTimeout(function() {
+				var collapse = this.getCollapse();
+				
+
+				if (collapse) {
+					this.set('active', collapse.isOpened());
+					var me = this;
+					
+					collapse.addEventListener('toggled', function(e) {
+						me.setActive();
+					});
+				}
+			}.bind(this));
+
+			this._observer = Polymer.dom(this.$.contentNode).observeNodes(this.updateContent.bind(this));
+		},
+
+		detached: function() {
+			Polymer.dom(this.$.contentNode).unobserveNodes(this._observer);
+			delete this._observer;
+		},
+
+		toggleHandler: function(event) {
+			if (this.restrictcollapse) {
+				this.doNotPropagate(event);
+			}
+			else {
+				this.toggle();
+			}
+		},
+
+		arrowHandler: function(event) {
+			if (this.restrictcollapse) {
+				this.toggle();
+			}
+			else {
+				this.doNotPropagate(event);
+			}
+		},
+
+		toggle: function() {
+			var collapse = this.getCollapse();
+			if (collapse) {
+				collapse.toggle();
+				this.active = collapse.isOpened();
+			}
+		},
+
+		setActive: function() {
+			var collapse = this.getCollapse();
+
+
+			this.active = this.collapse.isOpened();
+		}
+
+		});
+	</script>
+</dom-module>

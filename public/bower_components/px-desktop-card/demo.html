@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-card</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-actionbar/px-actionbar.html">
+        <link rel="import" href="../px-desktop-card/px-card.html">
+        <link rel="import" href="../px-desktop-card/px-card-container.html">
+        <link rel="import" href="../px-desktop-row-button/px-row-button.html">
+        <link rel="import" href="../px-desktop-title/px-title.html">
+
+        <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+        <link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            html{
+                height: 100%;
+            }
+            body{
+                margin:0px;
+                height: 100%;
+            }
+            .content{
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+
+    </head>
+<body unresolved>
+    <div class="layout horizontal content">
+        <div class="flex layout vertical">
+            <px-card-container horizontal>
+                <px-card-container vertical>
+                    <px-card>
+                        <px-actionbar dark><px-title maintitle="Devices"></px-title></px-actionbar>
+                        <px-row-button>Add a Device</px-row-button>
+                    </px-card>
+                </px-card-container>
+                <px-card-container vertical>
+                    <px-card>
+                        <px-actionbar dark><px-title maintitle="Trending"></px-title></px-actionbar>
+                    </px-card>
+                    <px-card>
+                        <px-actionbar dark><px-title maintitle="Energy"></px-title></px-actionbar>
+                    </px-card>
+                </px-card-container>
+            </px-card-container>
+        </div>
+    </div>
+</body>
+</html>

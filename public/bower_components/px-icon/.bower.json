@@ -1,0 +1,39 @@
+{
+  "name": "px-icon",
+  "private": true,
+  "version": "1.0.4",
+  "description": "An element that supports displaying a icon. Includes bundled px-eaton-logo",
+  "main": [
+    "px-icon.html",
+    "px-eaton-logo.html"
+  ],
+  "author": [
+    "Eric Atha"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-icon"
+  },
+  "dependencies": {
+    "iron-icon": "polymerelements/iron-icon#^1.0.0",
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "test-fixture": "polymerelements/test-fixture#^1.0.0",
+    "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
+    "iron-iconset": "polymerelements/iron-iconset#^1.0.0",
+    "iron-icons": "polymerelements/iron-icons#^1.0.0",
+    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "web-component-tester": "*",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.4",
+    "commit": "dd0a365410a122931798b1a4338f38419bdc417b"
+  },
+  "_source": "http://esgit.tcc.etn.com:7990/scm/pxblue/px-icon.git",
+  "_target": "^1.0.0",
+  "_originalSource": "PXBLUE/px-icon"
+}

@@ -1,0 +1,89 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../px-icons/px-icons.html">
+
+
+<dom-module id="px-barton-logo">
+  
+	<template>
+
+	<style>
+
+		:host {
+			display: flex;
+			flex-direction: column;
+
+			padding: .5em .75em;
+		}
+
+		:host #logo {
+			color:inherit;
+			width:100%;
+			height: 100%;
+			flex:1;
+		}
+
+		:host #logo svg * {
+			fill:currentColor;
+		}
+
+		:host([small]) {
+			width:2em;
+			height: 1em;
+		}
+
+		:host([medium]) {
+			width:6em;
+			height: 1em;
+		}
+
+		:host([large]) {
+			width:10em;
+		}
+
+		:host([extra-large]) {
+			width:20em;
+		}
+
+	</style>
+
+	<div id="logo">
+		<svg viewBox="0 0 60 16" x="0" y="0">
+			<path class="icon-barton" d="M19.1,3.1l1.4,5.2h-3L19.1,3.1z M16.5,11.9l-1.3,4.3h7.6l-1.2-4.3H16.5z M36.4,0H21.8v4.6h4.6v11.5h7.4
+			c-0.5-0.3-3.6-2.8-3.6-7.5C30.2,4.8,32.6,1,36.4,0 M38.9,12c1.7,0,3.1-1.4,3.1-3.2c0-1.8-1.3-3.4-3-3.4c-1.8,0-3.1,1.6-3.1,3.4
+			C35.9,10.6,37.2,12,38.9,12 M54.3,10.1L51.3,0h-7.6v16.1h4.7V6h0l2.9,10.1h7.7V0h-4.8L54.3,10.1L54.3,10.1z M9.2,16.1l1.4-4.5H5.5
+			v-1.4H11l1.3-4.3H5.5V4.6h7.2L14.1,0H0v16.1H9.2z" />
+		</svg>
+	</div>
+
+	</template>
+
+	<script>
+
+	Polymer({
+
+	  is: 'px-barton-logo',
+
+	  properties: {
+	  	small: {
+	  		type:Boolean
+	  	},
+
+	  	medium: {
+	  		type:Boolean
+	  	},
+
+	  	large: {
+	  		type:Boolean
+	  	},
+
+	  	extraLarge: {
+	  		type:Boolean
+	  	}
+	  }
+
+	});
+	</script>
+
+</dom-module>

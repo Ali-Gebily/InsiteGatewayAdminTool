@@ -1,0 +1,176 @@
+<!--
+`px-card-container` is a container element that manages the layout of `px-card` objects. They can be nested to create more complex card layouts.
+
+Example:
+
+    <px-card-container horizontal>
+        <px-card-container>
+            <px-card></px-card>
+        </px-card-container>
+        <px-card-container vertical>
+            <px-card></px-card>
+            <px-card></px-card>
+        </px-card-container>
+    </px-card-container>
+
+@group Desktop
+@element px-card-container
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../iron-media-query/iron-media-query.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+
+<dom-module id="px-card-container">
+    <template>
+        <style>
+            :host {
+                @apply(--layout-vertical);
+                min-width:0;
+                min-height:0;
+                -webkit-flex: 1;-ms-flex: 1;flex: 1;
+                -webkit-flex-basis: 0;-ms-flex-preferred-size: 0;flex-basis: 0;
+                margin: 15px calc(3vw - 15px);
+            }
+            :host([vertical]){
+                @apply(--layout-vertical);
+            }
+            :host([horizontal]){
+                @apply(--layout-horizontal);
+            }
+
+            :host([forcevertical]){
+                @apply(--layout-vertical);
+            }
+            :host([forcehorizontal]){
+                @apply(--layout-horizontal);
+            }
+
+            :host([fixed]){
+                flex: none;
+            }
+            :host([size]){
+                --card-size: 1;
+                -webkit-flex: var(--card-size);
+                -ms-flex: var(--card-size);
+                flex:var(--card-size);
+            }
+            :host([stacked]) {
+                @apply(--layout-vertical);
+                -webkit-flex:none;-ms-flex:none;flex:none;
+                -webkit-flex-basis: auto;-ms-flex-preferred-size: auto;flex-basis: auto;
+            }
+            :host ::content px-card-container{
+                margin: 0;
+            }
+            :host([stacked]) ::content px-card{
+                -webkit-flex:none;-ms-flex:none;flex:none;
+                -webkit-flex-basis: auto;-ms-flex-preferred-size: auto;flex-basis: auto;
+                width: auto !important;
+            }
+        </style>
+
+        <content></content>
+        <iron-media-query
+        query="{{setvertical}}"
+        query-matches="{{forcevertical}}">
+        </iron-media-query>
+        <iron-media-query
+        query="{{sethorizontal}}"
+        query-matches="{{forcehorizontal}}">
+        </iron-media-query>
+        <iron-media-query
+        query="{{setstacked}}"
+        query-matches="{{stacked}}">
+        </iron-media-query>
+    </template>
+
+    <script>
+        Polymer({
+            is:'px-card-container',
+            properties: {
+                /**
+                 *If set, the contents will be laid out horizontally. This will override a `vertical` attribute.
+                 */
+                horizontal:{
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 *If set, the contents will be laid out horizontally. This will override a `vertical`/`forcevertical` attribute. This attribute is set automatically when the `sethorizontal` media query is satisfied.
+                 */
+                forcehorizontal:{
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 *If set, the contents will be laid out vertically. This is the default behavior.
+                 */
+                vertical:{
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 *If set, the contents will be laid out vertically. This will override a `horizontal` attribute. This attribute is set automatically when the `setvertical` media query is satisfied.
+                 */
+                forcevertical:{
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 *If set, the card container will stay a fixed size in the direction of the layout and will not flex as the window is resized.
+                 */
+                fixed:{type: Boolean, value: false},
+
+                /**
+                 *If set, will cause all nested px-cards to stack vertically.
+                 */
+                stacked:{
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 *A media query that, when matched, will set the layout direction to horizontal.
+                 */
+                sethorizontal:{type:String, value: null},
+
+                /**
+                 *A media query that, when matched, will set the layout direction to vertical.
+                 */
+                setvertical:{type:String, value: null},
+
+                /**
+                 *A media query that, when matched, will cause all nested px-cards to stack vertically.
+                 */
+                setstacked:{type:String, value: "(max-width: 1100px)"},
+
+                /**
+                 *The card container flex size, relative to other elements in the parent px-card-container.
+                 */
+                size:{type: Number, value: 1, observer: '_updateSize'}
+            },
+
+            _updateSize: function(){
+                var val = 1;
+                if(!isNaN(parseInt(this.size))){
+                    val = Math.floor(parseInt(this.size));
+                }
+                val = (val===0)?"none":val;
+                this.customStyle['--card-size'] = val.toString();
+                this.updateStyles();
+            },
+        });
+    </script>
+</dom-module>

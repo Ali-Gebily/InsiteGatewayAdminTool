@@ -1,0 +1,11 @@
+{
+  "name": "angular",
+  "version": "1.5.5-polymer",
+  "license": "MIT",
+  "main": "./angular-polymer.js",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "^1.4.0"
+  },
+  "private": true
+}

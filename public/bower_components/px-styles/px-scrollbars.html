@@ -1,0 +1,54 @@
+<link href="../polymer/polymer.html" rel="import">
+
+<dom-module id="px-scrollbars">
+	<template>
+		<style>
+
+			:host ::-webkit-scrollbar,
+			:host::-webkit-scrollbar {
+			  width: 12px; 
+			  height: 12px; 
+			  background: white;
+			}
+
+			:host *::-webkit-scrollbar-track,
+			:host::-webkit-scrollbar-track {
+			  background: white;
+			}
+
+			:host *::-webkit-scrollbar-thumb,
+			:host::-webkit-scrollbar-thumb {
+			  background: #c7c7c7 no-repeat center center;
+			  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAMAAAC6sdbXAAAABlBMVEWZmZnHx8eWC4NUAAAAGUlEQVR42mXGsQ0AAADCIP3/6cZ0lImo8wcAtAALuUKU1gAAAABJRU5ErkJggg==');
+			}
+
+			:host *::-webkit-scrollbar-thumb:hover,
+			:host::-webkit-scrollbar-thumb:hover {
+			    width:12px;
+			}
+
+			:host-context([dark]) *::-webkit-scrollbar,
+			:host-context([dark]) *::-webkit-scrollbar-track,
+			:host([dark]) *::-webkit-scrollbar,
+			:host([dark]) *::-webkit-scrollbar-track,
+			:host([dark])::-webkit-scrollbar,
+			:host([dark])::-webkit-scrollbar-track {
+				background: #373737!important;
+				} 
+
+			:host-context([dark]) *::-webkit-scrollbar-thumb,
+			:host([dark]) *::-webkit-scrollbar-thumb,
+			:host([dark])::-webkit-scrollbar-thumb {
+				background: #515151 no-repeat center center;
+				background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAMAAAC6sdbXAAAABlBMVEUqKipRUVGVHK6QAAAAGUlEQVR42mXGsQ0AAADCIP3/6cZ0lImo8wcAtAALuUKU1gAAAABJRU5ErkJggg==');
+			}
+
+			:host-context([scrollbar="large"]) *::-webkit-scrollbar,
+			:host-context(.wide-scrollbar) *::-webkit-scrollbar {
+	  			width: 28px!important;
+	  			height: 28px!important; 
+			}
+
+		</style>
+	</template>
+</dom-module>

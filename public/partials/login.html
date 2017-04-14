@@ -1,0 +1,47 @@
+        <div class="layout horizontal content">
+
+            <div class="flex layout vertical">
+                <div class="flex layout vertical main-content">
+                    <px-card-container vertical>
+                        <px-card-container vertical fixed>
+                          <px-row>
+                           <px-column width="1" data-ng-if="WIN_WIDTH > 1000">
+                           </px-column>
+                           <px-column width="1">
+                            <px-card fixed>
+                                <px-row data-ng-if="errorMessage">
+                                    <px-column title width="6">
+                                        <span class="error-message">{{errorMessage}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="2">
+                                        <px-title light><h1>Email:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="4">
+                                        <px-input data-ng-model="email"></px-input>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="2">
+                                        <px-title light><h1>Password:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="4">
+                                        <px-input data-ng-model="password" type="password"></px-input>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                      <px-button dark data-ng-click="login()">Login</px-button>
+                                    </px-column>
+                                </px-row>
+                            </px-card>
+                           </px-column>
+                           <px-column width="1" data-ng-if="WIN_WIDTH > 1000">
+                           </px-column>
+                          </px-row>
+                        </px-card-container>
+                    </px-card-container>
+                </div>
+            </div>
+        </div>
