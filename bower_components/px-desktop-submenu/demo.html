@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-submenu</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+
+        <link rel="import" href="../px-desktop-menu/px-menu.html">
+        <link rel="import" href="px-submenu.html">
+        <link rel="import" href="../px-desktop-item/px-item.html">
+        <link rel="import" href="../px-desktop-button/px-button.html">
+        <link rel="import" href="../px-desktop-checkbox/px-checkbox.html">
+        <link rel="import" href="../px-desktop-input/px-input.html">
+        <link rel="import" href="../px-desktop-dropdown/px-dropdown.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+
+        <link rel="import" href="../iron-selector/iron-selector.html">
+
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            body{
+                margin: 10px;
+            }
+
+            .hidden {
+                visibility: hidden;
+            }
+
+            px-menu .px-menu > px-item .label{
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1;
+            }
+
+            px-menu {
+                width: 230px;
+            }
+
+            px-menu[dark] {
+                width: 300px;
+            }
+
+            #action-menu .iron-selected {
+                background-color: rgba(0, 0, 0, .20);
+                color: #026fbf;
+                cursor: default;
+            }
+
+            .inline-box {
+                display: flex;
+            }
+
+            .inline-box > .menu{
+                display: block;
+            }
+
+            .inline-box .box {
+                width: 300px;
+                height: 100px;
+            }
+            .inline-box .box2 {
+                width: 300px;
+                height: 100px;
+            }
+
+        </style>
+
+    </head>
+    <body unresolved>
+        <template id="main" is="dom-bind">
+            <h1>This demo for action</h1>
+            <px-button on-tap="showValues" primary>Delete</px-button>
+            <px-menu id="action-menu" multi checkbox overlap>
+                <px-item value="1">Option 1</px-item>
+                <px-item value="2">Option 2</px-item>
+                <px-item value="3">Option 3</px-item>
+                <px-submenu label_val="Option 4" showselection>
+                    <px-item value="41">Sub Option 41</px-item>
+                    <px-item value="42">Sub Option 42</px-item>
+                    <px-item value="43">Sub Option 43</px-item>
+                </px-submenu>
+                <px-submenu label_val="Option 5" cascading showselection>
+                    <px-item value="51">Sub Option 51</px-item>
+                    <px-item value="52">Sub Option 52</px-item>
+                    <px-item value="53">Sub Option 53</px-item>
+                    <px-submenu label_val="Option 54" showselection>
+                        <px-item value="541">Sub Option 541</px-item>
+                        <px-item value="542">Sub Option 542</px-item>
+                        <px-item value="543">Sub Option 543</px-item>
+                        <px-item value="544">Sub Option 544</px-item>
+                        <px-item value="545">Sub Option 545</px-item>
+                        <px-item value="546">Sub Option 546</px-item>
+                        <px-item value="547">Sub Option 547</px-item>
+                        <px-item value="548">Sub Option 548</px-item>
+                        <px-item value="549">Sub Option 549</px-item>
+                    </px-submenu>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+
+            <h1>This demo for menu bar</h1>
+            <div class="inline-box" id="menuBar">
+                <div class="menu">
+                    <span>This menu will be overlaped</span>
+                    <px-menu jsondata='{{json}}' overlap>
+                        <px-item action="{{action1}}">Option 1</px-item>
+                        <px-item action="{{action2}}">Option 2</px-item>
+                    </px-menu>
+                </div>
+                <div class="box"></div>
+                <div class="menu">
+                    <px-menu dark jsondata='{{json}}'>
+                    </px-menu>
+                </div>
+                <div class="box2"></div>
+                <div class="menu">
+                    <px-menu jsondata='{{json}}'>
+                    </px-menu>
+                </div>
+            </div>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+
+            <h1>This demo for dropdown</h1>
+            <px-dropdown value="{{selection}}" dark iconbutton icon="px-icons:cloud">
+                <px-item>Option 1</px-item>
+                <px-item>Option 2</px-item>
+                <px-submenu label_val="Option 3" showselection>
+                    <px-item>Sub Option 31</px-item>
+                    <px-item>Sub Option 32</px-item>
+                    <px-item>Sub Option 33</px-item>
+                </px-submenu>
+                <px-submenu label_val="Option 4" showselection>
+                    <px-item>Sub Option 41</px-item>
+                    <px-item>Sub Option 42</px-item>
+                    <px-item>Sub Option 43</px-item>
+                </px-submenu>
+            </px-dropdown>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <h1>This demo for button</h1>
+            <px-button on-tap="openMenu" data-target="button-menu" primary icon="px-icons:add">Menu</px-button>
+            <px-menu id="button-menu" class="hidden">
+                <px-item>Option 1</px-item>
+                <px-submenu label_val="Option 2">
+                    <px-item>Sub Option 21</px-item>
+                    <px-item>Sub Option 22</px-item>
+                    <px-item>Sub Option 23</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <h1>This demo for icon</h1>
+            <iron-icon on-tap="openMenu" data-target="icon-menu" icon="px-icons:add"></iron-icon>
+            <px-menu id="icon-menu" class="hidden">
+                <px-item>Option 1</px-item>
+                <px-submenu label_val="Option 2">
+                    <px-item>Sub Option 21</px-item>
+                    <px-item>Sub Option 22</px-item>
+                    <px-item>Sub Option 23</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <h1>This demo for input</h1>
+            <px-input on-focus="openMenu" on-blur="closeMenu" data-target="input-menu" value="2000"></px-input>
+            <px-menu id="input-menu" class="hidden">
+                <px-item>Option 1</px-item>
+                <px-submenu label_val="Option 2">
+                    <px-item>Sub Option 21</px-item>
+                    <px-item>Sub Option 22</px-item>
+                    <px-item>Sub Option 23</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <h1>This demo for row</h1>
+            <px-row on-tap="openMenu" data-target="row-menu">
+                <px-column width="3" title><strong>px-row:</strong></px-column>
+                <px-column width="2" value>Lorem ipsum dolor sit amet.</px-column>
+            </px-row>
+            <px-menu id="row-menu" class="hidden">
+                <px-item>Option 1</px-item>
+                <px-submenu label_val="Option 2">
+                    <px-item>Sub Option 21</px-item>
+                    <px-item>Sub Option 22</px-item>
+                    <px-item>Sub Option 23</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <h1>This demo for title</h1>
+            <px-title on-tap="openMenu" data-target="title-menu" >
+                <h2>Some Title</h2>
+            </px-title>
+            <px-menu id="title-menu" class="hidden">
+                <px-item>Option 1</px-item>
+                <px-submenu label_val="Option 2">
+                    <px-item>Sub Option 21</px-item>
+                    <px-item>Sub Option 22</px-item>
+                    <px-item>Sub Option 23</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <px-menu selectable>
+                <px-item value="1">Option 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.</px-item>
+                <px-item value="1">Option 2</px-item>
+                <px-item value="1" header>Section Header:</px-item>
+                <px-item value="1">Option 3</px-item>
+                <px-submenu value="4" label_val="Option 4. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.">
+                    <px-item value="41">Sub Option 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.</px-item>
+                    <px-item value="42">Sub Option 2</px-item>
+                    <px-item value="43">Sub Option 3</px-item>
+                    <px-item value="44">Sub Option 4</px-item>
+                    <px-item value="45">Sub Option 5</px-item>
+                    <px-item value="46">Sub Option 6</px-item>
+                    <px-item value="47">Sub Option 7</px-item>
+                    <px-item value="48">Sub Option 8</px-item>
+                    <px-item value="49">Sub Option 9</px-item>
+                    <px-row>
+                        <px-column width="3" title><strong>px-row:</strong></px-column>
+                        <px-column width="2" value>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium aspernatur quam asperiores neque, excepturi voluptates quidem aliquam pariatur accusantium ex.</px-column>
+                        <px-column width="2" right>
+                            <px-title>
+                                <h2>Some Title</h2>
+                            </px-title>
+                        </px-column>
+                    </px-row>
+                    <px-input auto-validate pattern="[0-9]*" value="2000"></px-input>
+                    <px-button primary icon="px-icons:check">Primary</px-button>
+                </px-submenu>
+                <px-submenu value="5" label_val="Option 5">
+                    <px-item value="51">Sub Option 1</px-item>
+                    <px-item value="52">Sub Option 2</px-item>
+                    <px-item value="53">Sub Option 3</px-item>
+                    <px-item value="54">Sub Option 4</px-item>
+                    <px-item value="55">Sub Option 5</px-item>
+                    <px-item value="56">Sub Option 6</px-item>
+                    <px-item value="57">Sub Option 7</px-item>
+                </px-submenu>
+                <px-submenu cascading value="6" label_val="Option json data"
+                    jsondata='{{json2}}'>
+                    <px-item value="61">Sub Option 1</px-item>
+                </px-submenu>
+            </px-menu>
+
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+            <px-menu dark selectable>
+                <px-item icon="px-icons:alarm" value="1">Option 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.</px-item>
+                <px-item icon="px-icons:check" value="1">Option 2</px-item>
+                <px-item icon="px-icons:service" value="1" header>Section Header:</px-item>
+                <px-item icon="px-icons:device" value="1">Option 3</px-item>
+                <px-submenu icon="px-icons:service" value="4" label_val="Option 4">
+                    <px-item icon="px-icons:cloud" value="41">Sub Option 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.</px-item>
+                    <px-item icon="px-icons:cloud" value="42">Sub Option 2</px-item>
+                    <px-item icon="px-icons:cloud" value="43">Sub Option 3</px-item>
+                    <px-item icon="px-icons:cloud" value="44">Sub Option 4</px-item>
+                    <px-item icon="px-icons:cloud" value="45">Sub Option 5</px-item>
+                    <px-item icon="px-icons:cloud" value="46">Sub Option 6</px-item>
+                    <px-item icon="px-icons:cloud" value="47">Sub Option 7</px-item>
+                    <px-item icon="px-icons:cloud" value="48">Sub Option 8</px-item>
+                    <px-item icon="px-icons:cloud" value="49">Sub Option 9</px-item>
+                </px-submenu>
+                <px-submenu icon="px-icons:service" value="5" label_val="Option 5">
+                    <px-item icon="px-icons:alarm" value="51">Sub Option 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam iure, recusandae quae fuga nisi aspernatur in laudantium dicta earum reiciendis.</px-item>
+                    <px-item icon="px-icons:alarm" value="52">Sub Option 2</px-item>
+                    <px-item icon="px-icons:alarm" value="53">Sub Option 3</px-item>
+                    <px-item icon="px-icons:alarm" value="54">Sub Option 4</px-item>
+                    <px-item icon="px-icons:alarm" value="55">Sub Option 5</px-item>
+                    <px-item icon="px-icons:alarm" value="56">Sub Option 6</px-item>
+                    <px-item icon="px-icons:alarm" value="57">Sub Option 7</px-item>
+                </px-submenu>
+                <px-submenu icon="px-icons:service" value="6" label_val="Option json data"
+                    jsondata='{{json3}}'>
+                    <px-item icon="px-icons:alarm" value="61">Sub Option 1</px-item>
+                </px-submenu>
+            </px-menu>
+            <br/><br/>
+            <br/><br/>
+            <br/><br/>
+        </template>
+
+        <script>
+            // Start the timer after the navbar.elem is loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                // Setup properties of main on index.html
+                var main = document.querySelector("#main");
+                main.selection = "option 1";
+                main.openMenu = function(e) {
+                    var targetId = e.currentTarget.getAttribute("data-target");
+
+                    var domObj = document.querySelector("#" + targetId);
+                    if (domObj.classList.contains("hidden")){
+                        domObj.classList.remove("hidden");
+                    } else {
+                        domObj.classList.add("hidden");
+                    }
+                }
+
+                main.closeMenu = function(e) {
+                    var targetId = e.currentTarget.getAttribute("data-target");
+
+                    var domObj = document.querySelector("#" + targetId);
+                    domObj.classList.add("hidden");
+                }
+
+                main.showValues = function(e) {
+                    var objs = document.querySelectorAll("#action-menu .iron-selected");
+                    var itemValues = '';
+                    objs.forEach(function(n){
+                        if (n.nodeType === Node.ELEMENT_NODE && n.tagName.toLowerCase() === 'px-item') {
+                            itemValues += " " + n.getAttribute("value")
+                        }
+                    });
+
+                    alert("The selected values: " + itemValues)
+                }
+
+                main.action1 = function(e) {
+                    alert('This is action for option 1');
+                }
+
+                main.action2 = function(e) {
+                    alert('This is action for option 2');
+                }
+
+                main.showMenuItem = function(e) {
+                    var targetValue = e.target.getAttribute("value");
+                    alert('This is selected item action. Show item value:'+ targetValue);
+                }
+
+                document.addEventListener("pxItemAction", function(e){
+                    var action = new Function("e", "main." + e.detail.action+"(e)");
+
+                    action(e);
+                })
+
+                main.loadJSON = function(jsonUrl, callback) {
+                    var xobj = new XMLHttpRequest();
+                        xobj.overrideMimeType("application/json");
+                    xobj.open('GET', jsonUrl, true); // Replace 'my_data' with the path to your file
+                    xobj.onreadystatechange = function () {
+                          if (xobj.readyState == 4 && xobj.status == "200") {
+                            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                            callback(xobj.responseText);
+                          }
+                    };
+                    xobj.send(null);
+                }
+
+                main.json = [];
+                main.json2 = [];
+                main.json3 = [];
+
+                main.loadJSON('multi-menu.json', function(data){
+                    main.json = JSON.parse(data);
+                })
+
+                main.loadJSON('multi-menu2.json', function(data){
+                    main.json2 = JSON.parse(data);
+                })
+
+                main.loadJSON('menu.json', function(data){
+                    main.json3 = JSON.parse(data);
+                })
+
+            });
+
+        </script>
+
+    </body>
+</html>

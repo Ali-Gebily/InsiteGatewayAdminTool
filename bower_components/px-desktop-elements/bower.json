@@ -1,0 +1,64 @@
+{
+  "name": "px-desktop-elements",
+  "version": "1.0.3",
+  "description": "A Power Xpert Blue Element Pack",
+  "authors": [
+    "The Eaton UXD Team (Eric Atha, Joe Boyle)"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-desktop-elements"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http://www.eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "px-symbols": "PXBLUE/px-symbols#^1.0.0",
+    "px-symbol": "PXBLUE/px-symbol#^1.0.0",
+    "px-ppe-symbols": "PXBLUE/px-ppe-symbols#^1.0.0",
+    "px-styles": "PXBLUE/px-styles#^1.0.0",
+    "px-icons": "PXBLUE/px-icons#^1.0.0",
+    "px-icon": "PXBLUE/px-icon#^1.0.0",
+    "px-colors": "PXBLUE/px-colors#^1.0.0",
+    "px-layout": "PXBLUE/px-layout#^1.0.0",
+    "px-block-widget": "PXBLUE/px-block-widget#^1.0.0",
+    "px-desktop-actionbar": "PXBLUE/px-desktop-actionbar#^1.0.0",
+    "px-desktop-action-group": "PXBLUE/px-desktop-action-group#^1.0.0",
+    "px-desktop-button": "PXBLUE/px-desktop-button#^1.0.0",
+    "px-desktop-button-group": "PXBLUE/px-desktop-button-group#^1.0.0",
+    "px-desktop-card": "PXBLUE/px-desktop-card#^1.0.0",
+    "px-desktop-checkbox": "PXBLUE/px-desktop-checkbox#^1.0.0",
+    "px-desktop-collapse": "PXBLUE/px-desktop-collapse#^1.0.0",
+    "px-desktop-column": "PXBLUE/px-desktop-column#^1.0.0",
+    "px-desktop-content": "PXBLUE/px-desktop-content#^1.0.0",
+    "px-desktop-dropdown": "PXBLUE/px-desktop-dropdown#^1.0.0",
+    "px-desktop-input": "PXBLUE/px-desktop-input#^1.0.0",
+    "px-desktop-item": "PXBLUE/px-desktop-item#^1.0.0",
+    "px-desktop-menu": "PXBLUE/px-desktop-menu#^1.0.0",
+    "px-desktop-modal": "PXBLUE/px-desktop-modal#^1.0.0",
+    "px-desktop-navigation": "PXBLUE/px-desktop-navigation#^1.0.0",
+    "px-desktop-pocket": "PXBLUE/px-desktop-pocket#^1.0.0",
+    "px-desktop-progress": "PXBLUE/px-desktop-progress#^1.0.0",
+    "px-desktop-radio": "PXBLUE/px-desktop-radio#^1.0.0",
+    "px-desktop-row": "PXBLUE/px-desktop-row#^1.0.0",
+    "px-desktop-row-button": "PXBLUE/px-desktop-row-button#^1.0.0",
+    "px-desktop-sidebar": "PXBLUE/px-desktop-sidebar#^1.0.0",
+    "px-desktop-subtabs": "PXBLUE/px-desktop-subtabs#^1.0.0",
+    "px-desktop-tab": "PXBLUE/px-desktop-tab#^1.0.0",
+    "px-desktop-title": "PXBLUE/px-desktop-title#^1.0.0",
+    "px-desktop-toggle": "PXBLUE/px-desktop-toggle#^1.0.0",
+    "ng-polymer-elements": "PXBLUE/ng-polymer-elements#^1.0.0",
+    "font-opensans": "PXBLUE/font-opensans#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0"
+  }
+}
+
+

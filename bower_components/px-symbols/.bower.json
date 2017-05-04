@@ -1,0 +1,25 @@
+{
+  "name": "px-symbols",
+  "version": "1.1.0",
+  "description": "Symbols for Power Xpert Blue. Will contain most symbols used in our software",
+  "homepage": "http://eatonuxd.com",
+  "author": "Eric Atha <ericatha@eaton.com>",
+  "ignore": [
+    "/.*",
+    "/tests/"
+  ],
+  "main": "px-symbols.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0"
+  },
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "001cd5ff811c1d810ed5a33c49b7588727473192"
+  },
+  "_source": "http://esgit.tcc.etn.com:7990/scm/pxblue/px-symbols.git",
+  "_target": "^1.0.0",
+  "_originalSource": "PXBLUE/px-symbols"
+}

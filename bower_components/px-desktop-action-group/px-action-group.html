@@ -1,0 +1,82 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+<link href="../iron-media-query/iron-media-query.html" rel="import">
+
+<link href="../px-desktop-dropdown/px-dropdown.html" rel="import">
+
+<!--
+`px-action-group` wraps a group of `px-button`s and when a media query is met, places them in a 'Choose an Action' menu (`px-dropdown`).
+
+Example:
+
+    <px-action-group >
+        <px-button>Get Help</px-button>
+        <px-button>Export</px-button>
+    </px-action-group>
+
+@group Desktop
+@element px-action-group
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<dom-module id="px-action-group">
+    <template>
+        <style>
+            :host {
+                white-space: nowrap;
+                @apply(--layout-horizontal);
+                @apply(--layout-center);
+            }
+        </style>
+
+        <template is="dom-if" if="{{!collapse}}" restamp>
+            <content></content>
+        </template>
+
+        <template is="dom-if" if="{{collapse}}" restamp>
+            <px-dropdown dark$="[[dark]]" placeholder="[[placeholder]]" action>
+                <content></content>
+            </px-dropdown>
+        </template>
+
+        <iron-media-query
+        query="{{mq}}"
+        query-matches="{{collapse}}">
+        </iron-media-query>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: "px-action-group",
+            properties: {
+                /**
+                 *Media query that determines when the action buttons will collapse to a menu.
+                */
+                mq:{type: String, value: "(max-width: 900px)"},
+
+                /**
+                 *The text to display in the dropdown after collapsing.
+                */
+                placeholder:{type:String, value:'Choose an Action'},
+
+                /**
+                 *If set, the px-dropdown will take on the darker styling, to be used in dark-colored containers.
+                */
+                dark:{type: Boolean, value: false},
+
+                /**
+                 *If set, the action buttons will be collapsed into a px-dropdown. This value is set automatically when `mq` is satisfied.
+                */
+                collapse: {
+                    type:Boolean, 
+                    value:false,
+                    reflectToAttribute: true,
+                    notify:true
+                },
+            }
+
+        });
+    </script>
+</dom-module>

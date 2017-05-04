@@ -1,0 +1,372 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../px-styles/px-styles.html" rel="import">
+<link href="../px-icons/px-icons.html" rel="import">
+<link href="../px-colors/px-colors.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+<link href="../iron-icon/iron-icon.html" rel="import">
+
+<dom-module id="px-block-widget">
+  <style>
+
+      :host {
+        position: absolute;
+        z-index: 0;
+      }
+
+      :host .widget {
+        width: 100px;
+        max-height: 164px;
+        padding: 5px 2px;
+
+        border-radius: 4px;
+        border: 2px solid #2f2f2f;
+      
+        box-shadow: 
+        0 0 0 2px rgba(255, 255, 255, 0.85), 
+        0 2px 5px rgba(0,0,0,.5), 
+        0 0 10px rgba(0,0,0,.3), inset 0 2px 0 #404040;
+
+        cursor: pointer;
+
+        background: #333;
+        color: #fff;
+        text-shadow: 0 1px 0 #111;
+
+        transition: border .5s ease, box-shadow .5s ease, margin .5s ease;
+      }
+
+      :host .widget:hover {
+          box-shadow: 
+          0 0 0 2px rgba(255, 255, 255, 0.85), 
+          0 2px 8px rgba(0,0,0,.25), 
+          0 0 30px rgba(0,0,0,.3), inset 0 2px 0 #404040;
+      }
+
+      :host .widget .title /deep/ h1,
+      :host content[select="h1"]::content h1,
+      :host .widget .type /deep/ h2, 
+      :host content[select="h2"]::content h2 {
+          font-size: 12px;
+          display: inline-block;
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: center;
+          font-weight: bold;
+          margin: 2px 0;
+      }
+
+      :host .widget .type /deep/ h2, 
+      :host content[select="h2"]::content h2 {
+        margin-top:6px;
+      }
+
+      :host .inner {
+        background: #fff;
+        border: 2px solid #2f2f2f;
+        text-shadow: none;
+        min-height: 100px;
+        color:rgba(0,0,0,0.5);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      :host content[select="px-row"]::content px-row,
+      :host ::content px-row,
+      :host ::content .px-row-0,
+      :host px-row{
+        border-width:1px;
+      }
+
+      :host content[select="px-row"]::content px-row px-column,
+      :host ::content px-row px-column,
+      :host ::content .px-row-0 .px-column-0,
+      :host px-row px-column{
+        padding:6px!important;
+        font-size:12px;
+        flex:auto;
+      }
+
+      :host ::content px-row px-column {
+        min-width: 0;
+      }
+
+      :host ::content px-row px-column .columnWrapper{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+
+      :host content[select="px-row"]::content px-row px-column:first-of-type,
+      :host ::content px-row px-column:first-of-type,
+      :host px-row px-column:first-of-type{
+        padding-right:2px!important;
+      }
+
+      :host content[select="px-row"]::content px-row px-column:last-of-type,
+      :host ::content px-row px-column:last-of-type,
+      :host px-row px-column:last-of-type {
+        padding-left:2px!important;
+      }
+
+      :host content[select="px-row"]::content px-row px-column[title],
+      :host ::content px-row px-column[title],
+      :host px-row px-column[title]{
+        /*font-weight: 800;*/
+      }
+
+      :host content[select="px-row"]::content px-row px-column[value],
+      :host ::content px-row px-column[value],
+      :host px-row px-column[value]{
+        font-weight: 600;
+        color: rgba(0,0,0,.85);
+      }
+
+      :host ::content px-row px-column {
+        min-width: 0;
+      }
+
+      :host ::content px-row px-column .columnWrapper{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      :host .expand-collapse {
+        display: none;
+      }
+
+      :host([status]) .widget .inner {
+        box-shadow: 0 0 0 2px rgba(0,0,0,.3);
+        margin:2px;
+        border:0;
+      }
+
+      :host(.selected) .widget, :host([selected]) .widget {
+        box-shadow: 0 4px 20px #0088f2, 0 0 0 2px #0088f2, 0 0 0 3px #0088f2, inset 0 2px 0 #404040;
+      }
+
+      :host([status][selected]) .widget,
+      :host([status].selected) .widget {
+          box-shadow: 0 4px 20px #0088f2, 0 0 0 2px #0088f2, 0 0 0 3px #0088f2, inset 0 2px 0 rgba(255,255,255,.125);
+      }
+
+      :host([status]) .widget {
+        border: 2px solid rgba(0,0,0,.3);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 2px 5px rgba(0,0,0,.5), 0 0 10px rgba(0,0,0,.3), inset 0 2px 0 rgba(255,255,255,.125);
+        text-shadow: 0 1px 0 rgba(0,0,0,.25);
+      }
+
+      :host([status="comm"]) .widget {
+        background: var(--communication-orange);
+      }
+
+      :host([status="alarm"]) .widget {
+        background: var(--alarm-red);
+      }
+
+      :host([status="disarmed"]) .widget {
+        background: var(--disarmed-blue);
+      }
+
+      :host([status="disabled"]) .widget {
+        background: var(--disabled-purple);
+      }
+
+      :host([status="success"]) .widget{
+        background: var(--success-green);
+      }
+
+      :host([status="caution"]) .widget{
+        background: var(--caution-yellow);
+      }
+
+      :host([status="unknown"]) .widget{
+        background: var(--unknown-gray);
+      }
+
+      :host([status="white"]) .widget{
+        background: var(--symbol-white);
+        color:rgba(0,0,0,.5);
+        text-shadow: 0 1px 0 rgba(255,255,255,.75);
+      }
+
+      :host ::content px-column:last-child {
+          padding-right: 2%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+      }
+
+      :host ::content px-row:last-child,
+      :host ::content .px-row-0:last-child {
+        border-bottom:0px;
+      }
+
+      .type {
+        position: relative;
+        min-height: 22px;
+      }
+
+      .type .type-container, .type .alarm-container {
+        position: absolute; top:0;
+        width:100%;
+
+      }
+
+      .type .alarm-container {
+        display: none;
+      }
+
+      :host([status="alarm"]) .type .type-container, .type .alarm-container {
+        animation:fade-out-in 5s infinite;
+      }
+
+      :host([status="alarm"]) .type .alarm-container{
+        display:-webkit-flex;
+        display:-ms-flexbox;
+        display:flex;
+
+        animation:fade-in-out 5s infinite;
+      }
+
+      .alarm-container iron-icon {
+        margin:4px auto;
+        width:18px; height: 18px;
+      }
+
+      @keyframes fade-in-out {
+        0% {
+          opacity:1;
+        }
+        17% {
+          opacity:1;
+        }
+        25% {
+          opacity:0;
+        }
+        92% {
+          opacity:0;
+        }
+        100% {
+          opacity:1;
+        }
+      }
+
+      @-webkit-keyframes fade-in-out {
+        0% {
+          opacity:1;
+        }
+        25% {
+          opacity:1;
+        }
+        50% {
+          opacity:0;
+        }
+        75% {
+          opacity:0;
+        }
+        100% {
+          opacity:1;
+        }
+      }
+
+      @keyframes fade-out-in {
+        0% {
+          opacity:0;
+        }
+        17% {
+          opacity:0;
+        }
+        25% {
+          opacity:1;
+        }
+        92% {
+          opacity:1;
+        }
+        100% {
+          opacity:0;
+        }
+      }
+
+      @-webkit-keyframes fade-out-in {
+        0% {
+          opacity:0;
+        }
+        25% {
+          opacity:0;
+        }
+        50% {
+          opacity:1;
+        }
+        75% {
+          opacity:1;
+        }
+        100% {
+          opacity:0;
+        }
+      }
+
+    </style>
+  <template>
+
+
+
+<div class="widget">
+  <div class="title">
+    <content select="h1"></content>
+  </div>
+  <div class="inner">
+
+    <content select="px-row"></content>
+
+  </div>
+  <div class="type">
+    <div class="type-container">
+      <content select="h2"></content>
+    </div>
+    <div class="alarm-container">
+      <iron-icon icon="px-icons:alarm"></iron-icon>
+    </div>
+  </div>
+  <div class="expand-collapse">-</div>
+</div>
+
+
+  </template>
+  <script>
+    Polymer({
+      is: 'px-block-widget',
+      properties: {
+        collapsed: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+        left: {
+          type: String,
+          value: null,
+          notify: true,
+          observer: '_move'
+        },
+        status: {
+          type: String,
+          value: ''
+        },
+        top: {
+          type: String,
+          value: null,
+          notify: true,
+          observer: '_move'
+        }
+      },
+      _move: function() {
+        this.style.top = this.top;
+        this.style.left = this.left;
+      }
+    });
+  </script>
+</dom-module>

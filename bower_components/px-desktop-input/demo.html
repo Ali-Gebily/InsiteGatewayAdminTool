@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-input</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-input/px-input.html">
+        <link rel="import" href="../px-desktop-input/px-file-input.html">
+        <link rel="import" href="../px-desktop-input/px-textarea.html">
+        <link rel="import" href="../px-desktop-row/px-row.html">
+        <link rel="import" href="../px-desktop-column/px-column.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            body{
+                margin:0px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <px-row>
+            <px-column space="75"></px-column>
+            <px-column width="3" value>Maximum Alarms To Display:</px-column>
+            <px-column action width="2">
+                <px-input auto-validate pattern="[0-9]*" value="2000"></px-input>
+            </px-column>
+        </px-row>
+        <px-row>
+            <px-column space="75"></px-column>
+            <px-column width="3" value>Configuration File:</px-column>
+            <px-column action width="2">
+                <px-file-input flex accept=".cfg" placeholder="Choose File...">
+                    <px-button small icon="px-icons:import"></px-button>
+                </px-file-input>
+            </px-column>
+        </px-row>
+        <px-row>
+            <px-column space="75"></px-column>
+            <px-column width="3" value>Service Note:</px-column>
+            <px-column action width="2">
+                <px-textarea value="" rows="5"></px-textarea>
+            </px-column>
+        </px-row>
+        
+
+    </body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "px-desktop-submenu",
+  "version": "1.0.0",
+  "description": "A Second Level Menu",
+  "authors": [
+    "stevenfrog"
+  ],
+  "main": "px-submenu.html",
+  "private": true,
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http://www.eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+    "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.0",
+    "iron-menu-behavior": "PolymerElements/iron-menu-behavior#^1.0.0",
+    "iron-resize-behavior": "PolymerElements/iron-resizable-behavior#^1.0.0",
+    "px-styles": "PXBLUE/px-styles#^1.0.0",
+    "px-icons": "PXBLUE/px-icons#^1.0.0",
+    "px-desktop-item": "PXBLUE/px-desktop-item#^1.0.0",
+    "px-desktop-checkbox": "PXBLUE/px-desktop-checkbox#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
+
+

@@ -1,0 +1,457 @@
+<!--
+`px-row` is a container used to lay out content in `px-column`s.
+
+Example:
+
+	<px-row>
+		<px-column width="3" title><strong>Trigger (High):</strong></px-column>
+		<px-column width="2" value>250 A</px-column>
+		<px-column width="2" right>                        
+			<px-title>
+				<h1>12/07/2013</h1>
+				<h2>09:22:12 AM</h2>
+			</px-title>
+		</px-column>
+	</px-row>
+
+@group Desktop
+@element px-row
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../px-colors/px-colors.html" rel="import">
+<link href="../px-styles/px-styles.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+<link href="../iron-media-query/iron-media-query.html" rel="import">
+
+<dom-module id="px-row">
+	<template>
+		<style include="px-colors"></style>
+		
+		<style>
+			/* Base Styling */
+			:host{
+				border-bottom: 1px solid #e5e5e5;
+				min-height: 45px;
+
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				min-width: 0;
+
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				outline: none;
+				cursor: default;
+
+				transition:background 200ms ease-in-out;
+				
+				color:#333;
+			}
+			:host([settings]){
+				min-height: 68px;
+			}
+			:host([height]){
+				height: var(--height);
+			}
+			:host-context([settings]){
+				min-height: 68px;
+			}
+			:host([header]){
+	            background: #e6e6e6; /* Old browsers */
+	            background: -moz-linear-gradient(top, #e6e6e6 0%, #d0d0d0 100%); /* FF3.6+ */
+	            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6e6e6), color-stop(100%,#d0d0d0)); /* Chrome,Safari4+ */
+	            background: -webkit-linear-gradient(top, #e6e6e6 0%,#d0d0d0 100%); /* Chrome10+,Safari5.1+ */
+	            background: -o-linear-gradient(top, #e6e6e6 0%,#d0d0d0 100%); /* Opera 11.10+ */
+	            background: -ms-linear-gradient(top, #e6e6e6 0%,#d0d0d0 100%); /* IE10+ */
+	            background: linear-gradient(to bottom, #e6e6e6 0%,#d0d0d0 100%); /* W3C */
+	            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', endColorstr='#d0d0d0',GradientType=0 ); /* IE6-9 */
+	            color: #606060;
+	            min-height: 35px;
+	            height: 35px;
+	            border: 0px;
+	            text-shadow: 0 1px rgba(255,255,255,.75);
+			}
+
+			:host([header][flat]) {
+			    background: rgba(0,0,0,.125);
+	            color: #606060;
+	            text-shadow: none;
+	            min-height: 35px;
+	            height: 35px;
+	            border: 0px;
+			}
+
+			:host([noborder]){
+				border: 0;
+			}
+			:host .wrap{
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+
+				-webkit-flex: 1;
+				-ms-flex: 1;
+				flex: 1;
+				min-width: 0;
+			}
+			:host .wrap ::content px-column:first-child /deep/ .columnWrapper {
+				padding-left: 25px;
+			}
+			:host .wrap ::content px-column:last-child /deep/ .columnWrapper {
+				padding-right: 25px;
+			}
+
+		   	:host-context([dark]), :host([dark]) {
+		   		min-height: 0;
+		   		border-top: 1px solid #606060;
+				border-bottom:1px solid #111;
+				color: #f3f3f3;
+			}
+			:host([selected]), :host([placeholder]) {
+				background-color: #333;
+				color:#f3f3f3;
+			}
+			:host([placeholder]) {
+				min-height: 35px;
+			}
+			:host([indent]){
+				padding-left:40px;
+				background-color: rgba(0,0,0,.02)
+			}
+			:host([selectable]),
+			:host-context([selectable]){
+				cursor: pointer;
+			}
+			:host([selectable]):not([selected]):hover,
+			:host-context([selectable]):not([selected]):hover {
+				background-color: rgba(0,0,0,.05);
+			}
+			:host([dark][selectable]):not([selected]):hover,
+			:host-context([dark])[selectable]:not([selected]):hover {
+				/*background-color: rgba(0,0,0,.2);*/
+				background: red;
+			}
+
+
+			/* Row status */
+			:host([status="callout"]){
+				box-shadow:inset 8px 0 0 var(--callout-blue);
+			}
+
+			:host([status="alarm"]){
+				box-shadow:inset 8px 0 0 var(--alarm-red);
+			}
+
+			:host([status="disabled"]){
+				box-shadow:inset 8px 0 0 var(--disabled-purple);
+			}
+
+			:host([status="disarmed"]){
+				box-shadow:inset 8px 0 0 var(--disarmed-blue);
+			}
+
+			:host([status="comm"]){
+				box-shadow:inset 8px 0 0 var(--communication-orange);
+			}
+
+			:host([status="caution"]){
+				box-shadow:inset 8px 0 0 var(--caution-yellow);
+			}
+
+			:host([status="success"]){
+				box-shadow:inset 8px 0 0 var(--success-green);
+			}
+
+			/*dark rows with status */
+			:host([status="callout"][dark]),
+			:host-context([dark])[status="callout"] {
+				box-shadow:inset 8px 0 0 var(--callout-blue), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="alarm"][dark]),
+			:host-context([dark])[status="alarm"] {
+				box-shadow:inset 8px 0 0 var(--alarm-red), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="disabled"][dark]),
+			:host-context([dark])[status="disabled"] {
+				box-shadow:inset 8px 0 0 var(--disabled-purple), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="disarmed"][dark]),
+			:host-context([dark])[status="disarmed"] {
+				box-shadow:inset 8px 0 0 var(--disarmed-blue), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="comm"][dark]),
+			:host-context([dark])[status="comm"] {
+				box-shadow:inset 8px 0 0 var(--communication-orange), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="caution"][dark]),
+			:host-context([dark])[status="caution"] {
+				box-shadow:inset 8px 0 0 var(--caution-yellow), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+			:host([status="success"][dark]),
+			:host-context([dark])[status="success"] {
+				box-shadow:inset 8px 0 0 var(--success-green), 0 2px 0px rgba(255,255,255,.025);
+			}
+
+
+			:host([status="callout"]) .stripe-surrogate {
+				background-color: var(--callout-blue);
+			}
+
+			:host([status="alarm"]) .stripe-surrogate {
+				background-color: var(--alarm-red);
+			}
+
+			:host([status="disabled"]) .stripe-surrogate {
+				background-color: var(--disabled-purple);
+			}
+
+			:host([status="disarmed"]) .stripe-surrogate {
+				background-color: var(--disarmed-blue);
+			}
+
+			:host([status="comm"]) .stripe-surrogate {
+				background-color: var(--communication-orange);
+			}
+
+			:host([status="caution"]) .stripe-surrogate {
+				background-color: var(--caution-yellow);
+			}
+
+			:host([status="success"]) .stripe-surrogate {
+				background-color: var(--success-green);
+			}
+
+
+
+			:host([status="alarm"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="alarm"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="alarm"]:not(.active):not([selected])) ::content px-column[title][color] strong {
+				color:var(--alarm-red);
+			}
+
+			:host([status="disabled"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="disabled"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="disabled"]:not(.active):not([selected])) ::content px-column[title][color] strong  {
+				color:var(--disabled-purple);
+			}
+
+			:host([status="disarmed"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="disarmed"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="disarmed"]:not(.active):not([selected])) ::content px-column[title][color] strong  {
+				color:var(--disarmed-blue);
+			}
+
+			:host([status="comm"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="comm"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="comm"]:not(.active):not([selected])) ::content px-column[title][color] strong {
+				color:var(--communication-orange);
+			}
+
+			:host([status="callout"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="callout"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="callout"]:not(.active):not([selected])) ::content px-column[title][color] strong  {
+				color:var(--callout-blue);
+			}
+
+			:host([status="caution"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="caution"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="caution"]:not(.active):not([selected])) ::content px-column[title][color] strong {
+				color:var(--caution-yellow);
+			}
+
+			:host([status="success"]:not(.active):not([selected])) ::content px-column[color]:not([title]),
+			:host([status="success"]:not(.active):not([selected])) ::content px-column[icon],
+			:host([status="success"]:not(.active):not([selected])) ::content px-column[title][color] strong {
+				color:var(--success-green);
+			}
+
+			:host([status]) ::content px-column[title] {
+				font-weight: 700;
+			}
+
+			:host .stripe-surrogate {
+				display: none;
+				width: 8px;
+				min-height: 70px;
+			}
+
+
+			/* Stacking Styles */
+			:host([stacked][header]){
+				display: none
+			}
+			:host([stacked]) .wrap ::content px-column{
+				width:100%!important;
+				-webkit-flex-grow:1!important;
+				-ms-flex-positive:1!important;
+				flex-grow:1!important;
+				flex: 1 1 auto;
+				/*padding: 5px 0px;*/
+			}
+			:host([stacked]) .wrap ::content px-column /deep/ .columnWrapper{
+				padding: 5px 0px;
+			}
+			:host([stacked]) .wrap ::content px-column[helper],
+			:host([stacked]) .wrap ::content px-column[action],
+			:host([stacked]) .wrap ::content px-column[value],
+			:host([stacked]) .wrap ::content px-column[right],
+			:host([stacked]) .wrap ::content px-column px-title {
+				text-align: left !important;
+			}{
+				text-align: left;
+			}
+			:host([stacked]) .wrap ::content px-column[helper] /deep/ iron-icon{
+				display: inline-block!important;
+			}
+			:host([stacked]) .wrap ::content px-column[label] /deep/ .columnWrapper{
+				font-weight: 800;
+				padding-bottom:4px;
+			}
+			:host([stacked]) .wrap {
+				@apply(--layout-vertical);
+				padding: 10px 25px;
+			}
+
+			:host([adding]) {
+				background-color: #333;
+				color:#f3f3f3!important;
+
+				animation:add 1s;
+				overflow:hidden;
+			}
+
+			@keyframes add {
+				0% {
+					opacity: 0;
+				}
+				33% {
+				  opacity:0;
+				  max-height: 0;
+				}
+				100% {
+				  opacity:1;
+				  max-height: 100px
+				}
+			}
+		</style>
+
+		<!-- status surrogate is used when box-shadow cannot be used (when container has its own internal padding, like px-card). Must display:block and position the div in the parent element. -->
+		<template is="dom-if" if="{{status}}">
+			<div class="stripe-surrogate"></div>
+		</template>
+
+		<div class="wrap"><content select="px-column"></content></div>
+
+		<content></content>
+
+<!-- 		<iron-media-query
+		query="{{mq}}"
+		query-matches="{{stacked}}">
+		</iron-media-query> -->
+
+	</template>
+
+	<script>
+		Polymer({
+			is: "px-row",
+			properties:{
+				/**
+                 *Media query that determines when the row content will switch to a vertical arrangement.
+                 */
+				mq:{type: String, value: "(max-width: 800px)"},
+
+				/**
+                 *If set, the row will take on a dark, selected appearance.
+                 */
+                selected:{type: Boolean, value: false, reflectToAttribute: true, notify:true},
+
+                /**
+                 *Setting this value will give the row different colored accent stripes. Acceptable values are `callout` (blue), `alarm` (red), `disabled` (purple), `disarmed` (blue), and `comm` (orange).
+                 */
+				status:{
+					type: String,
+					value: null,
+					reflectToAttribute: true
+				},
+
+				/**
+                 *If set, the row will stack content vertically. This field is set automatically based on `mq`.
+                 */
+				stacked:{
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true
+				},
+
+				height:{
+					type: String
+				},
+
+				/**
+                 *If set, the row will have no border styling.
+                 */
+				noborder:{type: Boolean, value: false},
+
+				/**
+                 *If set, the row will take on darker styling, to be used in dark-colored containers.
+                 */
+				dark:{type: Boolean, value: false},
+
+				/**
+                 *If set, the row will have extra padding on the left to make its content appear more indented.
+                 */
+				indent:{type: Boolean, value: false},
+
+				/**
+                 *If set, the row will be used as the header for subsequent rows, typically used to give names for columns of information to follow.
+                 */
+				header:{type:Boolean, value:false},
+				flat: {type:Boolean, value:false},
+
+				/**
+                 *If set, the row will take on darker styling to indicate that it is a newly added item.
+                 */
+				placeholder:{type:Boolean, value:false},
+
+				/**
+                 *If set, the mouse cursor will change over the row to indicate that it can be clicked/selected.
+                 */
+				selectable:{type: Boolean, value:false},
+
+				/**
+                 *If set, the row will be slightly taller than the default, used for laying out settings content.
+                 */
+				settings:{type: Boolean, value: false},
+
+				/**
+                 *If set, the row will have a sliding animation when it is created. Used for newly added rows.
+                 */
+				adding:{type:Boolean, value: false}
+			},
+			ready: function(){
+				/*Sets a custom height if there is a set height property*/
+				if (this.height) {
+					this.customStyle['--height'] = this.height;
+				}
+			},
+            listeners:{
+                'tap':'_rowTap'
+            },
+            _rowTap: function (event) {
+                var me=this;
+                if (me.selectable) {
+                    me.toggleAttribute('selected');
+                }
+            }
+		});
+	</script>
+</dom-module>

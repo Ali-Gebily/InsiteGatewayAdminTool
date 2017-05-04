@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-action-group</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-actionbar/px-actionbar.html">
+        <link rel="import" href="../px-desktop-action-group/px-action-group.html">
+        <link rel="import" href="../px-desktop-button/px-button.html">
+        <link rel="import" href="../px-desktop-button-group/px-button-group.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            body{
+                margin:0;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <px-actionbar>
+            <px-action-group placeholder="Choose an Action">
+                <px-button positive icon="px-icons:favorite">Favorite</px-button>
+                <px-button negative icon="px-icons:export">Export</px-button>
+                <px-button primary icon="px-icons:acknowledge">Acknowledge</px-button>
+            </px-action-group>
+        </px-actionbar>
+
+        <br/><br/>
+
+        <px-actionbar dark>
+            <px-action-group placeholder="Choose an Action">
+                <px-button icon="px-icons:favorite">Favorite</px-button>
+                <px-button icon="px-icons:export">Export</px-button>
+                <px-button icon="px-icons:acknowledge">Acknowledge</px-button>
+            </px-action-group>
+        </px-actionbar>
+    </body>
+</html>
+
+
+
+
+

@@ -1,0 +1,404 @@
+<!--
+`px-submenu` is a simple sub-menu item.
+
+Example:
+
+    <px-menu>
+        <px-item>Option 1</px-item>
+        <px-item>Option 2</px-item>
+        <px-submenu label_val="Option 3">
+            <px-item>Sub Option 1</px-item>
+            <px-item>Sub Option 2</px-item>
+            <px-item>Sub Option 3</px-item>
+        </px-submenu>
+    </px-menu>
+
+@group Desktop
+@element px-submenu
+@demo demo.html
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-desktop-checkbox/px-checkbox.html">
+<link rel="import" href="../px-desktop-item/px-item.html">
+<link rel="import" href="../iron-behaviors/iron-control-state.html">
+<link rel="import" href="../iron-menu-behavior/iron-menu-behavior.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+<dom-module id="px-submenu">
+
+    <template>
+        <style>
+
+            :host {
+                @apply(--layout-horizontal);
+                @apply(--layout-center);
+
+                --subitem-width: 300px;
+
+                padding: 0 15px;
+                height: 40px;
+                color: #333;
+                border-bottom: 1px solid #e5e5e5;
+
+                font-size: 14px;
+
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                outline: none;
+                cursor: pointer;
+            }
+            :host([dark]), :host-context([dark]){
+                color: #f3f3f3;
+                border-top: 1px solid #606060;
+                border-bottom:1px solid #111;
+            }
+            :host > .icon, :host > px-checkbox{
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+            }
+            :host > .icon-more{
+                @apply(--layout-horizontal);
+            }
+            :host > .icon-more > iron-icon {
+                width: 14px;
+                height: 14px;
+                margin-left: 10px;
+            }
+            :host iron-icon {
+                position: static;
+            }
+            :host:hover {
+                background-color: rgba(0,0,0,.05)
+            }
+            :host([dark]):hover,
+            :host-context([dark]):hover {
+                background-color: rgba(0,0,0,.2)
+            }
+            :host(:first-child){
+                border-top: 0;
+            }
+            :host(:last-child){
+                border-bottom: 0;
+            }
+            :host > .label{
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1;
+            }
+            :host > .submenu{
+                align-self: flex-start;
+                visibility: hidden;
+                @apply(--layout-vertical);
+
+            }
+            :host:hover > .submenu{
+                visibility: visible;
+            }
+            :host > .submenu > #subMenuItems{
+                position: absolute;
+                margin-top: -1px;
+                margin-left: 15px;
+
+                background: #fff;
+
+                width: var(--subitem-width);
+                border: 1px solid #c1c1c1;
+                box-shadow: 0 5px 25px -3px rgba(0, 0, 0, 0.25);
+            }
+            :host([overlap]) > .submenu > #subMenuItems {
+                margin-left: calc(30px - var(--subitem-width));
+                margin-top: 30px;
+            }
+            :host([overlap][checkbox]) > .submenu > #subMenuItems {
+                margin-left: calc(50px - var(--subitem-width));
+            }
+            :host([left]) > .submenu > #subMenuItems, :host.left > .submenu > #subMenuItems{
+                margin-left: calc(13px - (var(--subitem-width) * 2));
+            }
+            :host([left][overlap]) > .submenu > #subMenuItems, :host([overlap]).left > .submenu > #subMenuItems {
+                margin-left: calc(-15px - var(--subitem-width));
+            }
+            :host:not([cascading]) > .submenu > #subMenuItems{
+                max-height: 288px;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            :host([dark]) > .submenu > #subMenuItems, :host-context([dark]) > .submenu > #subMenuItems{
+                background: #434343;
+                border-color: #171717;
+                max-height: 294px;
+            }
+            :host ::content px-row{
+                padding: 0 15px;
+                height: 40px;
+            }
+
+            :host ::content px-item .label, :host ::content px-row{
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1;
+            }
+
+            :host([showselection]).iron-selected, :host([showselection]) #subMenuItems px-item.iron-selected, :host([showselection]) ::content px-item.iron-selected {
+              background-color: rgba(0, 0, 0, .20);
+              color: #026fbf;
+              cursor: default;
+            }
+
+            :host([dark][showselection]).iron-selected, :host([dark][showselection]) #subMenuItems px-item.iron-selected, :host([dark][showselection]) ::content px-item.iron-selected {
+                background-color: rgba(255, 255, 255, .20);
+                color: #22Afff;
+            }
+
+        </style>
+        <template is="dom-if" if="[[checkbox]]"><px-checkbox checked="{{_checked}}" disabled></px-checkbox></template>
+        <template is="dom-if" if="[[icon]]"><iron-icon icon="[[icon]]" class="icon"></iron-icon></template>
+        <span class="label">[[label_val]]</span>
+        <div class="icon-more">
+            <iron-icon icon="px-icons:more"></iron-icon>
+        </div>
+        <div class="submenu">
+            <div id="subMenuItems" on-iron-select="_onIronSelect">
+                <content id="content"></content>
+                <template is="dom-repeat" items="[[jsondata]]" >
+                    <template is="dom-if" if="[[!item.submenu]]">
+                    <px-item checkbox$="[[checkbox]]" icon$="[[item.icon]]" value$="[[item.value]]" action$="[[item.action]]">[[item.label]]</px-item>
+                </template>
+                <template is="dom-if" if="[[item.submenu]]">
+                    <px-submenu checkbox$="[[checkbox]]" overlap$="[[overlap]]" value$="[[item.value]]" label_val$="[[item.label]]" jsondata$="[[item.submenu]]" left$="[[left]]" cascading$="[[cascading]]"></px-submenu>
+                </template>
+                </template>
+            </div>
+        </div>
+
+
+    </template>
+</dom-module>
+
+<script>
+
+(function() {
+
+    Polymer({
+
+        is: 'px-submenu',
+
+        behaviors: [
+            Polymer.IronControlState,
+            Polymer.IronMenuBehavior,
+            Polymer.IronResizableBehavior
+        ],
+
+        listeners: {
+            'iron-select': '_onIronSelect',
+            'iron-deselect': '_onIronDeselect',
+            'iron-resize': '_onIronResize'
+        },
+
+        properties:{
+            /**
+             *If set, the menu item label will show.
+             */
+            label_val:{type: String, value: ''},
+            /**
+             *If set, the menu item text will be proceeded by the checkbox.
+             */
+            checkbox:{type:Boolean, value:false},
+            /**
+             *If set, the menu item text will be proceeded by the specified icon.
+             */
+            icon:{type: String, value: null},
+            /**
+             *If set, the menu item can be multi selected.
+             */
+            multi: {type:Boolean, value: false},
+            /**
+             *If set, the menu item will be shown different color when selected.
+             */
+            showselection: {type:Boolean, value: false},
+            /**
+             *If set, the item will take on darker styling, to be used in dark-colored containers.
+             */
+            dark: {type:Boolean, value: false},
+            /**
+             *If set, the sub menu items will be append by json data.
+             */
+            jsondata: {type: Array, value: function(){ return []; }},
+            /**
+             * The value which store the sub-item value for px-dropdown.
+             */
+            value:{type: String, value: null, notify: true},
+            /**
+             * The label which store the sub-item label for px-dropdown.
+             */
+            label:{type: String, value: ''},
+            /**
+             * The flag whether current menu is cascading menu.
+             * It means it will contains sub menus.
+             * So its style will not show scroll bar.
+             */
+            cascading: {type:Boolean, value: false},
+            /**
+             * If set, the sub menu items will show at left of main menu.
+             */
+            left: {type:Boolean, value: false},
+            /**
+             * If set, the sub menu items will show on overlap of current main menu.
+             */
+            overlap: {type:Boolean, value: false}
+        },
+
+        get __parent() {
+            return Polymer.dom(this).parentNode;
+        },
+
+        ready: function(){
+            this._childrenItems = [];
+
+            if (this.__parent.multi && !this.multi) {
+                this.setAttribute('multi', true)
+            }
+            if (this.__parent.checkbox && !this.checkbox) {
+                this.setAttribute('checkbox', true)
+            }
+            if (this.__parent.left && !this.left) {
+                this.setAttribute('left', true)
+            }
+            if (this.__parent.overlap && !this.overlap) {
+                this.setAttribute('overlap', true)
+            }
+
+
+            var hostClassScope = this.tagName.toLowerCase();
+            var that = this;
+            Polymer.dom(this.$.subMenuItems).observeNodes(function(info) {
+                info.addedNodes.forEach(function(n) {
+                    if (n.nodeType === Node.ELEMENT_NODE) {
+                        // Add item nodes for future use
+                        that._childrenItems.push(n);
+                        // Add the class scoping
+                        n.classList.add(hostClassScope);
+
+                        if (!self.action && n.getAttribute("value") === null) {
+                            n.setAttribute("value", n.textContent.trim());
+                        }
+                    }
+                });
+            });
+        },
+
+
+        attached: function() {
+            this.listen(this.__parent, 'iron-activate', '_onParentIronActivate');
+
+            this._onIronResize();
+        },
+
+        dettached: function() {
+          this.unlisten(this.__parent, 'iron-activate', '_onParentIronActivate');
+        },
+
+
+        /**
+         * A handler that is called when parent `iron-activate` is fired.
+         *
+         * @param {CustomEvent} event An `iron-activate` event.
+         */
+        _onParentIronActivate: function(event) {
+            if(!this.multi) {
+                var parent = this.__parent;
+                this._deselectSubItems();
+                if (parent.close) {
+                    parent.close();
+                }
+            }
+        },
+
+        /**
+          * When an `iron-select` event is received, the dropdown should
+          * automatically close on the assumption that a value has been chosen.
+          *
+          * @param {CustomEvent} event A CustomEvent instance with type
+          */
+        _onIronSelect: function(event) {
+            if (!this.multi) {
+                var item = event.detail.item;
+                var newValue = item.getAttribute("value");
+                this.setAttribute('value', newValue);
+                this.setAttribute('label', item.getAttribute("label") || item.textContent.trim());
+                Polymer.dom(this).classList.add('iron-selected');
+            } else {
+                Polymer.dom(this).classList.add('iron-selected');
+            }
+
+            this._checked = true;
+        },
+
+        /**
+          * When an `iron-deselect` event is received, make sub menu have correct show.
+          *
+          * @param {CustomEvent} event A CustomEvent instance with type
+          */
+        _onIronDeselect: function(event) {
+            var selected = 0;
+            this._childrenItems.forEach(function(n){
+                if (n.nodeType === Node.ELEMENT_NODE && n.classList.contains("iron-selected")) {
+                    selected += 1;
+                }
+            });
+            if (selected === 0) {
+                Polymer.dom(this).classList.remove("iron-selected");
+                this._checked = false;
+            } else {
+                Polymer.dom(this).classList.add("iron-selected");
+                this._checked = true;
+            }
+        },
+
+        /**
+          * When an `iron-resize` event is received, make sub menu items show at right or left.
+          *
+          * @param {CustomEvent} event A CustomEvent instance with type
+          */
+        _onIronResize: function() {
+            // Set sub-menu item width same as menu
+            Polymer.dom(this).classList.remove("left");
+
+            this._width =  this.__parent.offsetWidth - 2;
+            var offsets = this.$.subMenuItems.getBoundingClientRect();
+            if (offsets.left + this._width + 2 - window.innerWidth > 0) {
+                Polymer.dom(this).classList.add("left");
+            }
+
+            this.customStyle['--subitem-width'] = this._width + 'px';
+            this.updateStyles();
+        },
+
+        /**
+          * Deselect sub-items.
+          */
+        _deselectSubItems: function(){
+            this._childrenItems.forEach(function(n){
+                if (n.nodeType === Node.ELEMENT_NODE) {
+                    n.removeAttribute('aria-selected');
+                    n.classList.remove("iron-selected");
+                }
+            });
+        }
+
+    });
+
+})();
+
+</script>

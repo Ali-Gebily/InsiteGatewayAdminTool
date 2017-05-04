@@ -1,0 +1,422 @@
+<!doctype html>
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html>
+<head>
+
+  <title>px-symbols demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+  <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+  <!-- load default iconset -->
+  <link rel="import" href="../px-symbol/px-symbol.html">
+  <link rel="import" href="../px-styles/px-styles.html">
+  <link rel="import" href="px-symbols.html">
+
+
+  <style is="custom-style">
+
+    * {
+      font-family: Open Sans;
+    }
+
+    h2 {
+      text-transform: capitalize;
+    }
+
+    px-symbol {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      cursor:pointer;
+    }
+
+    px-symbol:hover {
+    }
+
+    
+    .set {
+      margin: auto;
+      /*padding: 1em 0;*/
+      border-bottom: 1px solid silver;
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+
+      background: rgba(0,0,0,.025);
+
+      border-radius: 12px;
+    }
+
+    .container {
+      min-width: 10em;
+      padding: 1em 0.5em;
+      text-align: center;
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+      @apply(--layout-flex-1);
+
+            flex-grow:1;
+ 
+      /*background-color: #fff;*/
+      border-radius: 6px;
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .container > div {
+      margin-top: 20px;
+      color: rgba(0,0,0,.9);
+      font-size: 12px;
+    }
+
+    .status-shortcuts a {
+      margin:0 2px;
+      padding:5px 5px;
+      background-color: #007bc1;
+      color:white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size:12px;
+    }
+
+    button {
+      min-width: 150px;
+      margin:2px;
+    }
+
+    .header {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+    
+    .flex {
+      flex:1;
+    }
+
+    .button {
+      padding:10px 20px;
+      min-width:80px;
+      background-color: transparent;
+      border:0;
+      border-radius: 10px;
+      color:rgba(0,0,0,.85);
+      cursor: pointer;
+    }
+
+    .button:focus {
+      outline: none;
+    }
+
+    .button.pressed,
+    .button:active {
+      background-color:#007bc1;
+      color:white;
+    }
+
+    .sizes {
+      padding:10px;
+    }
+
+    select.select {
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 4px;
+        padding: 2px 5px;
+    }
+
+
+  </style>
+
+</head>
+<body>
+
+  <template is="dom-bind" id="icon-page">
+
+   <iron-meta type="iconset" list="{{iconsets}}"></iron-meta>
+
+    <template is="dom-repeat" items="{{iconsets}}">
+
+
+      <div class="header">
+        <h2>{{item.name}}</h2>
+
+        <span class="flex" flex></span>
+
+        <div class="sizes">
+          <div>
+            <button value="small" class="button" on-tap="changeSize">Small</button>
+            <button value="medium" class="button" on-tap="changeSize">Medium</button>
+            <button value="normal" class="button pressed" on-tap="changeSize">Normal</button>
+            <button value="large" class="button" on-tap="changeSize">Large</button>
+            <button value="extra-large" class="button" on-tap="changeSize">Extra Large</button>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <h3 id="normal">
+          <select class="select" value="{{status::change}}">
+            <option selected value="normal">Normal</option>
+            <option value="closed">Closed</option>
+            <option value="tripped">Tripped</option>
+            <option value="open">Open</option>
+            <option value="barton">Barton</option>
+            <option value="orange">Orange</option>
+            <option value="white">White</option>
+            <option value="on">On</option>
+            <option value="off">Off</option>
+          </select> 
+          Status Symbols
+      </h3>
+      <div class="set">
+
+        <template is="dom-repeat" items="{{getIconNames(item)}}">
+
+          <span class="container">
+            <px-symbol size="{{size}}" on-tap="selectSymbol" status="{{status}}" symbol="{{item}}"></px-symbol>
+            <div>{{item}}</div>
+          </span>
+
+        </template>
+
+      </div>
+
+
+      <h3 id="custom">Custom Symbols</h3>
+      <div class="set">
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="normal" symbol="px-symbols:circle" text="{{circleText}}"></px-symbol>
+          <div>Circle with custom text</div>
+          <input type="text" maxlength="4" value="{{circleText::input}}" />
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="red" symbol="px-symbols:circle" icon="px-icons:alarm"></px-symbol>
+          <div>Circle with custom icon and status</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="normal" symbol="px-symbols:rectangle" text="{{rectText}}"></px-symbol>
+          <div>Rectangle with custom text</div>
+          <input type="text" maxlength="8" value="{{rectText::input}}" />
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="normal" symbol="px-symbols:pump" text="D"></px-symbol>
+          <div>Pump with custom text</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="blue" symbol="px-symbols:pump" icon="px-icons:snowflake"></px-symbol>
+          <div>Pump with custom icon and status (for color)</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="orange" symbol="px-symbols:rectangle" text="Fire"></px-symbol>
+          <div>Rectangle with custom text and status (for color)</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="white" symbol="px-symbols:circle" text="MM"></px-symbol>
+          <div>Circle with custom text and status (for color)</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="blue" symbol="px-symbols:circle" text="TTS"></px-symbol>
+          <div>Circle with custom text and status (for color)</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" color="#fc3999" symbol="px-symbols:circle" text="PNK"></px-symbol>
+          <div>Circle with custom text and custom color</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="tripped" symbol="px-symbols:led"></px-symbol>
+          <div>LED with tripped status</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" color="purple" symbol="px-symbols:led"></px-symbol>
+          <div>LED with custom color</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" animated symbol="px-symbols:led"></px-symbol>
+          <div>Animated LED</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="on" symbol="px-symbols:buttons"></px-symbol>
+          <div>Buttons with on status</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="{{button2}}" symbol="px-symbols:buttons"></px-symbol>
+          <div>Buttons with off status</div>
+          <button value="off" on-tap="buttonChange">Off</button>
+          <button value="on" on-tap="buttonChange">On</button>
+          <button value="normal" on-tap="buttonChange">Normal</button>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="on" symbol="px-symbols:toggle"></px-symbol>
+          <div>Toggle switch with on status</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="{{toggle2}}" symbol="px-symbols:toggle"></px-symbol>
+          <div>Toggle switch with {{toggle2}} status</div>
+          <button value="off" on-tap="toggleChange">Off</button>
+          <button value="on" on-tap="toggleChange">On</button>
+          <button value="?" on-tap="toggleChange">Unknown/Normal</button>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" ppe="{{ppeLevel}}" symbol="px-symbols:ppe"></px-symbol>
+          <div>PPE indicator with PPE Level of {{ppeLevel}}</div>
+          <input min="0" max="5" value="{{ppeLevel::input}}" type="number" />
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" fill="{{batteryFill}}" symbol="px-symbols:battery"></px-symbol>
+          <div>Battery with custom fill of {{batteryFill}}</div>
+          <input min="0" max="100" value="{{batteryFill::input}}" type="number" />
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" fill="{{sensorFill}}" symbol="px-symbols:sensor"></px-symbol>
+          <div>Sensor with custom fill of {{sensorFill}}</div>
+          <input min="0" max="100" value="{{sensorFill::input}}" type="number" />
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" animated symbol="px-symbols:wind"></px-symbol>
+          <div>Animated wind energy symbol</div>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="{{lvBreakerStatus}}" symbol="px-symbols:low-voltage-breaker"></px-symbol>
+          <div>Breaker with {{lvBreakerStatus}} status</div>
+          <button value="closed" on-tap="breakerChange">Closed</button>
+          <button value="tripped" on-tap="breakerChange">Tripped</button>
+          <button value="open" on-tap="breakerChange">Open</button>
+          <button value="unknown" on-tap="breakerChange">Unknown</button>
+          <button value="normal" on-tap="breakerChange">Normal</button>
+        </span>
+
+        <span class="container">
+          <px-symbol size="{{size}}" on-tap="selectSymbol" status="{{bulbStatus}}" symbol="px-symbols:light-bulb"></px-symbol>
+          <div>Light-bulb with {{bulbStatus}} status</div>
+          <button value="off" on-tap="bulbChange">Off</button>
+          <button value="on" on-tap="bulbChange">On</button>
+        </span>
+      </div>
+
+
+    </template>
+
+  </template>
+
+  <script>
+
+    document.querySelector('[is=dom-bind]').getIconNames = function(iconset) {
+      return getIconNames(iconset);
+    };
+
+    var iconpage = document.querySelector("#icon-page");
+    iconpage.selectSymbol = function(e) {
+      var symbol = e.target;
+      symbol.classList.toggle('selected');
+    }
+
+    getIconNames= function(iconset) {
+      var _icons = _createIconMap(iconset);
+      return Object.keys(_icons).map(function(n) {
+        return iconset.name + ':' + n;
+      }, this);
+    }
+
+    iconpage.size = "normal";
+
+    iconpage.changeSize = function(e) {
+      var newVal = e.target.getAttribute('value');
+      iconpage.size = newVal;
+
+      var buttons = document.querySelectorAll('button.button');
+      
+      buttons.forEach(function(button){
+        button.classList.remove('pressed');
+        console.log(button);
+      });
+
+      e.target.classList.add('pressed');
+    }
+
+    iconpage.status = "normal";
+
+    iconpage.changeStatus = function(e) {
+      var newVal = e.target.getAttribute('value');
+      iconpage.status = newVal;
+    }
+
+    iconpage.circleText = "B";
+    iconpage.rectText = "Test";
+
+    iconpage.sensorFill = 72;
+    iconpage.batteryFill = 53;
+    iconpage.ppeLevel = 4;
+
+    iconpage.button2 = "off";
+    iconpage.toggle2 = "off"
+
+    iconpage.lvBreakerStatus = "closed"
+
+    iconpage.bulbStatus = "off"
+
+    iconpage.toggleChange = function(e){
+      var newVal = e.target.getAttribute('value');
+      iconpage.toggle2 = newVal;
+    }
+
+    iconpage.buttonChange = function(e){
+      var newVal = e.target.getAttribute('value');
+      iconpage.button2 = newVal;
+    }
+
+    iconpage.breakerChange = function(e){
+      var newVal = e.target.getAttribute('value');
+      iconpage.lvBreakerStatus = newVal;
+    }
+
+    iconpage.bulbChange = function(e){
+      var newVal = e.target.getAttribute('value');
+      iconpage.bulbStatus = newVal;
+    }
+
+
+    _createIconMap= function(iconset) {
+      // Objects chained to Object.prototype (`{}`) have members. Specifically,
+      // on FF there is a `watch` method that confuses the icon map, so we
+      // need to use a null-based object here.
+      var icons = Object.create(null);
+      Polymer.dom(iconset).querySelectorAll('[id].symbol')
+        .forEach(function(icon) {
+          icons[icon.id] = icon;
+        });
+      return icons;
+    }
+
+  </script>
+
+</body>
+</html>

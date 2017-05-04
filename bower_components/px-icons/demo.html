@@ -1,0 +1,202 @@
+<!doctype html>
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html>
+<head>
+
+  <title>px-icons demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+  <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+  <!-- load default iconset -->
+  <link rel="import" href="../iron-icon/iron-icon.html">
+  <link rel="import" href="../px-styles/px-styles.html">
+  <link rel="import" href="px-icons.html">
+
+  <!-- load the rest -->
+  <!-- <link rel="import" href="../px-icons/px-icons.html"> -->
+
+  <style is="custom-style">
+
+    * {
+      font-family: Open Sans;
+    }
+
+    h2 {
+      margin-left:15px;
+    }
+
+    .sizes {
+      padding:10px;
+    }
+
+    iron-icon {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      fill:rgba(0,0,0,.65);
+    }
+
+    .tiny iron-icon {
+      width:16px;
+      height: 16px;
+    }
+
+    .small iron-icon {
+      width:24px;
+      height: 24px;
+    }
+
+    .large iron-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .extra-large iron-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+
+    iron-icon:hover {
+      fill:rgba(0,0,0,.75);
+    }
+
+    .header {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+
+    .set {
+      margin: auto;
+      /*padding: 1em 0;*/
+      border-bottom: 1px solid silver;
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+
+      background: rgba(0,0,0,.025);
+
+      border-radius: 12px;
+    }
+
+    .container {
+      min-width: 10em;
+      text-align: center;
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+      @apply(--layout-flex-1);
+
+      flex-grow:1;
+ 
+      background-color: #fff;
+      border-radius: 6px;
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .tiny .container {
+      min-width: 1em;
+    }
+
+    .container > div {
+      margin-top: 20px;
+      color: rgba(0,0,0,.9);
+      font-size: 12px;
+    }
+
+    .flex {
+      flex:1;
+    }
+
+    .button {
+      padding:10px 20px;
+      background-color: transparent;
+      border:0;
+      border-radius: 10px;
+      color:rgba(0,0,0,.85);
+      cursor: pointer;
+    }
+
+    .button:focus {
+      outline: none;
+    }
+
+    .button.pressed {
+      background-color:#007bc1;
+      color:white;
+    }
+
+  </style>
+
+</head>
+<body class="small">
+
+  <template is="dom-bind">
+
+   <iron-meta type="iconset" list="{{iconsets}}"></iron-meta>
+
+    <template is="dom-repeat" items="{{iconsets}}">
+
+      <div class="header">
+        <h2>{{item.name}}</h2>
+
+        <span class="flex" flex></span>
+
+        <div class="sizes">
+          <div>
+            <button class="button" onclick="changeSize('tiny')">Tiny</button>
+            <button class="button pressed" onclick="changeSize('small')">Small</button>
+            <button class="button" onclick="changeSize('large')">Large</button>
+            <button class="button" onclick="changeSize('extra-large')">Extra Large</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="set">
+
+        <template is="dom-repeat" items="{{getIconNames(item)}}">
+
+          <span class="container">
+            <iron-icon icon="{{item}}"></iron-icon>
+            <div>{{item}}</div>
+          </span>
+
+        </template>
+
+      </div>
+
+    </template>
+
+  </template>
+
+  <script>
+
+    document.querySelector('[is=dom-bind]').getIconNames = function(iconset) {
+      return iconset.getIconNames();
+    };
+
+    function changeSize(size){
+      var e = event.target;
+      var body = document.querySelector('body');
+      var activeButton = document.querySelector('.button.pressed');
+
+      activeButton.classList.remove('pressed');
+
+      e.classList.add('pressed');
+
+      body.classList.remove('tiny','small','large','extra-large');
+      body.classList.add(size);
+    }
+
+  </script>
+
+</body>
+</html>

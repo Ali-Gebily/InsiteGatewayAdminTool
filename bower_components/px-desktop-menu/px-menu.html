@@ -1,0 +1,173 @@
+<!--
+`px-menu` is a container that holds a list of items (typically `px-item` or `px-row` depending on the complexity of the list).
+
+Example:
+
+    <px-menu selectable class="dropdown-content">
+        <px-item>Apple</px-item>
+        <px-item>Blue Raspberry</px-item>
+        <px-item>Cherry</px-item>
+    </px-menu>
+
+@group Desktop
+@element px-menu
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+<link rel="import" href="../iron-menu-behavior/iron-menu-behavior.html">
+<link href="../px-styles/px-scrollbars.html" rel="import">
+
+<dom-module id="px-menu">
+    <template>
+        <style include="px-scrollbars"></style>
+        <style>
+            :host {
+                background: #fff;
+                @apply(--layout-vertical);
+                border: 1px solid #c1c1c1;
+                max-height: 400px;
+                overflow-y: auto;
+                box-shadow: 0 5px 25px -3px rgba(0, 0, 0, 0.25);
+            }
+            :host([dark]), :host-context([dark]){
+                background: #434343;
+                border-color: #171717;
+            }
+            :host ::content px-row, :host-context([dark]) ::content px-row{
+                min-height: 40px;
+            }
+            :host ::content px-row:last-child{
+                border-bottom: 0;
+            }
+            :host ::content px-row px-column .px-column.columnWrapper{
+                padding: 0 10px;
+            }
+            :host ::content px-row .px-row.wrap ::content px-column:first-child /deep/ .columnWrapper {
+                padding-left: 15px;
+            }
+            :host ::content px-row .px-row.wrap ::content px-column:last-child /deep/ .columnWrapper {
+                padding-right: 15px;
+            }
+            :host ::content px-row iron-icon{
+                height: 18px !important;
+                width: 18px !important;
+            }
+            :host ::content px-row px-column[icon] .columnWrapper.px-column{
+                height: 18px;
+                width: 18px;
+            }
+            :host ::content px-row{
+                cursor: pointer;
+            }
+            :host ::content px-row:hover{
+                background-color: rgba(0,0,0,.05);
+            }
+            :host([dark]) ::content px-row:not([selected]):hover, :host-context([dark]) ::content px-row:not([selected]):hover{
+                background-color: rgba(0,0,0,.2);
+            }
+
+
+            /* Buttons as content */
+
+            :host ::content px-button {
+                width: 100%;
+                height: 40px;
+            }
+            :host ::content px-button,
+            :host ::content px-button[primary],
+            :host ::content px-button[negative],
+            :host ::content px-button[positive],
+            :host ::content px-button:focus,
+            :host ::content px-button:active  {
+                background:transparent;
+                border-width:0px 0px 1px 0px;
+                color:#606060;
+                border-color: #c1c1c1!important;
+                box-shadow:none!important;
+            }
+            :host ::content px-button:hover,
+            :host ::content px-button[primary]:hover,
+            :host ::content px-button[negative]:hover,
+            :host ::content px-button[positive]:hover,
+            :host ::content px-button:focus:hover,
+            :host ::content px-button:active:hover  {
+                background:transparent;
+                color:#0e6eb8;
+            }
+            :host ::content px-button:last-of-type{
+                border-bottom-width:0;
+            }
+
+            :host ::content px-button > #focusWrapper{
+                border-color: transparent!important;
+                padding: 0 10px !important;
+            }
+
+            :host ::content px-button[dark],
+            :host-context([dark]) ::content px-button,
+            :host ::content px-button[dark]:focus,
+            :host-context([dark]) ::content px-button:focus,
+            :host ::content px-button[dark]:active,
+            :host-context([dark]) ::content px-button:active {
+                background:transparent!important;
+                border-color: #161616!important;
+                color: #f3f3f3!important;
+                box-shadow:none!important;
+            }
+
+            :host ::content px-button ::content #button-content,
+            :host ::content px-button ::content #button-content.px-button{
+                @apply(--layout-horizontal);
+                @apply(--layout-start-justified);
+            }
+        </style>
+
+        <div class="selectable-content">
+            <content></content>
+            <template is="dom-repeat" items="[[jsondata]]" >
+                <template is="dom-if" if="[[!item.submenu]]">
+                    <px-item checkbox$="[[checkbox]]" icon$="[[item.icon]]" value$="[[item.value]]" action$="[[item.action]]">[[item.label]]</px-item>
+                </template>
+                <template is="dom-if" if="[[item.submenu]]">
+                    <px-submenu checkbox$="[[checkbox]]" overlap$="[[overlap]]" value$="[[item.value]]" label_val$="[[item.label]]" jsondata$="[[item.submenu]]" cascading></px-submenu>
+                </template>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'px-menu',
+
+            behaviors: [
+                Polymer.IronMenuBehavior
+            ],
+
+            properties:{
+                /**
+                 *If set, the menu will take on darker styling, to be used in dark-colored containers.
+                */
+                dark:{type: Boolean, value: false},
+                /**
+                 *If set, the menu item will be proceeded by the checkbox.
+                 */
+                checkbox:{type:Boolean, value:false},
+                /**
+                 * If set, the sub menu items will show on overlap of current main menu.
+                 */
+                overlap: {type:Boolean, value: false},
+                /**
+                 *If set, the menu items will be append by json data.
+                 */
+                jsondata: {type: Array, value: function(){ return []; }},
+            }
+
+        });
+    </script>
+</dom-module>
+
+

@@ -1,0 +1,328 @@
+<!--
+`px-tab` is used to navigate to the main sections of the interface. They should be contained in a `px-navigation` container.
+
+Example:
+
+	<px-navigation>
+		<px-tab icon="px-icons:favorite">Favorites</px-tab>
+		<px-tab icon="px-icons:alarm" active>Alarms</px-tab>
+		<px-tab icon="px-icons:oneline">One-lines</px-tab>
+		<px-tab icon="px-icons:energy">Energy</px-tab>
+		<px-tab icon="px-icons:capacity">Capacity</px-tab>
+	</px-navigation>
+
+@group Desktop
+@element px-tab
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+<link href="../iron-icon/iron-icon.html" rel="import">
+
+<dom-module id="px-tab">
+  	<template>
+		<style>
+			/* Main Styling */
+			:host {
+				/*display: inline-block;
+				position: relative;
+				box-sizing: border-box;*/
+
+				max-width:180px;
+				/*width:100%;*/
+				-webkit-flex: 1;
+				-ms-flex: 1;
+				flex: 1;
+				min-width:0;
+				min-height: 70px;
+				height: 70px;
+
+				background: transparent;
+				/*text-align: left;*/
+				font: inherit;
+
+				font-family: "Open Sans", sans-serif;
+				font-size: 16px;
+				font-weight: 600;
+
+				outline: none;
+				border-radius: 0px;
+
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+
+				cursor: pointer;
+				z-index: 0;
+
+				color:rgb(241,241,241);
+
+				transition:all 500ms ease-in-out;
+			}
+			:host(:hover) {
+				background: rgba(0,0,0,0.125);
+			}
+
+
+			/* Alternate Styling */
+			:host-context([dark]), :host([dark]) {
+				color: #F1F1F1;
+			}
+			:host-context([extra]), :host([extra]){
+				width: auto;
+				-webkit-flex: none;
+				-ms-flex: none;
+				flex: none;
+				max-width: none;
+				min-height: 32px;
+				height: 32px;
+
+				padding: 0 10px;
+				font-size: 12px;
+				font-weight: 400;
+
+				border-left: 1px solid rgba(255,255,255,.35);
+				border-right: 1px solid rgba(0,0,0,.95);
+			}
+			:host-context([dark]):hover, :host([dark]:hover) {
+				background: rgba(0,0,0,0.35);
+			}
+
+			:host-context([extra]):hover, :host([extra]:hover) {
+				background: #444444;
+			}
+			:host-context([extra])[app]:hover, :host([extra][app]:hover) {
+				background: #0687c2;
+			}
+			:host([menu]){
+				z-index: 100;
+			}
+
+
+			/* Active Tab Styling */
+			:host(.active), :host([active]) {
+				background-color:#fff;
+				color:#0e6eb8;
+				box-shadow: 2px 0px 0px rgba(0,0,0,0.125), -2px 0px 0px rgba(0,0,0,0.125);
+			}
+			:host-context([dark]).active, :host-context([dark])[active],
+			:host([dark].active), :host([dark][active]) {
+				background-color:#fff;
+				color:#1f1f1f;
+				box-shadow: 2px 0px 0px rgba(0,0,0,0.125), -2px 0px 0px rgba(0,0,0,0.125);
+			}
+
+			:host-context([extra]).active, :host-context([extra])[active],
+			:host([extra].active), :host([extra][active]) {
+				background-color:#444444;
+				color:rgb(241,241,241);
+				box-shadow: 2px 0px 0px rgba(0,0,0,0.125), -2px 0px 0px rgba(0,0,0,0.125);
+			}
+
+			:host-context([extra])[app].active, :host-context([extra])[app][active],
+			:host([extra][app].active), :host([extra][app][active]) {
+				background-color:#0687c2;
+				color:rgb(241,241,241);
+				box-shadow: 2px 0px 0px rgba(0,0,0,0.125), -2px 0px 0px rgba(0,0,0,0.125);
+			}
+
+
+			/* Alarm Styling */
+			:host(.alarm), :host([alarm]) {
+				background-color:rgb(243,51,51); 
+				box-shadow: inset -2px 0px 0px rgba(0,0,0,0.125), inset 2px 0px 0px rgba(0,0,0,0.125);
+			}
+
+			:host(.alarm:hover),:host([alarm]:hover){
+				background-color: rgba(243,51,51,.85);
+			}
+
+			:host([alarm].active), :host(.alarm.active), :host([alarm][active]), :host([active].alarm)  {
+				background-color:#fff;
+				color:rgb(243,51,51);
+				box-shadow: 2px 0px 0px rgba(0,0,0,0.125), -2px 0px 0px rgba(0,0,0,0.125);
+			}
+
+
+			/* Internals Styling */
+			:host iron-icon {
+				margin-right:10px;
+				width: 22px!important;
+				height: 22px!important;
+
+				@apply(--layout-relative);
+			}
+			:host-context([extra]) iron-icon, :host([extra]) iron-icon{
+				margin-right: 5px;
+				width: 18px!important;
+				height: 18px!important;
+			}
+			:host #label, :host .sub{
+				max-width: 130px;
+				white-space:nowrap;
+				text-overflow:ellipsis;
+				overflow: hidden;
+				transition:opacity 200ms ease-in-out;
+			}
+			:host([menu]){
+				padding-right: 3px;
+			}
+			:host([menu]) #label{
+				overflow: visible;
+			}
+			:host([menu]) .drop ::content px-dropdown iron-dropdown{
+				    top: calc(100% + 6px) !important;
+				    left: -10px !important;
+			}
+			:host([menu]) .drop ::content px-dropdown px-title h1{
+				    font-size: 12px;
+				    font-weight: 400;
+			}
+
+			:host-context([extra]) #label,:host-context([extra]) .sub, 
+			:host([extra]) #label,:host([extra]) .sub{
+				max-width: none;
+			}
+			:host span.sub {
+				font-size: 12px;
+				float:left;
+				padding-top: 2px;
+			}
+			:host .button-content {
+				height: 100%;
+				width: 100%;
+				padding: 0px;
+
+				@apply(--layout-relative);
+				@apply(--layout-horizontal);
+	      		@apply(--layout-center-center);
+			}
+
+			:host .text{
+				@apply(--layout-vertical);
+			}
+
+			/* Collapsed Styling */
+			:host([collapsetotext]) .button-content .text{
+				opacity: 1!important;
+				text-align: center;
+				width:76px;
+				white-space: nowrap;
+				text-overflow:ellipsis;
+			}
+
+			:host([collapsetotext]) .button-content /deep/ iron-icon{
+				transtion:all 500ms ease-in-out!important;
+				opacity: 1;
+			}
+
+			:host([collapsetotext]) .button-content /deep/ iron-icon{
+				opacity: 0;
+				width:0!important;
+				margin-right:0;
+				margin-left:0!important;
+				padding:0;
+			}
+
+			:host([disabled]) {
+	            cursor: auto;
+	            pointer-events: none;
+	        }
+
+	        :host([disabled]) .button-content {
+	            opacity: .35;
+	        }
+
+
+		</style>
+
+		<div class="button-content">
+			<template is="dom-if" if="{{icon}}">
+				<iron-icon id="icon" icon="{{icon}}"></iron-icon>
+			</template>
+
+		  	<content select="svg"></content>
+
+		  	<template is="dom-if" if="{{menu}}">
+		  		<div class="drop"><content select="px-dropdown"></content></div>
+		  	</template>
+
+		  	<template is="dom-if" if="{{!menu}}">
+			  	<div class="text">
+					<span id="label"><content></content></span>
+					<template is="dom-if" if="{{subtext}}">
+				  		<span class="sub">{{subtext}}</span>
+			    	</template>
+			  	</div>
+			</template>
+		</div>
+  	</template>
+
+  	<script>
+		Polymer({
+
+			is: "px-tab",
+			hostAttributes:{
+				role: "button"
+			},
+			properties:{
+				/**
+                 *If set, the tab will take on darker styling, to be used in dark-colored containers (e.g. settings navigation).
+                 */
+                dark: {type:Boolean, value: false},
+
+                /**
+                 *If set, the tab will be smaller, to be used in the status bar of an interface.
+                 */
+				extra:{type: Boolean, value: false},
+
+				/**
+                 *Used with `extra`. If set, the tab will be blue, indicating that this is the primary interface for the application.
+                 */
+				app:{type: Boolean, value: false},
+
+				/**
+                 *Used if the px-tab is to contain a dropdown menu (px-dropdown).
+                 */
+				menu:{type: Boolean, value: false},
+
+				/**
+                 *If set, the tab will be white, indicating that it is the currently selected tab.
+                 */
+				active:{type: Boolean, value: false},
+
+				/**
+                 *If set, the tab will turn red to indicate that there are active alarms in that area of the interface.
+                 */
+				alarm:{type: Boolean, value: false},
+
+				/**
+                 *If set, the tab icon will be hidden.
+                 */
+				collapsetotext:{
+					type: Boolean,
+					value: false,
+					reflectToAttribute: true
+				},
+
+				/**
+                 *The icon that will be displayed on the tab.
+                 */
+				icon:{type: String,value: null},
+
+				/**
+                 *If set, a secondary title for the tab.
+                 */
+				subtext:{type: String, value: null},
+
+				/**
+                 *If set, the component will be grayed out and won't accept any user input.
+                 */
+				disabled:{type: Boolean, value: false}
+			}
+		});
+  	</script>
+</polymer-element>

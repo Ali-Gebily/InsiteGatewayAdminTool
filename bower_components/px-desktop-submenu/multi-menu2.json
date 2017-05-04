@@ -1,0 +1,19 @@
+[{
+    "value": "1",
+    "label": "Json Option 1"
+}, {
+    "value": "2",
+    "label": "Json Option 2"
+}, {
+    "value": "3",
+    "label": "Json Option 3"
+}, {
+    "label": "Json Option 4",
+    "submenu": [{
+        "value": "41",
+        "label": "Json Option 41"
+    }, {
+        "value": "42",
+        "label": "Json Option 42"
+    }]
+}]

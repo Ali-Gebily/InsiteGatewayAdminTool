@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-radio</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-radio/px-radio.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            html{
+                height:100%;
+            }
+            body{
+                height: 100%;
+                margin:10px;
+            }
+            div[dark] {
+                background:#333;
+                border-color: #111;
+                color:rgba(255,255,255,.7);
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <template id="demo" is="dom-bind">
+            <div dark>
+                <px-radio label="Option 1"   name="option" model="{{myOption}}" value="Option1"></px-radio>
+                <px-radio label="Option 2"   name="option" model="{{myOption}}" value="Option2"></px-radio>
+                <px-radio label="Don't Care" name="option" model="{{myOption}}" value="" checked></px-radio>
+                myOption = <span>{{myOption}}</span><br/><br/>
+            </div>
+
+            <px-radio icon="px-icons:alarm" model="{{myIcon}}" value="alarm"></px-radio>
+            <px-radio icon="px-icons:oneline" model="{{myIcon}}" value="oneline" checked></px-radio>
+            myIcon = <span>{{myIcon}}</span><br/><br/>
+
+            <px-radio label="Disabled" model="{{myDisabled}}" value="Disabled1" disabled></px-radio>
+            <px-radio label="Disabled" model="{{myDisabled}}" value="Disabled2" checked disabled></px-radio>
+            myDisabled = <span>{{myDisabled}}</span><br/><br/>
+        </template>
+    </body>
+</html>

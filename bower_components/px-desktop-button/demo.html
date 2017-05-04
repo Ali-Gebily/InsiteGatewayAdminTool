@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-button</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-button/px-button.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            body{
+                margin:10px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <template id="main" is="dom-bind">
+            <px-button on-click="addOne">Normal</px-button><br/>
+            <button on-click="addOne">Normal</button><br/>
+            <px-button on-tap="addOne" icon="px-icons:check">Icon</px-button><br/>
+            <px-button on-tap="addOne" small icon="px-icons:check"></px-button><br/>
+            <px-button on-tap="addOne" primary icon="px-icons:check">Primary</px-button><br/>
+            <px-button on-tap="addOne" positive icon="px-icons:check">Positive</px-button><br/>
+            <px-button on-tap="addOne" negative icon="px-icons:check">Negative</px-button><br/>
+            <px-button on-tap="addOne" dark icon="px-icons:check">Dark</px-button><br/>
+            <px-button on-tap="addOne" chameleon icon="px-icons:check">Chameleon</px-button><br/>
+            <px-button on-tap="addOne" pressed icon="px-icons:check">Pressed</px-button><br/>
+            <px-button on-tap="addOne" disabled icon="px-icons:check">Disabled</px-button><br/>
+            Buttons Pressed: <span>{{count}}</span><br/>
+        </template>
+    <script>
+    // Start the timer after the navbar.elem is loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Setup properties of main on index.html
+        var main = document.querySelector("#main");
+        main.count = 0;
+        main.addOne = function() {
+            main.set("count", main.count + 1);
+        };
+    });
+    </script>
+    </body>
+</html>

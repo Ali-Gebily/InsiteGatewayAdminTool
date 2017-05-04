@@ -1,0 +1,36 @@
+{
+  "name": "px-layout",
+  "version": "1.1.0",
+  "description": "A Layout Component for Touch and Desktop",
+  "authors": [	
+    "Eric Atha"
+  ],
+  "main": [
+    "px-layout.html",
+    "px-view.html"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-layout"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http:eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-media-query": "PolymerElements/iron-media-query#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+    "px-icons": "PXBLUE/px-icons#^1.0.0",
+    "px-styles": "PXBLUE/px-styles#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
+
+

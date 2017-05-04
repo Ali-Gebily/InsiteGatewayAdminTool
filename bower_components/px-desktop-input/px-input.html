@@ -1,0 +1,281 @@
+<!--
+`px-input` is a standard textbox input.
+
+Example:
+
+    <px-input placeholder="Enter a Value" auto-validate pattern="[0-9]*"></px-input>
+
+@group Desktop
+@element px-input
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-behaviors/iron-control-state.html">
+
+<link rel="import" href="paper-input-behavior.html">
+<link rel="import" href="px-input-container.html">
+
+
+
+<dom-module id="px-input">
+    <template>
+        <style>
+            /* Base Styling */
+                :host{
+                    display: block;
+                    position: relative;
+                    box-sizing: border-box;
+                    width: 100%;
+
+                    outline: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center);
+                }
+                :host label {
+                    margin-right: 10px;
+                    width: auto;
+                    color: inherit;
+                }
+                :host px-input-container{
+                    display: block;
+                    -ms-flex: 0 1 auto;
+                }
+                :host([disabled]){
+                    opacity: .35;
+                    cursor: auto;
+                    pointer-events: none;
+                }
+
+            /* Placeholder text styling - for some reason these each need their own rule */
+
+                input::-webkit-input-placeholder{
+                    color: #333;
+                    opacity: .55;
+
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                input:-moz-placeholder{
+                    color: #333;
+                    opacity: .55;
+
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                input::-moz-placeholder{
+                    color: #333;
+                    opacity: .55;
+
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                input:-ms-input-placeholder {
+                    color: #333;
+                    opacity: .55;
+
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+
+                :host-context([dark]) input::-webkit-input-placeholder{
+                    color: #f3f3f3;
+                }
+                :host([dark]) input::-webkit-input-placeholder{
+                    color: #f3f3f3;
+                }
+                :host-context([dark]) input:-moz-placeholder{
+                    color: #f3f3f3;
+                }
+                :host([dark]) input:-moz-placeholder{
+                    color: #f3f3f3;
+                }
+                :host-context([dark]) input::-moz-placeholder{
+                    color: #f3f3f3;
+                }
+                :host([dark]) input::-moz-placeholder{
+                    color: #f3f3f3;
+                }
+                :host-context([dark]) input:-ms-input-placeholder{
+                    color: #f3f3f3;
+                }
+                :host([dark]) input:-ms-input-placeholder{
+                    color: #f3f3f3;
+                }
+        </style> 
+
+        <template is="dom-if" if="{{label}}">
+            <label>{{label}}</label>
+        </template>
+
+        <template is="dom-if" if="{{!readonly}}">
+            <px-input-container auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid$="[[invalid]]" prefix$="[[prefix]]" suffix$="[[suffix]]" rightalign$="[[rightalign]]">
+
+                <!-- <label hidden$="[[!label]]">[[label]]</label> -->
+
+                <input is="iron-input" id="input"
+                    aria-labelledby$="[[_ariaLabelledBy]]"
+                    aria-describedby$="[[_ariaDescribedBy]]"
+                    disabled$="[[disabled]]"
+                    bind-value="{{value}}"
+                    invalid="{{invalid}}"
+                    prevent-invalid-input="[[preventInvalidInput]]"
+                    allowed-pattern="[[allowedPattern]]"
+                    validator="[[validator]]"
+                    type$="[[type]]"
+                    pattern$="[[pattern]]"
+                    required$="[[required]]"
+                    autocomplete$="[[autocomplete]]"
+                    autofocus$="[[autofocus]]"
+                    inputmode$="[[inputmode]]"
+                    minlength$="[[minlength]]"
+                    maxlength$="[[maxlength]]"
+                    min$="[[min]]"
+                    max$="[[max]]"
+                    step$="[[step]]"
+                    name$="[[name]]"
+                    placeholder$="[[placeholder]]"
+                    readonly$="[[readonly]]"
+                    list$="[[list]]"
+                    size$="[[size]]"
+                    autocapitalize$="[[autocapitalize]]"
+                    autocorrect$="[[autocorrect]]"
+                    tabindex$="[[tabindex]]">
+
+                <!-- <template is="dom-if" if="[[errorMessage]]">
+                <paper-input-error>[[errorMessage]]</paper-input-error>
+                </template> -->
+
+                <!-- <template is="dom-if" if="[[charCounter]]">
+                <paper-input-char-counter></paper-input-char-counter>
+                </template> -->
+
+            </px-input-container>
+        </template>
+        <template is="dom-if" if="{{readonly}}">
+            <div class="readonly">
+                <template is="dom-if" if='{{hasValue(value)}}'>
+                    <span class="prefix">[[prefix]]</span>{{value}}<span class="suffix">[[suffix]]</span>
+                </template>
+                <template is="dom-if" if='{{!hasValue(value)}}'>
+                    <!-- <template is="dom-if" if="[[!placholder]]"> -->
+                        <span class="prefix">[[prefix]]</span><span>--</span><span class="suffix">[[suffix]]</span>
+                    <!-- </template> -->
+<!--                     <template is="dom-if" if="[[placeholder]]">
+                        <span>[[placeholder]]</span>
+                    </template> -->
+                </template>
+            </div>
+        </template>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'px-input',
+
+            behaviors: [
+                Polymer.IronFormElementBehavior,
+                Polymer.IronValidatableBehavior,
+                Polymer.PaperInputBehavior,
+                Polymer.IronControlState
+            ],
+
+            properties:{
+                /**
+                 *If set, the text description that appears before the input.
+                 */
+                label:{type:String,value:null},
+
+                /**
+                 *If set, the value that appears in the input when there is no text entered.
+                 */
+                placeholder:{type:String,value:null},
+
+                /**
+                 *If set, the value that was typed in the input.
+                 */
+                value:{type:String,value:null,notify:true},
+
+                /**
+                 *If set, a character that appears before the text entered by the user (such as '$').
+                 */
+                prefix:{type:String,value:null},
+
+                /**
+                 *If set, the text that appears after the text entered by the user (such as 'kW').
+                 */
+                suffix:{type:String,value:null},
+
+                /**
+                 *If set, the user-entered text will be aligned to the right side of the input.
+                 */
+                rightalign:{type:Boolean,value:false},
+
+                /**
+                 *If set, the component will be grayed out and won't accept any user input.
+                 */
+                disabled:{type:Boolean,value:false},
+
+                /**
+                 *If set, the value of the input will be displayed as text, rather than an input ('--' if no value is entered).
+                 */
+                readOnly:{type:Boolean,value:false},
+
+                /**
+                 *If set, the input will validate the user-entered text to ensure it matches the specified `pattern`.
+                 */
+                autoValidate:{type:Boolean,value:false},
+
+                /**
+                 *If set, the regular expression used to validate the user input. Used with `auto-validate`.
+                 */
+                pattern:{type:String,value:null},
+
+                /**
+                 *If set, the minimum required length of the user input.
+                 */
+                minlength:{type:Number,value:null},
+
+                /**
+                 *If set, the maximum allowable length of the user input.
+                 */
+                maxlength:{type:Number,value:null},
+
+                /**
+                 *If set, the input will take on darker styling, to be used in dark-colored containers.
+                 */
+                dark:{type:Boolean,value:false},
+
+                /**
+                 *If set, the input will have a red border to indicate that the value does not match the required `pattern`.
+                 */
+                invalid:{type:Boolean,value:false}
+            },
+
+            hasValue: function(value){
+                if (value!==undefined && value!=null && value!="") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+    </script>
+</dom-module>
+
+

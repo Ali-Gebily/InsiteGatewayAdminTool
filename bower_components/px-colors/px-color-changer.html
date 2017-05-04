@@ -1,0 +1,97 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../px-styles/px-styles.html" rel="import">
+<link href="../px-colors/px-colors.html" rel="import">
+
+<dom-module id="px-color-changer">
+	<template>
+
+		<style include="px-colors">
+			:host([passthrough]) #color {
+				display: none;
+			}
+
+			:host #color {
+				background-color: var(--the-property);
+				min-width:46px;
+				min-height: 46px;
+				margin:0 8px;
+				border:2px solid var(--light-border);
+			}
+		</style>
+
+
+		<div id="color">
+            <content></content>
+        </div>
+
+	</template>
+
+  <script>
+	Polymer({
+		is: 'px-color-changer',
+		properties: {
+			property: {
+				type: String,
+                observer: '_updateView',
+                reflectToAttribute: true
+			},
+			value: {
+				type: String,
+				observer: '_updateGlobal',
+				reflectToAttribute: true
+			},
+			passthrough: {
+				type: Boolean,
+				value: false
+			}
+
+		},
+
+        // Uses algorithm of http://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+        updateTextColor: function() {
+            var color = this.value;
+            var R = parseInt(color[1] + color[2], 16);
+            var G = parseInt(color[3] + color[4], 16);
+            var B = parseInt(color[5] + color[6], 16);
+            var C = [R / 255, G / 255, B / 255];
+
+            for (var i = 0; i < C.length; ++i) {
+                if (C[i] <= 0.03928) {
+                    C[i] = C[i] / 12.92
+                } else {
+                    C[i] = Math.pow((C[i] + 0.055) / 1.055, 2.4);
+                }
+            }
+
+            var L = 0.2126 * C[0] + 0.7152 * C[1] + 0.0722 * C[2];
+            if (L > 0.179) {
+                this.style.color = "black";
+            } else {
+                this.style.color = "white";
+            }
+        },
+
+        _updateView: function() {
+            if (this.property) {
+                this.customStyle['--the-property'] = "var(" + this.property + ")";
+                this.updateStyles();
+                if (this.value) {
+                    this._updateGlobal();
+                }
+            }
+        },
+
+		_updateGlobal: function(){
+        	if(this.property && this.value){
+                this.customStyle[this.property] = this.value;
+
+                var map = {};
+                map[this.property] = this.value;
+                Polymer.updateStyles(map);
+
+                this.updateTextColor();
+        	}
+		}
+	});
+  </script>
+</dom-module>

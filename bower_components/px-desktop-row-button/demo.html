@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>Demo of px-row-button</title>
+        <script src="../webcomponentsjs/webcomponents.min.js"></script>
+        
+        <link rel="import" href="../px-desktop-card/px-card.html">
+        <link rel="import" href="../px-desktop-actionbar/px-actionbar.html">
+        <link rel="import" href="../px-desktop-title/px-title.html">
+        <link rel="import" href="../px-desktop-row-button/px-row-button.html">
+
+        <link rel="import" href="../px-icons/px-icons.html">
+        <style rel="import" href="../font-opensans/fontface.css"></style>
+        
+        <style>
+            * {
+                font-family: Open Sans, sans-serif;
+            }
+            html{
+                height:100%;
+            }
+            body{
+                height: 100%;
+                margin:10px;
+            }
+        </style>
+
+    </head>
+    <body unresolved>
+        <px-card>
+            <px-actionbar dark>
+                <px-title><h1>Devices</h1></px-title>
+            </px-actionbar>
+            <px-row-button add>Add a new Device...</px-row-button>
+        </px-card>
+    </body>
+</html>

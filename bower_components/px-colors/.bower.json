@@ -1,0 +1,39 @@
+{
+  "name": "px-colors",
+  "version": "1.0.4",
+  "description": "A Power Xpert Blue Color Var Library",
+  "authors": [
+    "The Eaton UXD Team (Eric Atha, Joe Boyle)"
+  ],
+  "main": [
+    "px-colors.html",
+    "px-color-changer.html"
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://esgit.tcc.etn.com:7990/projects/PXBLUE/px-colors"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "http://www.eatonuxd.com",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.4",
+    "commit": "6827d2b9d79c202c61c83ec0aa9ee66015da06a7"
+  },
+  "_source": "http://esgit.tcc.etn.com:7990/scm/pxblue/px-colors.git",
+  "_target": "^1.0.0",
+  "_originalSource": "PXBLUE/px-colors"
+}

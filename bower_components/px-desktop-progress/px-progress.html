@@ -1,0 +1,255 @@
+<!--
+`px-progress` is used to display the progress of a time-consuming action in the form of a progress bar or spinner.
+
+Example:
+
+    <px-progress bar percent="50" animate></px-progress>
+    <px-progress spinner></px-progress>
+
+@group Desktop
+@element px-progress
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+
+<style>
+    @-webkit-keyframes scroller {
+        0%{background-position-x:-28px}
+        100%{background-position-x:0px}
+    }
+    @keyframes scroller { 
+        0%{background-position-x:-28px}
+        100%{background-position-x:0px}
+    }
+    @-webkit-keyframes largescroller {
+        0%{background-position-x:-56px}
+        100%{background-position-x:0px}
+    }
+    @keyframes largescroller { 
+        0%{background-position-x:-56px}
+        100%{background-position-x:0px}
+    }
+</style>
+
+<dom-module id="px-progress">
+    <template>
+        <style>
+            :host {
+                --bg-color: #0e6eb8;
+                --progress: 0;
+            }
+            :host #outerWrapper{
+                height: 20px;
+                width: 100%;
+                min-width: 30px;
+                background: transparent;
+                border: 1px solid #c1c1c1;
+                box-sizing: border-box;
+                box-shadow: inset 0px 2px 3px rgba(0,0,0,0.2);
+
+                overflow: hidden;
+            }
+            :host([large]) #outerWrapper {
+                height: 35px;
+            }
+            :host([dark]) #outerWrapper,
+            :host-context([dark]) #outerWrapper,
+            :host-context([selected]) #outerWrapper{
+                border: 1px solid #1f1f1f;
+                box-shadow: inset 0px 2px 3px rgba(0,0,0,0.4);
+            }
+
+            :host #progress {
+                height: 100%;
+                width: var(--progress);
+
+                /*transition: width 400ms ease-in-out; */ 
+
+                border: 1px solid rgba(0,0,0,.05);
+                background: repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0),
+                    rgba(255,255,255,0) 10px,
+                    rgba(255,255,255,0.15) 10px,
+                    rgba(255,255,255,0.15) 20px
+                );
+                background-color: var(--bg-color);
+                background-size: 400% 400%;
+                background-position-x: -28px;
+                box-shadow: 2px 0px 10px rgba(0,0,0,.35);
+                
+                box-sizing: border-box;
+            }
+            :host([large]) #progress{
+                background: repeating-linear-gradient(
+                    45deg,
+                    rgba(255,255,255,0),
+                    rgba(255,255,255,0) 20px,
+                    rgba(255,255,255,0.15) 20px,
+                    rgba(255,255,255,0.15) 40px
+                );
+                background-size: 400% 400%;
+                background-position-x: -56px;
+            }
+            :host([color]) #progress{
+                background-color: var(--bg-color);
+            }
+            :host([animate]) #progress {
+                -webkit-animation: scroller 1s linear infinite;
+                animation: scroller 1s linear infinite;
+            }
+            :host([animate][large]) #progress {
+                -webkit-animation: largescroller 1s linear infinite;
+                animation: largescroller 1s linear infinite;
+            }
+            :host #glow {
+                height: 100%;
+                width: 100%;
+                background: -moz-linear-gradient(top,  rgba(255,255,255,0.75) 0%, rgba(255,255,255,0) 45%); /* FF3.6+ */
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.75)), color-stop(45%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+                background: -webkit-linear-gradient(top,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0) 45%); /* Chrome10+,Safari5.1+ */
+                background: -o-linear-gradient(top,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0) 45%); /* Opera 11.10+ */
+                background: -ms-linear-gradient(top,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0) 45%); /* IE10+ */
+                background: linear-gradient(to bottom,  rgba(255,255,255,0.75) 0%,rgba(255,255,255,0) 45%); /* W3C */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#BFFFFFFF', endColorstr='#00FFFFFF',GradientType=0 ); /* IE6-9 */
+                box-sizing: border-box;
+            }
+
+            /* Spinner */
+
+            :host([spinner]) {
+                width: 25px;
+                height: 25px;
+            }
+
+            :host #loader {
+                width: 100%;
+                height: 100%;
+                max-width: 25px;
+                max-height: 25px;
+                position: relative;
+                border-radius:100%;
+                background-color:rgba(0,0,0,.75);
+                box-shadow: 0px 1px 0px rgba(255,255,255,.125)
+            }
+
+            :host #overlay {
+                width: 9px;
+                height: 9px;
+                margin: 8px;
+                border-radius: 4.5px;
+                background-color: #333;
+                position: absolute;
+                z-index: 2;
+            }
+
+            :host #spinner {
+                position: absolute;
+                width: 21px;
+                height: 21px;
+                margin: 2px;
+                border-radius: 10.5px;
+                background-size: contain;
+                background-image:url('data:image/png;base64,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');
+            }
+
+            :host([spinner]) #spinner{
+                animation-name: rotate;
+                animation-duration: 1s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            @keyframes rotate { 
+                0% {
+                    transform: rotate(0deg)
+                }
+                100% {
+                    transform: rotate(360deg)
+                }
+            }
+        </style>
+
+        <template is="dom-if" if="{{!spinner}}" restamp>
+            <div id="outerWrapper">
+                <div id="progress"><div id="glow"></div></div>
+            </div>
+        </template>
+        <template is="dom-if" if="{{spinner}}" restamp>
+            <div id="loader">
+                <div id="overlay"></div>
+                <div id="spinner"></div>
+            </div>
+        </template>
+    </template>
+
+    <script>
+        Polymer({
+            is: "px-progress",
+            properties:{
+                /**
+                 *Sets the percentage complete for the associated action (0-100). Used for progress bar only.
+                 */
+                percent: {
+                    type: Number,
+                    value: 0,
+                    observer: '_updatePercent'
+                },
+
+                /**
+                 *If set, increases the size of the progress bar.
+                 */
+                large:{type: Boolean, value: false},
+
+                /**
+                 *If set, the progress bar will display an animation as it progresses.
+                 */
+                animate:{type: Boolean, value: false},
+
+                /**
+                 *The color to use for the progress bar. Accepts any CSS color value.
+                 */
+                color: {
+                    type: String,
+                    value: "#0e6eb8",
+                    observer: '_updateColor'
+                },
+
+                /**
+                 *If set, the progress bar will take on darker styling, to be used in dark-colored containers.
+                 */
+                dark:{type: Boolean, value: false},
+
+                /**
+                 * If set, display the Spinner style loader
+                 */
+                spinner: {type:Boolean, value:false}
+            },
+            _updatePercent: function(){
+                var val = 0;
+                if(!isNaN(parseFloat(this.percent))){
+                    val = parseFloat(this.percent);
+                }
+                val=(val>100)?100:((val<0)?0:val);
+                
+                this.customStyle['--progress'] = val+"%";
+
+                val = Math.ceil((val/100)*360);
+                this.customStyle['--progressRotation'] = val+"deg";
+                
+                this.updateStyles();
+            },
+            _updateColor: function(){
+                var val = "#0e6eb8";
+                if(this.color!=null && this.color!=""){
+                    val = this.color;
+                }
+                this.customStyle['--bg-color'] = val.toString();
+                this.updateStyles();
+            }
+        });
+    </script>
+</dom-module>

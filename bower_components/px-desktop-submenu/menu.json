@@ -1,0 +1,13 @@
+[{
+    "icon": "px-icons:cloud",
+    "value": "1",
+    "label": "Json Option 1"
+}, {
+    "icon": "px-icons:cloud",
+    "value": "2",
+    "label": "Json Option 2"
+}, {
+    "icon": "px-icons:cloud",
+    "value": "3",
+    "label": "Json Option 3"
+}]

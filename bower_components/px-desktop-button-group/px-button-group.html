@@ -1,0 +1,84 @@
+<!--
+`px-button-group` is a container for `px-button`s that represent a choice between 2 or more options.
+
+Example:
+
+    <px-button-group small label="Sort:">
+        <px-button pressed icon="px-icons:time-solid"></px-button>
+        <px-button icon="px-icons:priority-outline"></px-button>
+        <px-button icon="px-icons:device"></px-button>
+    </px-button-group>
+
+@group Desktop
+@element px-button-group
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<link href="../polymer/polymer.html" rel="import">
+<link href="../iron-media-query/iron-media-query.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
+
+<dom-module id="px-button-group">
+    <template>
+        <style>
+            :host {
+                @apply(--layout-horizontal);
+                @apply(--layout-center);
+            }
+            :host([disabled]){
+                pointer-events: none;
+                opacity: 0.35;
+            }
+            :host #button-wrap, :host #icon-button-wrap { 
+                @apply(--layout-horizontal);
+            }
+            :host #button-wrap ::content px-button:not(:first-child),
+            :host #icon-button-wrap ::content px-icon-button:not(:first-child) { 
+                margin-left: -1px; 
+            }
+            :host label {
+                margin-right: 10px;
+                color: inherit;
+            }
+            :host #selector{
+                width: 100%;
+            }
+        </style>
+
+        <template is="dom-if" if="{{label}}">
+            <label>{{label}}</label>
+        </template>
+        <iron-selector id="selector">
+            <div id="icon-button-wrap"><content select="px-icon-button"></content></div>
+            <div id="button-wrap"><content select="px-button"></content></div>
+        </iron-selector>
+    </template>
+
+    <script>
+        Polymer({
+            is:'px-button-group',
+            properties: {
+                /**
+                 *The label that will appear beside the button-group, optional.
+                 */
+                label: {type: String, value: null},
+
+                /**
+                 *If set, the buttons will take on darker styling, to be used in dark-colored containers.
+                 */
+                dark: {type:Boolean, value: false},
+
+                /**
+                 *If set, the buttons will appear square rather than rectangle. Labels will be hidden and only the icon will be displayed.
+                 */
+                small: {type:Boolean, value: false},
+
+                /**
+                 *If set, the component will be grayed out and won't accept any user input.
+                 */
+                disabled:{type: Boolean, value: false}
+            }
+        });
+    </script>
+</dom-module>
