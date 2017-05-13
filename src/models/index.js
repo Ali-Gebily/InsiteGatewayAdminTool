@@ -6,7 +6,7 @@
 const fs = require('fs');
 const config = require('config');
 const mongoose = require('mongoose');
-
+mongoose.Promise = global.Promise || require('bluebird');
 const conn = mongoose.createConnection(config.MONGODB_URI);
 const models = {};
 

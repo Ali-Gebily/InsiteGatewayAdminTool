@@ -23,4 +23,40 @@ module.exports = {
       method: 'update',
     },
   },
+
+  '/sites': {
+    get: {
+      controller: 'SiteController',
+      method: 'getAll',
+    },
+  },
+
+  '/devices/site/:siteId': {
+    get: {
+      controller: 'DeviceController',
+      method: 'getDevicesBySiteId',
+    },
+  },
+  '/device/:id': {
+    get: {
+      controller: 'DeviceController',
+      method: 'get',
+    },
+    put: {
+      controller: 'DeviceController',
+      method: 'update',
+    },
+  },
+  '/device': {
+    post: {
+      controller: 'DeviceController',
+      method: 'create',
+    },
+  },
+  '/deviceingresspaths': {
+    get: {
+      controller: 'DeviceController',
+      method: 'getAllDeviceIngressPaths',
+    },
+  },
 };

@@ -22,8 +22,7 @@ const userData = {
   createdBy: 'someone',
 };
 
-describe('User API Tests', function () {
-
+describe('User API Tests', () => {
   before((done) => {
     User.remove(done);
   });
@@ -52,7 +51,7 @@ describe('User API Tests', function () {
         if (err) {
           return done(err);
         }
-        expect(res.body.id).to.exist;
+        expect(res.body.id).to.exist; // eslint-disable-line
         expect(res.body.email).to.equal('aaa@aaa.com');
         expect(res.body.displayName).to.equal('aaa');
         expect(res.body.jobTitle).to.equal('title');
@@ -60,7 +59,7 @@ describe('User API Tests', function () {
         expect(res.body.phoneNumber).to.equal('1111');
         expect(res.body.accountEnabled).to.equal('true');
         expect(res.body.createdBy).to.equal('someone');
-        expect(res.body.createdAt).to.exist;
+        expect(res.body.createdAt).to.exist; // eslint-disable-line
         done();
       });
   });
@@ -88,7 +87,7 @@ describe('User API Tests', function () {
             expect(res.body[0].phoneNumber).to.equal('1111');
             expect(res.body[0].accountEnabled).to.equal('true');
             expect(res.body[0].createdBy).to.equal('someone');
-            expect(res.body[0].createdAt).to.exist;
+            expect(res.body[0].createdAt).to.exist; // eslint-disable-line
             done();
           });
       });
@@ -115,7 +114,7 @@ describe('User API Tests', function () {
             expect(res.body.phoneNumber).to.equal('1111');
             expect(res.body.accountEnabled).to.equal('true');
             expect(res.body.createdBy).to.equal('someone');
-            expect(res.body.createdAt).to.exist;
+            expect(res.body.createdAt).to.exist; // eslint-disable-line
             done();
           });
       });
@@ -151,11 +150,10 @@ describe('User API Tests', function () {
             expect(res.body.phoneNumber).to.equal('222');
             expect(res.body.accountEnabled).to.equal('false');
             expect(res.body.createdBy).to.equal('someone');
-            expect(res.body.createdAt).to.exist;
-            expect(res.body.updatedAt).to.exist;
+            expect(res.body.createdAt).to.exist; // eslint-disable-line
+            expect(res.body.updatedAt).to.exist; // eslint-disable-line
             done();
           });
       });
   });
-
 });
