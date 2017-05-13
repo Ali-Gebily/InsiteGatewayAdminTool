@@ -97,7 +97,7 @@ controllers
       return result;
     };
 
-    $scope.selectSite = function(siteIndex) {
+    $scope.selectSite = function() {
       if (isDirty) {
         var res = confirm('The device data are not saved, are you sure you want to discard them ?');
         if (res) {
@@ -110,6 +110,14 @@ controllers
           return;
         }
       }
+      var siteIndex = -1;
+      for (var loop = 0; loop < $scope.sites.length; loop++) {
+        if ($scope.sites[loop].id == $scope.theSiteId) {
+          siteIndex = loop;
+          break;
+        }
+      }
+      if (siteIndex < 0) return;
 
       selectedSite = $scope.sites[siteIndex];
       // get devices of the selected site

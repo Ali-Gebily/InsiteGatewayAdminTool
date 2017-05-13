@@ -6,10 +6,8 @@
             <px-sidebar dark floating collapsible>
                 <px-actionbar secondary>
                     Site: &nbsp;
-                    <px-dropdown value="" data-ng-model="theSiteId" placeholder="Select" flex>
-                      <px-item data-ng-repeat="site in sites track by $index"
-                          value="{{site.id}}"
-                          data-ng-click="selectSite($index)">{{site.name}}</px-item>
+                    <px-dropdown value="" data-ng-model="theSiteId" data-ng-change="selectSite()" placeholder="Select" flex>
+                      <px-item data-ng-repeat="site in sites track by $index" value="{{site.id}}">{{site.name}}</px-item>
                     </px-dropdown>
                 </px-actionbar>
                 <px-menu dark selectable>
@@ -37,13 +35,13 @@
                                     <px-column title width="3">
                                         <px-title light><h1>Ingress Path:</h1></px-title>
                                     </px-column>
-                                    <px-column width="3">
+                                    <px-column width="4">
                                         <px-dropdown value="" data-ng-model="ingressPath" data-ng-change="deviceChanged()" placeholder="Select" flex>
                                             <px-item data-ng-repeat="ingressPath in ingressPaths" value="{{ingressPath.id}}">{{ingressPath.ingressPath}}</px-item>
                                         </px-dropdown>
                                         <span data-ng-if="ingressPathError" class="error-message">{{ingressPathError}}</span>
                                     </px-column>
-                                    <px-column width="4">
+                                    <px-column width="3">
                                     </px-column>
                                 </px-row>
                                 <px-row>

@@ -75,7 +75,8 @@ Login with `admin@test.com / abc123`
   select other device;
   change page tab;
   create new device
-
+- the IE view and Mobile view are checked, for mobile view check you may use Chrome developer tool,
+  note that when for mobile view check, you will need to click the button near the site dropdown to collapse/expand the left panel
 
 
 **Video**
