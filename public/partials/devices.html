@@ -10,11 +10,10 @@
                       <px-item data-ng-repeat="site in sites track by $index" value="{{site.id}}">{{site.name}}</px-item>
                     </px-dropdown>
                 </px-actionbar>
-                <px-menu dark selectable>
-                    <px-item data-ng-repeat="device in devices track by $index" data-ng-click="selectDevice($index)">
-                        <span data-ng-repeat="dep in getIndent(device.depth)">&nbsp;</span>
-                        {{device.data.name}}</px-item>
-                </px-menu>
+                <px-row selectable data-ng-repeat="device in devices track by $index" data-ng-click="selectDevice($index)">
+                    <px-column title><span data-ng-repeat="dep in getIndent(device.depth)">&nbsp;</span>
+                        {{device.data.name}}</px-item></px-column>
+                </px-row>
             </px-sidebar>
 
     <!-- Main Content Area -->
