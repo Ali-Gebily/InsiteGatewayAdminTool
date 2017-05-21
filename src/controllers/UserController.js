@@ -5,14 +5,6 @@
 
 const UserService = require('../services/UserService');
 
-// Exports
-module.exports = {
-  search,
-  create,
-  update,
-  get,
-};
-
 /**
  * Create user.
  * @param req the request
@@ -48,3 +40,11 @@ function* update(req, res) {
 function* get(req, res) {
   res.json(yield UserService.get(req.params.id));
 }
+
+// Exports
+module.exports = {
+  search,
+  create,
+  update,
+  get,
+};

@@ -5,8 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app",
-    "lint": "eslint src config || true",
-    "add-users": "node src/add-users",
+    "lint": "eslint src config test || true",
+    "init-data": "node src/init-data",
     "test": "mocha test/*.js"
   },
   "author": "TCSCODER",
@@ -16,6 +16,7 @@
     "eslint": "^2.8.0",
     "eslint-config-airbnb-base": "^1.0.1",
     "eslint-plugin-import": "^1.5.0",
+    "eslint-plugin-mocha": "^4.9.0",
     "mocha": "^3.2.0",
     "supertest": "^3.0.0"
   },

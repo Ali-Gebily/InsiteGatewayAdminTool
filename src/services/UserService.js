@@ -9,14 +9,6 @@ const Joi = require('joi');
 const User = require('../models').User;
 const helper = require('../common/helper');
 
-// Exports
-module.exports = {
-  search,
-  create,
-  update,
-  get,
-};
-
 const DEFAULT_SIZE = 1000;
 
 /**
@@ -110,4 +102,12 @@ function* get(userId) {
 
 get.schema = {
   userId: Joi.string().required(),
+};
+
+// Exports
+module.exports = {
+  search,
+  create,
+  update,
+  get,
 };

@@ -12,14 +12,6 @@ const NotFoundError = require('./errors').NotFoundError;
 const bcrypt = require('bcryptjs');
 global.Promise.promisifyAll(bcrypt);
 
-module.exports = {
-  wrapExpress,
-  autoWrapExpress,
-  ensureExists,
-  hashString,
-  validateHash,
-};
-
 /**
  * Wrap generator function to standard express function
  * @param {Function} fn the generator function
@@ -97,3 +89,30 @@ function* hashString(text) {
 function* validateHash(text, hash) {
   return yield bcrypt.compareAsync(text, hash);
 }
+
+/**
+ * Generate a random device id, in format like 1234-5678-9012-1234.
+ *
+ * @returns {String} the generated device id
+ */
+function generateDeviceId() {
+  let res = '';
+  let rnd = new Date().getTime() % 77557;
+  for (let i = 0; i < 16; i++) {
+    rnd = Math.ceil(rnd * Math.random() * 37 + 123) % 77557;
+    res += (rnd % 10);
+    if (i === 3 || i === 7 || i === 11) {
+      res += '-';
+    }
+  }
+  return res;
+}
+
+module.exports = {
+  wrapExpress,
+  autoWrapExpress,
+  ensureExists,
+  hashString,
+  validateHash,
+  generateDeviceId,
+};

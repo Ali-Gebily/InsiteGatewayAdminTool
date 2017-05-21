@@ -19,8 +19,8 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
 - Start MongoDB server
 - Install dependencies `npm i`
 - Run code lint check `npm run lint`
-- Run tests `npm run test`
-- Clear users and then add some sample users `npm run add-users`
+- Run tests `npm run test`, note that running tests will clear all data
+- Initialize data `npm run init-data`
 - Start app `npm start`
 - Access `http://localhost:3000`
 - Login with `admin@test.com / abc123`
@@ -34,11 +34,11 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
 - heroku create [application-name] // choose a name, or leave it empty to use generated one
 - heroku addons:create mongolab // create Mongo Lab add-on
 - git push heroku master // push code to Heroku
-- optionally if you want to add some sample users, run `heroku run bash`, in the bash, run `npm run add-users`, then `exit`
+- to initialize data, run `heroku run bash`, in the bash, run `npm run init-data`, then `exit`
 
 
 I deployed the app to:
-https://fathomless-castle-11207.herokuapp.com
+https://lit-sea-71214.herokuapp.com
 
 Login with `admin@test.com / abc123`
 
@@ -55,4 +55,41 @@ Login with `admin@test.com / abc123`
   `public` folder separately.
 - This submission simply includes all client components, because it is probably more componennts are used in other pages,
   we may remove unused components later when in production.
+
+
+## Devices
+
+**Notes**
+
+- the `src/add-users.js` is changed to `src/init-data.js`, because it now also inserts other data
+- Postman tests, mocha tests are added for the new API
+- the above Heroku app link is updated
+- the IE view and Mobile view are checked, for mobile view check you may use Chrome developer tool,
+  note that when for mobile view check, you will need to click the button near the site dropdown to collapse/expand the left panel
+
+
+**Enhancements**
+
+- the mongoose promise is set to use global bluebird promise, the original outdated mongoose promise warning is gone now
+- the original eslint code check doesn't check the test files, they are now checked
+- when data got dirty (data are changed but not saved), user will get confirmation when:
+  select other site;
+  select other device;
+  change page tab;
+  create new device
+
+
+**Video**
+
+See: https://youtu.be/w6wXCUN2ESc
+
+
+**Sample curl command**
+
+Below is sample curl command to create a child device by using a parentId field, note that it is a command in Mac, other OS curl
+command maybe a little different:
+
+``
+curl -H "Content-type: application/json" -X POST -d "{\"name\":\"device-name\",\"ingressPathId\":\"59141b285ba5750a738e8a9e\",\"activationCode\":\"code\",\"connectionString\":\"http://a.b.c\",\"model\":\"model\",\"firmware\":\"firmware\",\"createdBy\":\"user\",\"lastDataPoint\":\"2017-05-06T01:02:03.111Z\",\"parentId\":\"59141b285ba5750a738e8aa3\",\"siteId\":\"59141b285ba5750a738e8a9b\"}" http://localhost:3000/api/v1/device
+``
 
