@@ -5,6 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app",
+    "postinstall": "node src/init-data",
     "lint": "eslint src config test || true",
     "init-data": "node src/init-data",
     "test": "mocha test/*.js"
