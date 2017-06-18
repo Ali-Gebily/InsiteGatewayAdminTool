@@ -1,7 +1,189 @@
 <div data-ng-include="'partials/header.html'"></div>
 
-<div class="layout horizontal content">
-  <px-card-container vertical fixed>
-    <span style="font-size: 30px">Coming Soon</span>
-  </px-card-container>
-</div>
+        <div class="layout horizontal content">
+    <!-- Sidebar -->
+            <px-sidebar dark floating collapsible>
+                <px-actionbar secondary>
+                    <px-input data-ng-model="profileKeyword"></px-input>
+                    <iron-icon icon="icons:search" data-ng-click="searchProfiles()"></iron-icon>
+                </px-actionbar>
+                <px-row selectable data-ng-repeat="profile in profiles track by $index">
+                    <px-column title data-ng-click="selectProfile($index)">{{profile.name}}</px-column>
+                </px-row>
+                <px-row data-ng-if="profiles.length == 0">
+                    <px-column>None is found!</px-column>
+                </px-row>
+            </px-sidebar>
+
+    <!-- Main Content Area -->
+            <div class="flex layout vertical">
+                <div class="flex layout vertical main-content">
+                        <px-card-container horizontal>
+                            <px-card>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Profile Name:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                        <px-input data-ng-model="name" data-ng-change="profileChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.name" class="error-message">{{errorMessage.name}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Id:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6" data-ng-if="profileIndex >= 0 && profiles[profileIndex].id">
+                                        {{ profiles[profileIndex].id }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Version:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                        <px-input data-ng-model="version" data-ng-change="profileChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.version" class="error-message">{{errorMessage.version}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Vendor:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                        <px-input data-ng-model="vendor" data-ng-change="profileChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.vendor" class="error-message">{{errorMessage.vendor}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Model:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                        <px-input data-ng-model="model" data-ng-change="profileChanged()"></px-input>
+                                        <span data-ng-if="errorMessage.model" class="error-message">{{errorMessage.model}}</span>
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Create Date:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6" data-ng-if="profileIndex >= 0 && profiles[profileIndex].createdAt">
+                                        {{ profiles[profileIndex].createdAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Created By:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6" data-ng-if="profileIndex >= 0 && profiles[profileIndex].createdBy">
+                                        {{ profiles[profileIndex].createdBy }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Last Update:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6" data-ng-if="profileIndex >= 0 && profiles[profileIndex].updatedAt">
+                                        {{ profiles[profileIndex].updatedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                                    </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>Profile Channels:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                      <px-button data-ng-click="removeSelected()">Remove Selected</px-button>
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-if="leftChannels.length > 0">
+                                    <px-column title width="2">
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Channel"></px-title>
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Unit"></px-title>
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Category"></px-title>
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-repeat="channel in leftChannels track by $index">
+                                    <px-column title width="2">
+                                      <px-checkbox data-ng-model="channel.checked"></px-checkbox>
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.mclname || channel.sname || channel.lname}}
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.unit || channel.sunit || channel.lunit}}
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.category || channel.scategory || channel.lcategory}}
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-if="leftChannels.length == 0">
+                                    <px-column>No channels.</px-column>
+                                </px-row>
+                            </px-card>
+
+                            <px-card>
+                                <px-actionbar>
+                                    <px-input data-ng-model="channelKeyword"></px-input>
+                                    <iron-icon icon="icons:search" data-ng-click="searchChannels()"></iron-icon>
+                                </px-actionbar>
+                                <px-row>
+                                    <px-column title width="4">
+                                        <px-title light><h1>MCL Channels:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="6">
+                                      <px-button data-ng-click="addSelected()">Add Selected</px-button>
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-if="rightChannels.length > 0">
+                                    <px-column title width="2">
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Channel"></px-title>
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Unit"></px-title>
+                                    </px-column>
+                                    <px-column title width="4">
+                                        <px-title maintitle="Category"></px-title>
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-repeat="channel in rightChannels track by $index">
+                                    <px-column title width="2">
+                                      <px-checkbox data-ng-model="channel.checked"></px-checkbox>
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.mclname || channel.sname || channel.lname}}
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.unit || channel.sunit || channel.lunit}}
+                                    </px-column>
+                                    <px-column title width="4">
+                                      {{channel.category || channel.scategory || channel.lcategory}}
+                                    </px-column>
+                                </px-row>
+                                <px-row data-ng-if="rightChannels.length == 0">
+                                    <px-column>No channels.</px-column>
+                                </px-row>
+                            </px-card>
+                        </px-card-container>
+                </div>
+                <px-actionbar>
+                    <px-button dark data-ng-click="checkDirtyForNewProfile()">New</px-button>
+                    <px-button dark data-ng-click="saveProfile()">Save</px-button>
+                    <px-button dark data-ng-click="downloadProfile()">Download JSON</px-button>
+                    <span class="flex"></span>
+                </px-actionbar>
+            </div>
+
+<growl-notification data-ng-if="showConfirm" on-close="showConfirm = false">
+  {{confirmMessage}}
+</growl-notification>
+
+        </div>

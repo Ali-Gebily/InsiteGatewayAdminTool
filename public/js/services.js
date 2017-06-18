@@ -28,6 +28,15 @@ angular.module('services', ['config'])
           deferred.reject({ data: data, status: status });
         });
         return deferred.promise;
+      },
+      downloadDeviceProfile: function(profileId) {
+        var url = BASE_URL + '/deviceprofile/' + profileId + '/download';
+        var tempLink = document.createElement('a');
+        tempLink.href = url;
+        tempLink.setAttribute('target', '_blank');
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
       }
     };
   }]);
