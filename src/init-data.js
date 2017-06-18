@@ -10,6 +10,8 @@ const User = require('./models').User;
 const Site = require('./models').Site;
 const Device = require('./models').Device;
 const DeviceIngressPath = require('./models').DeviceIngressPath;
+const MCLChannel = require('./models').MCLChannel;
+const DeviceProfile = require('./models').DeviceProfile;
 const logger = require('./common/logger');
 const helper = require('./common/helper');
 
@@ -152,6 +154,52 @@ co(function*() {
     deviceId: '1234-5678-9012-0000',
     siteId: site2._id,
   });
+
+  // init MCL channels
+  yield MCLChannel.remove();
+  for (let i = 1; i <= 50; i++) {
+    yield MCLChannel.create({
+      tag: `tag${i}`,
+      mclname: `name${i}`,
+      lname: `long name ${i}`,
+      sname: `short name ${i}`,
+      unit: `unit${i}`,
+      lunit: `long unit ${i}`,
+      sunit: `short unit ${i}`,
+      desc: `desc${i}`,
+      vtype: `vtype${i}`,
+      array_size: 10,
+      enums: [{ s: 'sss1', v: 'vvv1' }, { s: 'sss2', v: 'vvv2' }],
+      category: `category${i}`,
+      lcategory: `long category ${i}`,
+      scategory: `short category ${i}`,
+      writable: true,
+      default: `default${i}`,
+      min: `min${i}`,
+      max: `max${i}`,
+      dynamic_minmaxdefault: false,
+    });
+  }
+
+  // init device profile
+  yield DeviceProfile.remove();
+  for (let i = 1; i <= 10; i++) {
+    yield DeviceProfile.create({
+      name: `name${i}`,
+      version: `version${i}`,
+      vendor: `vendor${i}`,
+      family: `family${i}`,
+      role: `role${i}`,
+      model: `model${i}`,
+      model_lname: `model long name ${i}`,
+      model_sname: `model short name ${i}`,
+      hardware: `hardware${i}`,
+      software: `software${i}`,
+      channelIds: [],
+      createdAt: new Date(),
+      createdBy: 'system',
+    });
+  }
 }).then(() => {
   logger.info('done');
   process.exit();

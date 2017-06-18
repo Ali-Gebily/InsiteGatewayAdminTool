@@ -34,11 +34,12 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
 - heroku create [application-name] // choose a name, or leave it empty to use generated one
 - heroku addons:create mongolab // create Mongo Lab add-on
 - git push heroku master // push code to Heroku
-- to initialize data, run `heroku run bash`, in the bash, run `npm run init-data`, then `exit`
+- to initialize data, run `heroku run bash`, in the bash, run `npm run init-data`, then `exit`;
+  or simply run `heroku run npm run init-data`
 
 
 I deployed the app to:
-https://lit-sea-71214.herokuapp.com
+https://young-tor-94233.herokuapp.com
 
 Login with `admin@test.com / abc123`
 
@@ -92,4 +93,29 @@ command maybe a little different:
 ``
 curl -H "Content-type: application/json" -X POST -d "{\"name\":\"device-name\",\"ingressPathId\":\"59141b285ba5750a738e8a9e\",\"activationCode\":\"code\",\"connectionString\":\"http://a.b.c\",\"model\":\"model\",\"firmware\":\"firmware\",\"createdBy\":\"user\",\"lastDataPoint\":\"2017-05-06T01:02:03.111Z\",\"parentId\":\"59141b285ba5750a738e8aa3\",\"siteId\":\"59141b285ba5750a738e8a9b\"}" http://localhost:3000/api/v1/device
 ``
+
+
+## Device Profiles
+
+**Notes**
+
+- Postman tests, mocha tests are added for the new API
+- the above Heroku app link in the `Heroku deployment` section is updated, it shows the latest app
+- Chrome, IE, and Mobile view are checked, for mobile view check you may use Chrome developer tool,
+  note that when for mobile view check, you will need to click the button near the site dropdown to collapse/expand the left panel
+- when data got dirty (data are changed but not saved), user will get confirmation when:
+  search profiles;
+  select profile;
+  change page tab;
+  create new profile;
+  download profile
+- from the forum discussion, the `Add Selected` button will do channel synchronization, it may add or remove channels;
+  if user searches some channels, only the searched channels will be synchronized, for example,
+  if a profile has channel A, but A is not in right side searched channels, then when doing sychrnozation, channel A will not be changed
+- add/remove channel will make the profile `dirty`, i.e. data changed but not saved
+
+
+**Video**
+
+See: https://youtu.be/MNFHLT4kHZY
 

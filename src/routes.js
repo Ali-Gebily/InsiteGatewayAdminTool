@@ -59,4 +59,39 @@ module.exports = {
       method: 'getAllDeviceIngressPaths',
     },
   },
+
+  '/mclchannels': {
+    get: {
+      controller: 'DeviceProfileController',
+      method: 'getAllChannels',
+    },
+  },
+  '/deviceprofiles': {
+    get: {
+      controller: 'DeviceProfileController',
+      method: 'searchDeviceProfiles',
+    },
+  },
+  '/deviceprofile/:id': {
+    get: {
+      controller: 'DeviceProfileController',
+      method: 'get',
+    },
+    put: {
+      controller: 'DeviceProfileController',
+      method: 'update',
+    },
+  },
+  '/deviceprofile': {
+    post: {
+      controller: 'DeviceProfileController',
+      method: 'create',
+    },
+  },
+  '/deviceprofile/:id/download': {
+    get: {
+      controller: 'DeviceProfileController',
+      method: 'download',
+    },
+  },
 };
