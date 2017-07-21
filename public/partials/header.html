@@ -11,6 +11,7 @@
                 <px-tab data-ng-repeat="item in LEFT_TABS" data-ng-click="selectTab(item[2])">{{ WIN_WIDTH > 800 ? item[0] : item[1] }}</px-tab>
                 <px-tab active data-ng-if="CURRENT_TAB">{{ WIN_WIDTH > 800 ? CURRENT_TAB[0] : CURRENT_TAB[1] }}</px-tab>
                 <px-tab data-ng-repeat="item in RIGHT_TABS" data-ng-click="selectTab(item[2])">{{ WIN_WIDTH > 800 ? item[0] : item[1] }}</px-tab>
+                <px-tab data-ng-if="WIN_WIDTH <= 800"></px-tab>   <!--empty tab to fix last element not showing in small mobile device --> 
             </px-navigation>
         </px-navigation-container>
 

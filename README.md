@@ -39,7 +39,7 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
 
 
 I deployed the app to:
-https://young-tor-94233.herokuapp.com
+https://barton-veshu.herokuapp.com
 
 Login with `admin@test.com / abc123`
 
@@ -119,3 +119,15 @@ curl -H "Content-type: application/json" -X POST -d "{\"name\":\"device-name\",\
 
 See: https://youtu.be/MNFHLT4kHZY
 
+
+## Operations & Roles
+
+**Notes**
+
+- Postman tests, mocha tests are added for the new API
+- the above Heroku app link in the `Heroku deployment` section is updated, it shows the latest app
+- menu for small width device e.g. iPhone 5 in chrome developer tool, is fixed so that last items is also shown
+
+**Video**
+
+See: https://youtu.be/tpPsjCcDbrA

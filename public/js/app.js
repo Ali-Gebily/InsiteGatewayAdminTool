@@ -4,9 +4,9 @@
  * Module App
  */
 
-window.addEventListener('WebComponentsReady', function(e) {
+window.addEventListener('WebComponentsReady', function (e) {
   // imports are loaded and elements have been registered
-  angular.element(document).ready(function() {
+  angular.element(document).ready(function () {
 
     var app = angular.module('app', ['ng-polymer-elements', 'ui.router', 'controllers', 'growlNotifications']);
 
@@ -56,6 +56,24 @@ window.addEventListener('WebComponentsReady', function(e) {
           url: "/deviceProfiles",
           templateUrl: "partials/deviceProfiles.html",
           controller: 'deviceProfilesCtrl'
+        });
+      $stateProvider
+        .state("operations", {
+          url: "/operations",
+          templateUrl: "partials/operations.html",
+          controller: "operationsCtrl"
+        });
+      $stateProvider
+        .state("resources", {
+          url: "/resources",
+          templateUrl: "partials/resources.html",
+          controller: "resourcesCtrl"
+        });
+      $stateProvider
+        .state("roles", {
+          url: "/roles",
+          templateUrl: "partials/roles.html",
+          controller: "rolesCtrl"
         });
     });
 

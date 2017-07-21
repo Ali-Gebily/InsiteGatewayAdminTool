@@ -1,0 +1,128 @@
+<div data-ng-include="'partials/header.html'"></div>
+
+<div class="layout horizontal content">
+
+    <!-- Sidebar -->
+    <px-sidebar dark floating collapsible>
+        <px-actionbar secondary>
+            Adapter: &nbsp;
+            <px-dropdown value="" data-ng-model="theAdapterId" data-ng-change="selectAdapter()" placeholder="Select" flex>
+                <px-item data-ng-repeat="adapter in adapters track by $index" value="{{adapter.id}}">{{adapter.name}}</px-item>
+            </px-dropdown>
+        </px-actionbar>
+        <px-row selectable data-ng-repeat="operation in operations track by $index" data-ng-click="selectOperation($index)">
+            <px-column title>{{operation.name}}
+            </px-column>
+        </px-row>
+    </px-sidebar>
+
+    <!-- Main Content Area -->
+    <div class="flex layout vertical">
+        <div class="flex layout vertical main-content">
+            <px-card-container vertical fixed>
+                <px-card fixed>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Name:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7">
+                            <px-input data-ng-model="name" data-ng-change="operationChanged();nameError=null"></px-input>
+                            <span data-ng-if="nameError" class="error-message">{{nameError}}</span>
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Id:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="operationIndex >= 0 && operations[operationIndex].id">
+                            {{ operations[operationIndex].id }}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Description:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7">
+                            <px-textarea data-ng-model="description" rows="4" data-ng-change="operationChanged();descriptionError=null"></px-textarea>
+                            <span data-ng-if="descriptionError" class="error-message">{{descriptionError}}</span>
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>App ID:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="4">
+                            <px-dropdown value="" data-ng-model="appId" data-ng-change="operationChanged();appIdError=null" placeholder="Select" flex>
+                                <px-item data-ng-repeat="operationApp in operationApps" value="{{operationApp.id}}">{{operationApp.name}}</px-item>
+                            </px-dropdown>
+                            <span data-ng-if="appIdError" class="error-message">{{appIdError}}</span>
+                        </px-column>
+                        <px-column width="3">
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Create Date:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="operationIndex >= 0 && operations[operationIndex].createdAt">
+                            {{ operations[operationIndex].createdAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Created By:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="operationIndex >= 0 && operations[operationIndex].createdBy">
+                            {{operations[operationIndex].createdBy}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Last Update:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="operationIndex >= 0 && operations[operationIndex].updatedAt">
+                            {{ operations[operationIndex].updatedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Last Updated By:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="operationIndex >= 0 && operations[operationIndex].updatedBy">
+                            {{operations[operationIndex].updatedBy}}
+                        </px-column>
+                    </px-row>
+                </px-card>
+            </px-card-container>
+        </div>
+        <px-actionbar>
+            <px-button dark data-ng-click="checkDirtyForNewOperation()">New</px-button>
+            <px-button dark data-ng-click="saveOperation()">Save</px-button>
+            <px-button dark data-ng-click="deleteOperation()">Delete</px-button>
+            <span class="flex"></span>
+        </px-actionbar>
+    </div>
+
+    <growl-notification data-ng-if="showSaveConfirm" on-close="showSaveConfirm = false">
+        Operation saved successfully!
+    </growl-notification>
+    <growl-notification data-ng-if="showDeleteConfirm" on-close="showDeleteConfirm = false">
+        Operation deleted successfully!
+    </growl-notification>
+</div>
