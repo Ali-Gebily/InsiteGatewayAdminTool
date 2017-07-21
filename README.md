@@ -37,9 +37,8 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
 - to initialize data, run `heroku run bash`, in the bash, run `npm run init-data`, then `exit`;
   or simply run `heroku run npm run init-data`
 
-
-I deployed the app to:
-https://barton-veshu.herokuapp.com
+## Application Demo
+https://insidegatewayadmintool.herokuapp.com
 
 Login with `admin@test.com / abc123`
 
