@@ -14,10 +14,14 @@ const MCLChannel = require('./models').MCLChannel;
 const DeviceProfile = require('./models').DeviceProfile;
 const logger = require('./common/logger');
 const helper = require('./common/helper');
+const Adapter = require('./models').Adapter;
+const Operation = require('./models').Operation;
+const OperationApp = require('./models').App;
+const Role = require('./models').Role;
 
 const USER_COUNT = 2000;
 
-co(function*() {
+co(function* () {
   // hash a password
   const password = yield helper.hashString('password');
   // clear uesrs
@@ -200,6 +204,150 @@ co(function*() {
       createdBy: 'system',
     });
   }
+
+  // init adapters
+  yield Adapter.remove();
+  const adapter1 = yield Adapter.create({ name: 'Project Team X' });
+  const adapter2 = yield Adapter.create({ name: 'Project Team Y' });
+  yield Adapter.create({ name: 'Project Team Z' });
+
+  // init operation apps
+  yield OperationApp.remove();
+  const operationApp1 = yield OperationApp.create({ name: 'Project Mobile App' });
+  const operationApp2 = yield OperationApp.create({ name: 'Project Tablet App' });
+
+  // init operations
+  yield Operation.remove();
+  const operation1 = yield Operation.create({
+    name: 'operation1',
+    adapterId: adapter1._id,
+    description: 'description1',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+  });
+  const operation2 = yield Operation.create({
+    name: 'operation2',
+    adapterId: adapter1._id,
+    description: 'description2',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+  });
+  const operation3 = yield Operation.create({
+    name: 'operation 3 with adapter 1',
+    adapterId: adapter1._id,
+    description: 'description3',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    updatedAt: new Date(),
+    updatedBy: 'system',
+    appId: operationApp1._id,
+  });
+  const operation4 = yield Operation.create({
+    name: 'operation3',
+    adapterId: adapter2._id,
+    description: 'description3',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    updatedAt: new Date(),
+    updatedBy: 'system',
+    appId: operationApp1._id,
+  });
+  yield Operation.create({
+    name: 'operation4',
+    adapterId: adapter2._id,
+    description: 'description4',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+  });
+  yield Operation.create({
+    name: 'operation5',
+    adapterId: adapter1._id,
+    description: 'description5',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp2._id,
+  });
+  yield Operation.create({
+    name: 'operation6',
+    adapterId: adapter2._id,
+    description: 'description6',
+    type: 'Standard',
+    createdAt: new Date(),
+    createdBy: 'system',
+    updatedAt: new Date(),
+    updatedBy: 'system',
+    appId: operationApp2._id,
+  });
+
+  // init roles
+  yield Role.remove();
+  yield Role.create({
+    name: 'role1',
+    adapterId: adapter1._id,
+    description: 'description1',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+    operationIds: [operation1._id, operation2._id],
+  });
+  yield Role.create({
+    name: 'role2',
+    adapterId: adapter1._id,
+    description: 'description2',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+    operationIds: [operation1._id, operation2._id, operation3._id],
+  });
+  yield Role.create({
+    name: 'role3',
+    adapterId: adapter2._id,
+    description: 'description3',
+    createdAt: new Date(),
+    createdBy: 'system',
+    updatedAt: new Date(),
+    updatedBy: 'system',
+    appId: operationApp1._id,
+    operationIds: [operation4._id],
+  });
+  yield Role.create({
+    name: 'role4',
+    adapterId: adapter2._id,
+    description: 'description4',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp1._id,
+    operationIds: [operation4._id],
+  });
+  yield Role.create({
+    name: 'role5',
+    adapterId: adapter1._id,
+    description: 'description5',
+    createdAt: new Date(),
+    createdBy: 'system',
+    appId: operationApp2._id,
+    operationIds: [operation2._id, operation3._id],
+  });
+  yield Role.create({
+    name: 'role6',
+    adapterId: adapter2._id,
+    description: 'description6',
+    createdAt: new Date(),
+    createdBy: 'system',
+    updatedAt: new Date(),
+    updatedBy: 'system',
+    appId: operationApp2._id,
+    operationIds: [operation4._id],
+  });
 }).then(() => {
   logger.info('done');
   process.exit();

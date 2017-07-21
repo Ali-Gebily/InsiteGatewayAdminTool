@@ -1,485 +1,647 @@
 {
-	"id": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-	"name": "IoT-backend-api",
-	"description": "",
-	"order": [],
-	"folders": [
+	"variables": [],
+	"info": {
+		"name": "IoT-backend-api",
+		"_postman_id": "b0622a86-68bb-ed8e-067b-077c208651dc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "89a7a558-cf6b-017b-922b-52ec7fe87476",
+			"name": "adapter",
+			"description": "",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"url": "{{URL}}/adapters",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "app",
+			"description": "",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"url": "{{URL}}/apps",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "device",
 			"description": "",
-			"order": [
-				"6ff5300f-1b2e-c481-9181-61ceda58ec3e",
-				"cbd49498-f052-2bcf-3dcb-3e377c2b9bf2",
-				"cbc3a637-7f9b-916d-5fea-8a36ddacf142",
-				"1529844c-9680-194e-e78e-048a2351b6ea",
-				"ea52f362-2c81-174d-921e-a5c72144cae5",
-				"74453c93-9632-94ae-acca-7beef251ce97"
-			],
-			"owner": 0
+			"item": [
+				{
+					"name": "getAllDeviceIngressPaths",
+					"request": {
+						"url": "{{URL}}/deviceingresspaths",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getDevicesBySiteId",
+					"request": {
+						"url": "{{URL}}/devices/site/59164faa516a25215cfbccc4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"url": "{{URL}}/device/5912cb1da162471dd060f11a",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create - device id provided",
+					"request": {
+						"url": "{{URL}}/device",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"device-xxx\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"deviceId\": \"1234-1234-1234-1234\",\n  \"activationCode\": \"code123123\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model123\",\n  \"firmware\": \"firmware123\",\n  \"createdBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create - device id generated",
+					"request": {
+						"url": "{{URL}}/device",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"device-xxx\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"activationCode\": \"code123123\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model123\",\n  \"firmware\": \"firmware123\",\n  \"createdBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"url": "{{URL}}/device/591650ac609d5a235465e39a",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"device-yyy\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"deviceId\": \"1234-1234-1234-9999\",\n  \"activationCode\": \"code456456\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model456\",\n  \"firmware\": \"firmware456\",\n  \"updatedBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "fba73cc9-a16a-dabb-5427-688564a6f54d",
 			"name": "device-profile",
 			"description": "",
-			"order": [
-				"4a6330b5-c207-1900-b608-fec5423f7972",
-				"b7c97f9c-7347-310b-08f8-97333a5aceb3",
-				"630d5c55-c0a8-c82e-8baa-3500ec50c0c3",
-				"24c08a46-9d50-7eb6-f12e-e5a482cd18c1",
-				"da73551d-7246-5dfa-3d57-ae6dddaffe66",
-				"11afea96-1b89-c721-0186-b2c5e5722885"
-			],
-			"owner": 0,
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51"
+			"item": [
+				{
+					"name": "getAllChannels",
+					"request": {
+						"url": "{{URL}}/mclchannels",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "searchDeviceProfiles",
+					"request": {
+						"url": {
+							"raw": "{{URL}}/deviceprofiles?keyword=name1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"deviceprofiles"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "name1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"url": "{{URL}}/deviceprofile",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"device-profile-xxx\",\n  \"version\": \"1.2\",\n  \"vendor\": \"vendor\",\n  \"model\": \"model\",\n  \"createdBy\": \"postman\",\n  \"channelIds\": [\"593b12e22d9f4711b4aba7a5\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"device-profile-yyy\",\n  \"version\": \"1.3\",\n  \"vendor\": \"vendor\",\n  \"model\": \"model\",\n  \"updatedBy\": \"postman\",\n  \"channelIds\": [\"593b12e22d9f4711b4aba7a5\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "download",
+					"request": {
+						"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec/download",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "60fd6c6d-8924-6cab-4dae-1b47a4860ac6",
+			"name": "operations",
+			"description": "",
+			"item": [
+				{
+					"name": "getOperationsByAdapterId",
+					"request": {
+						"url": "{{URL}}/operations/adapter/596534df1df4791534c504b4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"url": "{{URL}}/operations/596534df1df4791534c504b9",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"url": "{{URL}}/operations",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"operation1\",\n    \"adapterId\": \"596534df1df4791534c504b4\",\n    \"description\": \"description1\",\n    \"createdBy\": \"system\",\n    \"appId\": \"596534df1df4791534c504b7\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"url": "{{URL}}/operations/596534df1df4791534c504b9",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"operation3\",\n    \"adapterId\": \"596534df1df4791534c504b4\",\n    \"description\": \"description13\",\n    \"updatedBy\": \"user\",\n    \"appId\": \"596534df1df4791534c504b7\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"url": "{{URL}}/operations/596534df1df4791534c504b9",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "roles",
+			"description": "",
+			"item": [
+				{
+					"name": "getRolesByAdapterId",
+					"request": {
+						"url": "{{URL}}/roles/adapter/596534df1df4791534c504b4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"url": "{{URL}}/roles/596534df1df4791534c504c0",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"url": "{{URL}}/roles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"newRole\",\n    \"adapterId\": \"596534df1df4791534c504b4\",\n    \"description\": \"description1\",\n    \"createdBy\": \"system\",\n    \"appId\": \"596534df1df4791534c504b8\",\n    \"operationIds\": [\n        \"596534df1df4791534c504bb\"\n    ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"url": "{{URL}}/roles/596534df1df4791534c504c0",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"newUpdatedRole\",\n    \"adapterId\": \"596534df1df4791534c504b4\",\n    \"description\": \"description1\",\n    \"createdBy\": \"system\",\n    \"appId\": \"596534df1df4791534c504b8\",\n    \"operationIds\": [\n        \"596534df1df4791534c504bb\"\n    ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"url": "{{URL}}/roles/596534df1df4791534c504c0",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "site",
 			"description": "",
-			"order": [
-				"64a7f4a1-f850-5fa4-3a30-1e8abe1093e7"
-			],
-			"owner": 0
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"url": "{{URL}}/sites",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "49eac804-272b-a863-c832-8353f0edddf5",
 			"name": "user",
 			"description": "",
-			"order": [
-				"eb02d905-3763-5d2c-1b67-d1401c973a66",
-				"410897fd-51a6-85f0-5c7b-6a0d99868208",
-				"a1e530bb-f8a2-e573-4e0a-e6fa64666607",
-				"ca5806cd-3296-2349-7f67-2b58cc9dded9"
-			],
-			"owner": 0
-		}
-	],
-	"timestamp": 1491159644712,
-	"owner": 0,
-	"public": false,
-	"requests": [
-		{
-			"id": "11afea96-1b89-c721-0186-b2c5e5722885",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
+			"item": [
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec/download",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497044158806,
-			"name": "download",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "1529844c-9680-194e-e78e-048a2351b6ea",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/device",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494634615701,
-			"name": "create - device id provided",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n  \"name\": \"device-xxx\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"deviceId\": \"1234-1234-1234-1234\",\n  \"activationCode\": \"code123123\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model123\",\n  \"firmware\": \"firmware123\",\n  \"createdBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "24c08a46-9d50-7eb6-f12e-e5a482cd18c1",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
+					"name": "search",
+					"request": {
+						"url": "{{URL}}/users?offset=1&size=20&name=user1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497044094729,
-			"name": "update",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n  \"name\": \"device-profile-yyy\",\n  \"version\": \"1.3\",\n  \"vendor\": \"vendor\",\n  \"model\": \"model\",\n  \"updatedBy\": \"postman\",\n  \"channelIds\": [\"593b12e22d9f4711b4aba7a5\"]\n}"
-		},
-		{
-			"id": "410897fd-51a6-85f0-5c7b-6a0d99868208",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/user",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1491159910086,
-			"name": "create",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n    \"email\": \"abc@test.com\",\n    \"password\": \"abc\",\n    \"displayName\": \"abc\",\n    \"jobTitle\": \"job title\",\n    \"department\": \"department\",\n    \"phoneNumber\": \"111-222-333\",\n    \"accountEnabled\": \"true\",\n    \"createdBy\": \"someone\"\n}",
-			"isFromCollection": true,
-			"folder": "49eac804-272b-a863-c832-8353f0edddf5"
-		},
-		{
-			"id": "4a6330b5-c207-1900-b608-fec5423f7972",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
+					"name": "create",
+					"request": {
+						"url": "{{URL}}/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"abc@test.com\",\n    \"password\": \"abc\",\n    \"displayName\": \"abc\",\n    \"jobTitle\": \"job title\",\n    \"department\": \"department\",\n    \"phoneNumber\": \"111-222-333\",\n    \"accountEnabled\": \"true\",\n    \"createdBy\": \"someone\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{URL}}/mclchannels",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497064107068,
-			"name": "getAllChannels",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "630d5c55-c0a8-c82e-8baa-3500ec50c0c3",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
+					"name": "update",
+					"request": {
+						"url": "{{URL}}/user/58e5601e43708d19c490e06f",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"abc2@test.com\",\n    \"password\": \"abc2\",\n    \"displayName\": \"abc2\",\n    \"jobTitle\": \"job title2\",\n    \"department\": \"department2\",\n    \"phoneNumber\": \"111-222-333\",\n    \"accountEnabled\": \"false\",\n    \"updatedBy\": \"someone else\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
 				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
+					"name": "get",
+					"request": {
+						"url": "{{URL}}/user/58e5601e43708d19c490e06f",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				}
-			],
-			"url": "{{URL}}/deviceprofile",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497043994749,
-			"name": "create",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n  \"name\": \"device-profile-xxx\",\n  \"version\": \"1.2\",\n  \"vendor\": \"vendor\",\n  \"model\": \"model\",\n  \"createdBy\": \"postman\",\n  \"channelIds\": [\"593b12e22d9f4711b4aba7a5\"]\n}"
-		},
-		{
-			"id": "64a7f4a1-f850-5fa4-3a30-1e8abe1093e7",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/sites",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494406799229,
-			"name": "getAll",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "",
-			"folder": "60fd6c6d-8924-6cab-4dae-1b47a4860ac6"
-		},
-		{
-			"id": "6ff5300f-1b2e-c481-9181-61ceda58ec3e",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/deviceingresspaths",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494406934420,
-			"name": "getAllDeviceIngressPaths",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "74453c93-9632-94ae-acca-7beef251ce97",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/device/591650ac609d5a235465e39a",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494634782970,
-			"name": "update",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n  \"name\": \"device-yyy\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"deviceId\": \"1234-1234-1234-9999\",\n  \"activationCode\": \"code456456\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model456\",\n  \"firmware\": \"firmware456\",\n  \"updatedBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "a1e530bb-f8a2-e573-4e0a-e6fa64666607",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/user/58e5601e43708d19c490e06f",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1491427381494,
-			"name": "update",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n    \"email\": \"abc2@test.com\",\n    \"password\": \"abc2\",\n    \"displayName\": \"abc2\",\n    \"jobTitle\": \"job title2\",\n    \"department\": \"department2\",\n    \"phoneNumber\": \"111-222-333\",\n    \"accountEnabled\": \"false\",\n    \"updatedBy\": \"someone else\"\n}",
-			"isFromCollection": true,
-			"folder": "49eac804-272b-a863-c832-8353f0edddf5"
-		},
-		{
-			"id": "b7c97f9c-7347-310b-08f8-97333a5aceb3",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{URL}}/deviceprofiles?keyword=name1",
-			"queryParams": [
-				{
-					"key": "keyword",
-					"value": "name1",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497043863043,
-			"name": "searchDeviceProfiles",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "ca5806cd-3296-2349-7f67-2b58cc9dded9",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/user/58e5601e43708d19c490e06f",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1491427397605,
-			"name": "get",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "",
-			"isFromCollection": true,
-			"folder": "49eac804-272b-a863-c832-8353f0edddf5"
-		},
-		{
-			"id": "cbc3a637-7f9b-916d-5fea-8a36ddacf142",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/device/5912cb1da162471dd060f11a",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494407377577,
-			"name": "get",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "cbd49498-f052-2bcf-3dcb-3e377c2b9bf2",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/devices/site/59164faa516a25215cfbccc4",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494634501182,
-			"name": "getDevicesBySiteId",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "da73551d-7246-5dfa-3d57-ae6dddaffe66",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "{{URL}}/deviceprofile/593b145068b3c7229865a4ec",
-			"queryParams": [],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1497044123679,
-			"name": "get",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": ""
-		},
-		{
-			"id": "ea52f362-2c81-174d-921e-a5c72144cae5",
-			"headers": "Content-Type: application/json\n",
-			"url": "{{URL}}/device",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1494634666547,
-			"name": "create - device id generated",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"rawModeData": "{\n  \"name\": \"device-xxx\",\n  \"ingressPathId\": \"59164faa516a25215cfbccc7\",\n  \"activationCode\": \"code123123\",\n  \"connectionString\": \"http://xx.yy.zz\",\n  \"model\": \"model123\",\n  \"firmware\": \"firmware123\",\n  \"createdBy\": \"system\",\n  \"lastDataPoint\": \"2017-05-10T08:11:09.626Z\",\n  \"parentId\": \"59164faa516a25215cfbccca\",\n  \"siteId\": \"59164faa516a25215cfbccc4\"\n}",
-			"folder": "89a7a558-cf6b-017b-922b-52ec7fe87476"
-		},
-		{
-			"id": "eb02d905-3763-5d2c-1b67-d1401c973a66",
-			"headers": "",
-			"url": "{{URL}}/users?offset=1&size=20&name=user1",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1491159783245,
-			"name": "search",
-			"description": "",
-			"collectionId": "32aba25c-8a2b-5d43-f463-f51ebb73cb51",
-			"responses": [],
-			"isFromCollection": true,
-			"folder": "49eac804-272b-a863-c832-8353f0edddf5"
+			]
 		}
 	]
 }

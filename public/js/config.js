@@ -11,7 +11,10 @@ config.constant('HEADER_TABS', [
   ['Users', 'User', '#/users'],
   ['Apps', 'App', '#/apps'],
   ['Devices', 'Device', '#/devices'],
-  ['Device Profiles', 'Profile', '#/deviceProfiles']
+  ['Device Profiles', 'Profile', '#/deviceProfiles'],
+  ['Operations', 'Operations', '#/operations'],
+  ['Resources', 'Resources', '#/resources'],
+  ['Roles', 'Roles', '#/roles'],
 ]);
 
 config.constant('ADMIN_CREDENTIAL', ['admin@test.com', 'abc123']);

@@ -94,4 +94,68 @@ module.exports = {
       method: 'download',
     },
   },
+  '/apps': {
+    get: {
+      controller: 'AppController',
+      method: 'getAll',
+    },
+  },
+  '/adapters': {
+    get: {
+      controller: 'AdapterController',
+      method: 'getAll',
+    },
+  },
+  '/operations/adapter/:adapterId': {
+    get: {
+      controller: 'OperationController',
+      method: 'getOperationsByAdapterId',
+    },
+  },
+  '/operations/:id': {
+    get: {
+      controller: 'OperationController',
+      method: 'get',
+    },
+    put: {
+      controller: 'OperationController',
+      method: 'update',
+    },
+    delete: {
+      controller: 'OperationController',
+      method: 'remove',
+    },
+  },
+  '/operations': {
+    post: {
+      controller: 'OperationController',
+      method: 'create',
+    },
+  },
+  '/roles/adapter/:adapterId': {
+    get: {
+      controller: 'RoleController',
+      method: 'getRolesByAdapterId',
+    },
+  },
+  '/roles/:id': {
+    get: {
+      controller: 'RoleController',
+      method: 'get',
+    },
+    put: {
+      controller: 'RoleController',
+      method: 'update',
+    },
+    delete: {
+      controller: 'RoleController',
+      method: 'remove',
+    },
+  },
+  '/roles': {
+    post: {
+      controller: 'RoleController',
+      method: 'create',
+    },
+  },
 };
