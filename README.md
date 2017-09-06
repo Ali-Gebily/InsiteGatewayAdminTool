@@ -38,7 +38,7 @@ Front end configuration is at `public/js/config.js`, you needn't change it.
   or simply run `heroku run npm run init-data`
 
 ## Application Demo
-https://insidegatewayadmintool.herokuapp.com
+https://misha-bat.herokuapp.com/
 
 Login with `admin@test.com / abc123`
 
