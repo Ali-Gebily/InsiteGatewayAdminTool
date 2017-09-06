@@ -1,0 +1,36 @@
+{
+  "name": "paper-chip",
+  "version": "1.0.11",
+  "authors": [
+    "Vinicius Patrinhani <patrinhani@ciandt.com>"
+  ],
+  "description": "Material Design Chip component built with Polymer.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "paper-chip",
+    "material design",
+    "chip"
+  ],
+  "main": "paper-chip.html",
+  "license": "https://raw.githubusercontent.com/WebPaperElements/paper-chip/master/LICENSE.md",
+  "homepage": "https://github.com/WebPaperElements/paper-chip/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "^1.1.0",
+    "iron-a11y-keys": "^1.0.5",
+    "iron-behaviors": "^1.0.0",
+    "iron-icon": "^1.0.0",
+    "iron-iconset-svg": "^1.0.0",
+    "iron-flex-layout": "^1.0.0",
+    "paper-material": "^1.0.0",
+    "paper-styles": "^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "^1.0.0",
+    "web-component-tester": "*"
+  }
+}

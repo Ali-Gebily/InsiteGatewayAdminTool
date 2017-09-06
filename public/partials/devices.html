@@ -85,6 +85,20 @@
                                 </px-row>
                                 <px-row>
                                     <px-column title width="3">
+                                        <px-title light><h1>Tags:</h1></px-title>
+                                    </px-column>
+                                    <px-column width="7">
+                                    <paper-input-autocomplete-chips class="tags-autocomplete"
+                                    local-candidates="{{tags}}" 
+                                    label="Tags" 
+                                    max-selected-items="10"
+                                    no-chip-image
+                                    allow-select-unknown-token>
+                                  </paper-input-autocomplete-chips>
+                                </px-column>
+                                </px-row>
+                                <px-row>
+                                    <px-column title width="3">
                                         <px-title light><h1>Created Date:</h1></px-title>
                                     </px-column>
                                     <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.createdAt">

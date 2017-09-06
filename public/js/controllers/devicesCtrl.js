@@ -21,6 +21,29 @@ controllers
     $scope.ingressPathError = null;
     $scope.showSaveConfirm = false;
     var isDirty = false;
+    var tagsAutocomplete = document.getElementsByClassName('tags-autocomplete')[0]; 
+
+    $scope.tags = [
+      {
+        text: "Alabama",
+      },
+      {
+        text: "Alaska",
+      },
+      {
+        text: "American Samoa",
+      }
+    ];
+
+    $scope.removeTag = function(tag){
+      var isConfirmed = confirm("Are you sure?");
+      if(isConfirmed){
+        var index = tagsAutocomplete.selectedObjects.indexOf(tag);
+        tagsAutocomplete.removeSelectedObjectByIndex(index);
+      }
+    }
+
+    tagsAutocomplete.removeSelectedObject = $scope.removeTag;
 
     // get sites
     ApiService.api('/sites', 'GET', null, null).then(
