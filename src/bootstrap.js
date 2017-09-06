@@ -11,3 +11,4 @@ logger.buildService(require('./services/UserService'));
 logger.buildService(require('./services/SiteService'));
 logger.buildService(require('./services/DeviceService'));
 logger.buildService(require('./services/DeviceProfileService'));
+logger.buildService(require('./services/TagService'));

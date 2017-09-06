@@ -164,4 +164,10 @@ module.exports = {
       method: 'create',
     },
   },
+  '/tags': {
+    get: {
+      controller: 'TagController',
+      method: 'getAll',
+    },
+  }
 };

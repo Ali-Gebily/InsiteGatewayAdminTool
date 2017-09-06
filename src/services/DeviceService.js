@@ -70,6 +70,7 @@ create.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
+    tagIds: Joi.array().items(Joi.string())
   }).required(),
 };
 
@@ -105,6 +106,7 @@ update.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
+    tagIds: Joi.array().items(Joi.string())
   }).required(),
 };
 
