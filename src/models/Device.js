@@ -23,6 +23,7 @@ const schema = new Schema({
   // this references the mongo id, not device id
   parentId: { type: ObjectId, ref: 'Device', required: false },
   siteId: { type: ObjectId, ref: 'Site', required: true },
+  tagIds: [{ type: ObjectId, ref: 'Tag' }],
 });
 
 schema.index({ siteId: 1 });

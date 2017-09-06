@@ -37,6 +37,12 @@ module.exports = {
       method: 'getDevicesBySiteId',
     },
   },
+  '/devices/tags/:tags*?': {
+    get: {
+      controller: 'DeviceController',
+      method: 'getDevicesByTags',
+    },
+  },
   '/device/:id': {
     get: {
       controller: 'DeviceController',

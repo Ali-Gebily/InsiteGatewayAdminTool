@@ -24,6 +24,19 @@ function* getDevicesBySiteId(req, res) {
 }
 
 /**
+ * Get devices by tags.
+ * @param req the request
+ * @param res the response
+ */
+function* getDevicesByTags(req, res) {
+  let tags = []
+  if(req.params.tags){
+    tags = JSON.parse(req.params.tags);
+  }
+  res.json(yield DeviceService.getDevicesByTags(tags));
+}
+
+/**
  * Update device.
  * @param req the request
  * @param res the response
@@ -53,6 +66,7 @@ function* getAllDeviceIngressPaths(req, res) {
 // Exports
 module.exports = {
   getDevicesBySiteId,
+  getDevicesByTags,
   create,
   update,
   get,

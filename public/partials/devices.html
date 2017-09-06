@@ -3,151 +3,181 @@
 <div class="layout horizontal content">
 
     <!-- Sidebar -->
-            <px-sidebar dark floating collapsible>
-                <px-actionbar secondary>
-                    Site: &nbsp;
-                    <px-dropdown value="" data-ng-model="theSiteId" data-ng-change="selectSite()" placeholder="Select" flex>
-                      <px-item data-ng-repeat="site in sites track by $index" value="{{site.id}}">{{site.name}}</px-item>
-                    </px-dropdown>
-                </px-actionbar>
-                <px-row selectable data-ng-repeat="device in devices track by $index" data-ng-click="selectDevice($index)">
-                    <px-column title><span data-ng-repeat="dep in getIndent(device.depth)">&nbsp;</span>
-                        {{device.data.name}}</px-item></px-column>
-                </px-row>
-            </px-sidebar>
+    <px-sidebar dark floating collapsible class="sidebar-tags">
+        <px-actionbar secondary data-ng-class="{'hide': isSearchByTag}">
+            Site: &nbsp;
+            <px-dropdown value="" data-ng-model="theSiteId" data-ng-change="selectSite()" placeholder="Select" flex>
+                <px-item data-ng-repeat="site in sites track by $index" value="{{site.id}}">{{site.name}}</px-item>
+            </px-dropdown>
+            <iron-icon icon="icons:search" data-ng-click="isSearchByTag=true;" title="Search by tags" data-ng-class="{'hide': isSearchByTag}"></iron-icon>
+        </px-actionbar>
+        <px-actionbar secondary data-ng-class="{'hide': !isSearchByTag}">
+            <paper-input-autocomplete-chips class="tags-search" local-candidates="{{tags}}" label="Tags" max-selected-items="10"
+                no-chip-image allow-select-unknown-token>
+            </paper-input-autocomplete-chips>
+            <iron-icon icon="icons:close" data-ng-click="isSearchByTag=false;" title="Cancel search by tags" data-ng-class="{'hide': !isSearchByTag}"></iron-icon>
+        </px-actionbar>
+        <px-row selectable data-ng-repeat="device in devices track by $index" data-ng-click="selectDevice($index)">
+            <px-column title><span data-ng-repeat="dep in getIndent(device.depth)">&nbsp;</span> {{device.data.name}}
+                </px-item>
+            </px-column>
+        </px-row>
+    </px-sidebar>
 
     <!-- Main Content Area -->
-            <div class="flex layout vertical">
-                <div class="flex layout vertical main-content">
-                        <px-card-container vertical fixed>
-                            <px-card fixed>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Name:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7">
-                                        <px-input data-ng-model="name" data-ng-change="deviceChanged()"></px-input>
-                                        <span data-ng-if="nameError" class="error-message">{{nameError}}</span>
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Ingress Path:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="4">
-                                        <px-dropdown value="" data-ng-model="ingressPath" data-ng-change="deviceChanged()" placeholder="Select" flex>
-                                            <px-item data-ng-repeat="ingressPath in ingressPaths" value="{{ingressPath.id}}">{{ingressPath.ingressPath}}</px-item>
-                                        </px-dropdown>
-                                        <span data-ng-if="ingressPathError" class="error-message">{{ingressPathError}}</span>
-                                    </px-column>
-                                    <px-column width="3">
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Device ID:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0">
-                                        {{devices[deviceIndex].data.deviceId}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Activation Code:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.activationCode">
-                                        {{devices[deviceIndex].data.activationCode}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Connection String:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.connectionString">
-                                        {{devices[deviceIndex].data.connectionString}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Model:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.model">
-                                        {{devices[deviceIndex].data.model}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Firmware:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.firmware">
-                                        {{devices[deviceIndex].data.firmware}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Tags:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7">
-                                    <paper-input-autocomplete-chips class="tags-autocomplete"
-                                    local-candidates="{{tags}}" 
-                                    label="Tags" 
-                                    max-selected-items="10"
-                                    no-chip-image
-                                    allow-select-unknown-token>
-                                  </paper-input-autocomplete-chips>
-                                </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Created Date:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.createdAt">
-                                        {{ devices[deviceIndex].data.createdAt | date:'yyyy-MM-dd HH:mm:ss' }}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Created By:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.createdBy">
-                                        {{devices[deviceIndex].data.createdBy}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Last Update:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.updatedAt">
-                                        {{ devices[deviceIndex].data.updatedAt | date:'yyyy-MM-dd HH:mm:ss' }}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Last Updated By:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.updatedBy">
-                                        {{devices[deviceIndex].data.updatedBy}}
-                                    </px-column>
-                                </px-row>
-                                <px-row>
-                                    <px-column title width="3">
-                                        <px-title light><h1>Last Data Point:</h1></px-title>
-                                    </px-column>
-                                    <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.lastDataPoint">
-                                        {{ devices[deviceIndex].data.lastDataPoint | date:'yyyy-MM-dd HH:mm:ss' }}
-                                    </px-column>
-                                </px-row>
-                            </px-card>
-                        </px-card-container>
-                </div>
-                <px-actionbar>
-                    <px-button dark data-ng-click="checkDirtyForNewDevice()">New</px-button>
-                    <px-button dark data-ng-click="saveDevice()">Save</px-button>
-                    <span class="flex"></span>
-                </px-actionbar>
-            </div>
+    <div class="flex layout vertical">
+        <div class="flex layout vertical main-content">
+            <px-card-container vertical fixed>
+                <px-card fixed>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Name:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7">
+                            <px-input data-ng-model="name" data-ng-change="deviceChanged()"></px-input>
+                            <span data-ng-if="nameError" class="error-message">{{nameError}}</span>
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Ingress Path:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="4">
+                            <px-dropdown value="" data-ng-model="ingressPath" data-ng-change="deviceChanged()" placeholder="Select" flex>
+                                <px-item data-ng-repeat="ingressPath in ingressPaths" value="{{ingressPath.id}}">{{ingressPath.ingressPath}}</px-item>
+                            </px-dropdown>
+                            <span data-ng-if="ingressPathError" class="error-message">{{ingressPathError}}</span>
+                        </px-column>
+                        <px-column width="3">
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Device ID:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0">
+                            {{devices[deviceIndex].data.deviceId}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Activation Code:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.activationCode">
+                            {{devices[deviceIndex].data.activationCode}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Connection String:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.connectionString">
+                            {{devices[deviceIndex].data.connectionString}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Model:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.model">
+                            {{devices[deviceIndex].data.model}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Firmware:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.firmware">
+                            {{devices[deviceIndex].data.firmware}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Tags:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7">
+                            <paper-input-autocomplete-chips class="tags-autocomplete" local-candidates="{{tags}}" label="Tags" max-selected-items="10"
+                                no-chip-image allow-select-unknown-token>
+                            </paper-input-autocomplete-chips>
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Created Date:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.createdAt">
+                            {{ devices[deviceIndex].data.createdAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Created By:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.createdBy">
+                            {{devices[deviceIndex].data.createdBy}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Last Update:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.updatedAt">
+                            {{ devices[deviceIndex].data.updatedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Last Updated By:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.updatedBy">
+                            {{devices[deviceIndex].data.updatedBy}}
+                        </px-column>
+                    </px-row>
+                    <px-row>
+                        <px-column title width="3">
+                            <px-title light>
+                                <h1>Last Data Point:</h1>
+                            </px-title>
+                        </px-column>
+                        <px-column width="7" data-ng-if="deviceIndex >= 0 && devices[deviceIndex].data.lastDataPoint">
+                            {{ devices[deviceIndex].data.lastDataPoint | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </px-column>
+                    </px-row>
+                </px-card>
+            </px-card-container>
+        </div>
+        <px-actionbar>
+            <px-button dark data-ng-click="checkDirtyForNewDevice()">New</px-button>
+            <px-button dark data-ng-click="saveDevice()">Save</px-button>
+            <span class="flex"></span>
+        </px-actionbar>
+    </div>
 
     <growl-notification data-ng-if="showSaveConfirm" on-close="showSaveConfirm = false">
-      Device saved successfully!
+        Device saved successfully!
     </growl-notification>
 </div>

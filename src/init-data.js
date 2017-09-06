@@ -18,6 +18,7 @@ const Adapter = require('./models').Adapter;
 const Operation = require('./models').Operation;
 const OperationApp = require('./models').App;
 const Role = require('./models').Role;
+const Tag = require('./models').Tag;
 
 const USER_COUNT = 2000;
 
@@ -54,6 +55,13 @@ co(function* () {
   const path1 = yield DeviceIngressPath.create({ ingressPath: 'Device' });
   const path2 = yield DeviceIngressPath.create({ ingressPath: 'Software' });
 
+  // init tags
+  yield Tag.remove();
+  const tag1 = yield Tag.create({ text: 'north' });
+  const tag2 = yield Tag.create({ text: 'south' });
+  const tag3 = yield Tag.create({ text: 'floor1' });
+  const tag4 = yield Tag.create({ text: 'floor2' });
+
   // init devices
   yield Device.remove();
   const device1 = yield Device.create({
@@ -68,6 +76,7 @@ co(function* () {
     createdBy: 'system',
     lastDataPoint: new Date(),
     siteId: site1._id,
+    tagIds: [tag1, tag2, tag3, tag4]
   });
   const device2 = yield Device.create({
     name: 'device2',
@@ -82,6 +91,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device1._id,
     siteId: site1._id,
+    tagIds: [tag1, tag3]
   });
   const device3 = yield Device.create({
     name: 'device3',
@@ -96,6 +106,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device2._id,
     siteId: site1._id,
+    tagIds: [tag2, tag4]
   });
   const device4 = yield Device.create({
     name: 'device4',
@@ -110,6 +121,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device2._id,
     siteId: site1._id,
+    tagIds: [tag1, tag4]
   });
   yield Device.create({
     name: 'device5',
