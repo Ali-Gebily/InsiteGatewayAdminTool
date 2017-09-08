@@ -9,13 +9,13 @@
             <px-dropdown value="" data-ng-model="theSiteId" data-ng-change="selectSite()" placeholder="Select" flex>
                 <px-item data-ng-repeat="site in sites track by $index" value="{{site.id}}">{{site.name}}</px-item>
             </px-dropdown>
-            <iron-icon icon="icons:search" data-ng-click="isSearchByTag=true;" title="Search by tags" data-ng-class="{'hide': isSearchByTag}"></iron-icon>
+            <iron-icon icon="icons:search" data-ng-click="isSearchByTag=true;resetSearch()" title="Search by tags" data-ng-class="{'hide': isSearchByTag}"></iron-icon>
         </px-actionbar>
         <px-actionbar secondary data-ng-class="{'hide': !isSearchByTag}">
             <paper-input-autocomplete-chips class="tags-search" local-candidates="{{tags}}" label="Tags" max-selected-items="10"
                 no-chip-image allow-select-unknown-token>
             </paper-input-autocomplete-chips>
-            <iron-icon icon="icons:close" data-ng-click="isSearchByTag=false;" title="Cancel search by tags" data-ng-class="{'hide': !isSearchByTag}"></iron-icon>
+            <iron-icon icon="icons:close" data-ng-click="isSearchByTag=false;resetSearch()" title="Cancel search by tags" data-ng-class="{'hide': !isSearchByTag}"></iron-icon>
         </px-actionbar>
         <px-row selectable data-ng-repeat="device in devices track by $index" data-ng-click="selectDevice($index)">
             <px-column title><span data-ng-repeat="dep in getIndent(device.depth)">&nbsp;</span> {{device.data.name}}
@@ -111,7 +111,7 @@
                                 <h1>Tags:</h1>
                             </px-title>
                         </px-column>
-                        <px-column width="7">
+                        <px-column width="7" class="no-padding">
                             <paper-input-autocomplete-chips class="tags-autocomplete" local-candidates="{{tags}}" label="Tags" max-selected-items="10"
                                 no-chip-image allow-select-unknown-token>
                             </paper-input-autocomplete-chips>

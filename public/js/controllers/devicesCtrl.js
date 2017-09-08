@@ -307,4 +307,10 @@ controllers
     var tagsSearchOnSelectedObjectsChange = tagsSearch._onSelectedObjectsChange;
     tagsSearch._onSelectedObjectsChange = $scope.searchTags_Changed;
 
+    $scope.resetSearch = function(){
+      $scope.devices = [];
+      $scope.newDevice();
+      tagsSearch.selectedObjects = [];
+    }
+
   });

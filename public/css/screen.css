@@ -75,7 +75,9 @@ growl-notifications growl-notification {
 /* .tags-search */
 
 .tags-search .label-is-floating label.paper-input-autocomplete-chips,
-.tags-search .floated-label-placeholder{
+.tags-search .floated-label-placeholder,
+.tags-autocomplete .label-is-floating label.paper-input-autocomplete-chips,
+.tags-autocomplete .floated-label-placeholder{
   display: none;
 }
 .px-actionbar-0 .tags-search{
@@ -97,4 +99,8 @@ growl-notifications growl-notification {
 
 .sidebar-tags .paper-input-autocomplete-chips-0 .input-container.paper-input-autocomplete-chips input#input.paper-input-autocomplete-chips{
   color: #f3f3f3;
+}
+
+.px-column-2.no-padding .columnWrapper.px-column{
+  padding: 0;
 }
