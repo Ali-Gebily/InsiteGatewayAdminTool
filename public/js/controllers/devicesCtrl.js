@@ -10,7 +10,7 @@ controllers
 
     $scope.ingressPaths = [];
     $scope.sites = [];
-    var selectedSite = null;
+    var selectedSite = {};
     $scope.theSiteId = '';
     // devices wrappers
     $scope.devices = [];
@@ -21,6 +21,7 @@ controllers
     $scope.ingressPathError = null;
     $scope.showSaveConfirm = false;
     var isDirty = false;
+    $scope.isSearchByTag = false;
     var tagsAutocomplete = document.getElementsByClassName('tags-autocomplete')[0]; 
     var tagsSearch = document.getElementsByClassName('tags-search')[0]; 
 
@@ -208,6 +209,10 @@ controllers
         return;
       }
 
+      if(!selectedSite.id){
+        selectedSite.id = $scope.devices[$scope.deviceIndex].data.siteId;
+      }
+
       var path;
       var method;
       var deviceData = {
@@ -246,6 +251,11 @@ controllers
           $timeout(function() {
             $scope.showSaveConfirm = false;
           }, 3000);
+
+          // refresh data in case of tag search.
+          if($scope.isSearchByTag){
+            $scope.searchTags_Changed(tagsSearch.selectedObjects);
+          }
         },
         function(data) {
           alert('failed to save device: ' + JSON.stringify(data));

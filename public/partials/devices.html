@@ -172,7 +172,7 @@
         </div>
         <px-actionbar>
             <px-button dark data-ng-click="checkDirtyForNewDevice()" data-ng-class="{'hide': isSearchByTag}">New</px-button>
-            <px-button dark data-ng-click="saveDevice()" data-ng-class="{'hide': deviceIndex < 0}">Save</px-button>
+            <px-button dark data-ng-click="saveDevice()" data-ng-class="{'hide': deviceIndex < 0 && isSearchByTag}">Save</px-button>
             <span class="flex"></span>
         </px-actionbar>
     </div>
