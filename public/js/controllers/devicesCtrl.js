@@ -83,7 +83,7 @@ controllers
           if (result[j].depth < 0) {
             // this wrapper is not done yet, check whether its parent is done
             var parentWrapper = mapping[result[j].data.parentId];
-            if (parentWrapper.depth >= 0) {
+            if (parentWrapper && parentWrapper.depth >= 0) {
               // parent wrapper is done, then we can handle this wrapper
               result[j].depth = parentWrapper.depth + 1;
               result[j].ids = parentWrapper.ids + '|' + result[j].data.id;
