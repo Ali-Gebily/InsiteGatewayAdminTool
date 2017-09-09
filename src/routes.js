@@ -169,5 +169,5 @@ module.exports = {
       controller: 'TagController',
       method: 'getAll',
     },
-  }
+  },
 };

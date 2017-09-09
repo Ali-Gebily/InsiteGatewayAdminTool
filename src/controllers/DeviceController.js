@@ -29,8 +29,8 @@ function* getDevicesBySiteId(req, res) {
  * @param res the response
  */
 function* getDevicesByTags(req, res) {
-  let tags = []
-  if(req.params.tags){
+  let tags = [];
+  if (req.params.tags) {
     tags = JSON.parse(req.params.tags);
   }
   res.json(yield DeviceService.getDevicesByTags(tags));

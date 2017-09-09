@@ -31,10 +31,10 @@ getDevicesBySiteId.schema = {
  * @returns {Array} the devices of the given site id
  */
 function* getDevicesByTags(tags) {
-  return yield Device.find({ tagIds: { "$in" : tags} });
+  return yield Device.find({ tagIds: { $in: tags } });
 }
 getDevicesByTags.schema = {
-  tags: Joi.array().items(Joi.string())
+  tags: Joi.array().items(Joi.string()),
 };
 
 /**
@@ -70,7 +70,7 @@ create.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
-    tagIds: Joi.array().items(Joi.string())
+    tagIds: Joi.array().items(Joi.string()),
   }).required(),
 };
 
@@ -106,7 +106,7 @@ update.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
-    tagIds: Joi.array().items(Joi.string())
+    tagIds: Joi.array().items(Joi.string()),
   }).required(),
 };
 

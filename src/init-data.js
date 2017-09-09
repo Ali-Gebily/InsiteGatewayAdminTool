@@ -76,7 +76,7 @@ co(function* () {
     createdBy: 'system',
     lastDataPoint: new Date(),
     siteId: site1._id,
-    tagIds: [tag1, tag2, tag3, tag4]
+    tagIds: [tag1, tag2, tag3, tag4],
   });
   const device2 = yield Device.create({
     name: 'device2',
@@ -91,7 +91,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device1._id,
     siteId: site1._id,
-    tagIds: [tag1, tag3]
+    tagIds: [tag1, tag3],
   });
   const device3 = yield Device.create({
     name: 'device3',
@@ -106,7 +106,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device2._id,
     siteId: site1._id,
-    tagIds: [tag2, tag4]
+    tagIds: [tag2, tag4],
   });
   const device4 = yield Device.create({
     name: 'device4',
@@ -121,7 +121,7 @@ co(function* () {
     lastDataPoint: new Date(),
     parentId: device2._id,
     siteId: site1._id,
-    tagIds: [tag1, tag4]
+    tagIds: [tag1, tag4],
   });
   yield Device.create({
     name: 'device5',

@@ -39,7 +39,7 @@ describe('Device API Tests', () => {
         createdBy: 'system',
         lastDataPoint: new Date(),
         siteId: site1._id,
-        tagIds: [tag1]
+        tagIds: [tag1],
       });
     }).then(() => done()).catch(done);
   });
