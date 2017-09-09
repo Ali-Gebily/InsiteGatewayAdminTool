@@ -310,6 +310,8 @@ controllers
     $scope.resetSearch = function(){
       $scope.devices = [];
       $scope.newDevice();
+      $scope.theSiteId = '';
+      $scope.deviceIndex = -1;
       tagsSearch.selectedObjects = [];
     }
 
