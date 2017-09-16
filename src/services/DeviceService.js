@@ -26,6 +26,18 @@ getDevicesBySiteId.schema = {
 };
 
 /**
+ * Get devices by tags.
+ * @param {Array} tags the tags to search by
+ * @returns {Array} the devices of the given site id
+ */
+function* getDevicesByTags(tags) {
+  return yield Device.find({ tagIds: { $in: tags } });
+}
+getDevicesByTags.schema = {
+  tags: Joi.array().items(Joi.string()),
+};
+
+/**
  * Create device. Note that if deviceId is not provided, then it will be generated.
  * @param {Object} data the data to create device
  * @returns {Object} the created device
@@ -58,6 +70,7 @@ create.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
+    tagIds: Joi.array().items(Joi.string()),
   }).required(),
 };
 
@@ -93,6 +106,7 @@ update.schema = {
     lastDataPoint: Joi.date().iso(),
     parentId: Joi.string(),
     siteId: Joi.string().required(),
+    tagIds: Joi.array().items(Joi.string()),
   }).required(),
 };
 
@@ -120,6 +134,7 @@ function* getAllDeviceIngressPaths() {
 // Exports
 module.exports = {
   getDevicesBySiteId,
+  getDevicesByTags,
   create,
   update,
   get,

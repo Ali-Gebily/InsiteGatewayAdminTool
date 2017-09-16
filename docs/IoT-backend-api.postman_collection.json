@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "IoT-backend-api",
-		"_postman_id": "b0622a86-68bb-ed8e-067b-077c208651dc",
+		"_postman_id": "2d4551d1-0d45-eb1c-1156-2b21841602a1",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -87,6 +87,26 @@
 					"name": "getDevicesBySiteId",
 					"request": {
 						"url": "{{URL}}/devices/site/59164faa516a25215cfbccc4",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getDevicesByTags",
+					"request": {
+						"url": "{{URL}}/devices/tags/[\"59aff4965e7d1929b06cd803\"]",
 						"method": "GET",
 						"header": [
 							{
@@ -567,16 +587,68 @@
 			]
 		},
 		{
+			"name": "tag",
+			"description": "",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"url": "{{URL}}/tags",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "user",
 			"description": "",
 			"item": [
 				{
 					"name": "search",
 					"request": {
-						"url": "{{URL}}/users?offset=1&size=20&name=user1",
+						"url": {
+							"raw": "{{URL}}/users?offset=1&size=20&name=user1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "name",
+									"value": "user1"
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []

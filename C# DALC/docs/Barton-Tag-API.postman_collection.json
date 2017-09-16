@@ -1,0 +1,112 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Barton-Tag-API",
+		"_postman_id": "61b28264-407b-0221-af3e-d209d680c7e6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Tags",
+			"request": {
+				"url": "{{URL}}/tags",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tags by text",
+			"request": {
+				"url": {
+					"raw": "{{URL}}/tags?text=oo",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"tags"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "oo",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tag by Id",
+			"request": {
+				"url": "{{URL}}/tags/59b3a3bad91a171ed0151909",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tag",
+			"request": {
+				"url": "{{URL}}/tags",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"text\": \"floor4\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tag",
+			"request": {
+				"url": "{{URL}}/tags",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"floor4.2\",\n    \"id\": \"59b3a3bad91a171ed0151909\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tag",
+			"request": {
+				"url": "{{URL}}/tags/59b3a3bad91a171ed0151909",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

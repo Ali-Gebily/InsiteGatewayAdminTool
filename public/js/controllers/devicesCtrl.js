@@ -10,7 +10,7 @@ controllers
 
     $scope.ingressPaths = [];
     $scope.sites = [];
-    var selectedSite = null;
+    var selectedSite = {};
     $scope.theSiteId = '';
     // devices wrappers
     $scope.devices = [];
@@ -21,6 +21,9 @@ controllers
     $scope.ingressPathError = null;
     $scope.showSaveConfirm = false;
     var isDirty = false;
+    $scope.isSearchByTag = false;
+    var tagsAutocomplete = document.getElementsByClassName('tags-autocomplete')[0]; 
+    var tagsSearch = document.getElementsByClassName('tags-search')[0]; 
 
     // get sites
     ApiService.api('/sites', 'GET', null, null).then(
@@ -81,7 +84,7 @@ controllers
           if (result[j].depth < 0) {
             // this wrapper is not done yet, check whether its parent is done
             var parentWrapper = mapping[result[j].data.parentId];
-            if (parentWrapper.depth >= 0) {
+            if (parentWrapper && parentWrapper.depth >= 0) {
               // parent wrapper is done, then we can handle this wrapper
               result[j].depth = parentWrapper.depth + 1;
               result[j].ids = parentWrapper.ids + '|' + result[j].data.id;
@@ -150,11 +153,16 @@ controllers
         }
       }
 
+      var device =  $scope.devices[deviceIndex].data;
       $scope.deviceIndex = deviceIndex;
       $scope.name = $scope.devices[deviceIndex].data.name;
       $scope.ingressPath = $scope.devices[deviceIndex].data.ingressPathId;
       $scope.nameError = null;
       $scope.ingressPathError = null;
+
+      tagsAutocomplete.selectedObjects = $scope.tags.filter(function(item){
+        return device.tagIds.indexOf(item.id) > -1
+      });
     };
 
     $scope.newDevice = function() {
@@ -163,6 +171,7 @@ controllers
       $scope.ingressPath = null;
       $scope.nameError = null;
       $scope.ingressPathError = null;
+      tagsAutocomplete.selectedObjects = [];
     };
 
     $rootScope.$on('$stateChangeStart', function(event) {
@@ -200,12 +209,19 @@ controllers
         return;
       }
 
+      if(!selectedSite.id){
+        selectedSite.id = $scope.devices[$scope.deviceIndex].data.siteId;
+      }
+
       var path;
       var method;
       var deviceData = {
         name: $scope.name,
         ingressPathId: $scope.ingressPath,
-        siteId: selectedSite.id
+        siteId: selectedSite.id,
+        tagIds: tagsAutocomplete.selectedObjects.map(function(item){
+          return item.id;
+        })
       };
       if ($scope.deviceIndex >= 0) {
         deviceData.updatedBy = $rootScope.user.email;
@@ -235,6 +251,11 @@ controllers
           $timeout(function() {
             $scope.showSaveConfirm = false;
           }, 3000);
+
+          // refresh data in case of tag search.
+          if($scope.isSearchByTag){
+            $scope.searchTags_Changed(tagsSearch.selectedObjects);
+          }
         },
         function(data) {
           alert('failed to save device: ' + JSON.stringify(data));
@@ -249,5 +270,59 @@ controllers
       }
       isDirty = true;
     };
+
+    // remove a tag from device editing
+    $scope.removeTag = function(tag){
+      var isConfirmed = confirm("Are you sure?");
+      if(isConfirmed){
+        var index = tagsAutocomplete.selectedObjects.indexOf(tag);
+        tagsAutocomplete.removeSelectedObjectByIndex(index);
+      }
+    }
+    
+    tagsAutocomplete.removeSelectedObject = $scope.removeTag;
+
+    $scope.getAllTags = function(){
+      // get devices of the selected site
+      ApiService.api('/tags', 'GET').then(
+        function(data) {
+          $scope.tags = data;
+        },
+        function(data) {
+          alert('Failed to get tags.');
+        }
+      );
+    }
+
+    $scope.getAllTags();
+
+    $scope.searchTags_Changed = function(selectedObjects){
+      tagsSearchOnSelectedObjectsChange.call(tagsSearch, selectedObjects);
+      
+      // search devices
+      var tags = tagsSearch.selectedObjects.map(function(item){
+        return item.id;
+      });
+
+      ApiService.api('/devices/tags/' + JSON.stringify(tags), 'GET', null, null).then(
+        function(data) {
+          $scope.devices = handleDevices(data);
+          $scope.newDevice();
+        },
+        function(data) {
+          alert('Failed to get devices');
+        }
+      );
+    }
+    var tagsSearchOnSelectedObjectsChange = tagsSearch._onSelectedObjectsChange;
+    tagsSearch._onSelectedObjectsChange = $scope.searchTags_Changed;
+
+    $scope.resetSearch = function(){
+      $scope.devices = [];
+      $scope.newDevice();
+      $scope.theSiteId = '';
+      $scope.deviceIndex = -1;
+      tagsSearch.selectedObjects = [];
+    }
 
   });

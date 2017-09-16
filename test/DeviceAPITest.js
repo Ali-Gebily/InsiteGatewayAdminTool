@@ -9,6 +9,7 @@ const expect = require('chai').expect;
 const Device = require('../src/models').Device;
 const DeviceIngressPath = require('../src/models').DeviceIngressPath;
 const Site = require('../src/models').Site;
+const Tag = require('../src/models').Tag;
 const co = require('co');
 
 request = request(app);
@@ -17,6 +18,7 @@ describe('Device API Tests', () => {
   let site1;
   let path1;
   let device1;
+  let tag1;
   beforeEach((done) => {
     co(function*() {
       yield Site.remove();
@@ -24,6 +26,7 @@ describe('Device API Tests', () => {
       yield DeviceIngressPath.remove();
       site1 = yield Site.create({ name: 'Customer X' });
       path1 = yield DeviceIngressPath.create({ ingressPath: 'Device' });
+      tag1 = yield Tag.create({ text: 'tag1' });
       device1 = yield Device.create({
         name: 'device1',
         ingressPathId: path1._id,
@@ -36,6 +39,7 @@ describe('Device API Tests', () => {
         createdBy: 'system',
         lastDataPoint: new Date(),
         siteId: site1._id,
+        tagIds: [tag1],
       });
     }).then(() => done()).catch(done);
   });
@@ -173,6 +177,28 @@ describe('Device API Tests', () => {
         expect(res.body.length).to.equal(1);
         expect(res.body[0].id).to.exist; // eslint-disable-line
         expect(res.body[0].ingressPath).to.equal('Device');
+        done();
+      });
+  });
+  it('get devices by tags', (done) => {
+    request.get(`/api/v1/devices/tags/["${tag1._id}"]`)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.length).to.equal(1);
+        expect(res.body[0].name).to.equal('device1');
+        expect(res.body[0].ingressPathId).to.equal(String(path1._id));
+        expect(res.body[0].deviceId).to.equal('1234-5678-9012-1111');
+        expect(res.body[0].activationCode).to.equal('code1');
+        expect(res.body[0].connectionString).to.equal('http://xx.yy.zz');
+        expect(res.body[0].model).to.equal('model');
+        expect(res.body[0].firmware).to.equal('firmware');
+        expect(res.body[0].tagIds[0]).to.equal(tag1._id.toString());
+        expect(new Date(res.body[0].createdAt).getTime()).to.equal(device1.createdAt.getTime());
+        expect(res.body[0].createdBy).to.equal('system');
+        expect(new Date(res.body[0].lastDataPoint).getTime()).to.equal(device1.lastDataPoint.getTime());
         done();
       });
   });

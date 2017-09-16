@@ -1,0 +1,8 @@
+packages
+/Barton.API/bin
+/Barton.API/obj/Debug
+/.vs
+/Barton.DAL/obj/Debug
+**.user
+/Barton.DAL/bin/Debug
+/Barton.API/weblog.txt

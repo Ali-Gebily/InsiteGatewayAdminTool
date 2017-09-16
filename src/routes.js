@@ -37,6 +37,12 @@ module.exports = {
       method: 'getDevicesBySiteId',
     },
   },
+  '/devices/tags/:tags*?': {
+    get: {
+      controller: 'DeviceController',
+      method: 'getDevicesByTags',
+    },
+  },
   '/device/:id': {
     get: {
       controller: 'DeviceController',
@@ -156,6 +162,12 @@ module.exports = {
     post: {
       controller: 'RoleController',
       method: 'create',
+    },
+  },
+  '/tags': {
+    get: {
+      controller: 'TagController',
+      method: 'getAll',
     },
   },
 };
